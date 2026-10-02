@@ -1,52 +1,690 @@
 <!DOCTYPE html>
-<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Career Coach</title>
-<style>
-:root{--bg:#f7f6f3;--card:#fff;--tx:#1c1b19;--mu:#6b6860;--bd:#e4e1da;--ac:#c5613a;--er:#b3261e}
-@media(prefers-color-scheme:dark){:root{--bg:#151514;--card:#201f1d;--tx:#f0eee9;--mu:#a19e95;--bd:#33312d;--ac:#e08a66;--er:#f2837c}}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,sans-serif;display:grid;grid-template-columns:340px 1fr;height:100vh}
-@media(max-width:800px){body{grid-template-columns:1fr;height:auto}}
-aside{padding:18px;border-right:1px solid var(--bd);overflow:auto}h1{font-size:20px;margin:0 0 4px}
-label{display:block;font-weight:600;font-size:13px;margin:14px 0 4px}
-input,textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:9px}textarea{min-height:260px}
-button{font:inherit;border:0;border-radius:8px;padding:9px 14px;background:var(--ac);color:#fff;font-weight:600;cursor:pointer}button:disabled{opacity:.5}
-.mu{color:var(--mu);font-size:13px}main{display:flex;flex-direction:column;min-height:0;height:100vh}
-#log{flex:1;overflow:auto;padding:18px}.m{max-width:820px;margin:0 auto 14px;padding:12px 14px;border-radius:12px;border:1px solid var(--bd);background:var(--card);white-space:pre-wrap;word-wrap:break-word}
-.u{background:var(--bg)}.e{color:var(--er)}form{display:flex;gap:8px;padding:12px 18px;border-top:1px solid var(--bd)}form input{flex:1}
-table{border-collapse:collapse;width:100%;font-size:13px;white-space:normal}td,th{border:1px solid var(--bd);padding:4px 6px;text-align:left}
-</style></head><body>
-<aside>
-<h1>Career Coach</h1><p class="mu">Receipts Mode: Structures your experience without inventing it. Missing evidence is labeled explicitly.</p>
-<label for="role">Target role</label><input id="role" placeholder="e.g. Backend Software Engineer">
-<label for="resume">Resume / profile</label><textarea id="resume" placeholder="Paste your resume or experience. Include metrics you can stand behind."></textarea>
-<p><button id="go">Analyze</button></p>
-</aside>
-<main><div id="log"><div class="m mu">Enter a target role and your resume, then click Analyze. Afterwards, ask follow-ups here (e.g. "make bullet 2 shorter", "how do I explain my gap in Kubernetes?").</div></div>
-<form id="f"><input id="q" placeholder="Ask a follow-up..." disabled><button id="send" disabled>Send</button></form></main>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Agentic Career Coach — From Ghosted 👻 to Offer-Ready 🤝</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --card-subtle: #f1f5f9;
+      --tx: #0f172a;
+      --tx-muted: #64748b;
+      --bd: #e2e8f0;
+      --bd-focus: #c5613a;
+      --brand: #c5613a;
+      --brand-hover: #ad4f2b;
+      --brand-light: #fff7ed;
+      --indigo: #2563eb;
+      --success: #16a34a;
+      --danger: #dc2626;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 14px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
+      --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--tx);
+      font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 32px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 760px;
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    /* Centered Header */
+    header {
+      text-align: center;
+      padding: 0 8px;
+    }
+    .hero-title {
+      font-size: 28px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin: 0 0 8px;
+      color: var(--tx);
+    }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--tx-muted);
+      max-width: 540px;
+      margin: 0 auto;
+      line-height: 1.5;
+    }
+
+    /* Centered Wizard Card */
+    .wizard-card {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 28px 32px;
+      box-shadow: var(--shadow-md);
+    }
+
+    /* Stepper Bar */
+    .step-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+    .step-label {
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.6px;
+      color: var(--brand);
+    }
+    .step-progress-bar {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 24px;
+    }
+    .step-dot {
+      flex: 1;
+      height: 5px;
+      background: var(--bd);
+      border-radius: 4px;
+      transition: all 0.3s ease;
+    }
+    .step-dot.active { background: var(--brand); }
+    .step-dot.completed { background: var(--success); }
+
+    .wizard-step { display: none; }
+    .wizard-step.active {
+      display: block;
+      animation: fadeIn 0.25s ease-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h3 { font-size: 19px; font-weight: 800; margin: 0 0 6px; text-align: center; color: var(--tx); }
+    p.prompt-sub { font-size: 14px; color: var(--tx-muted); margin: 0 0 20px; text-align: center; line-height: 1.5; }
+
+    label {
+      display: block;
+      font-size: 12px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      color: var(--tx-muted);
+      margin: 16px 0 6px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      font: inherit;
+      color: var(--tx);
+      background: #ffffff;
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      padding: 12px 14px;
+      font-size: 14px;
+      transition: all 0.2s ease;
+    }
+    select {
+      cursor: pointer;
+      appearance: none;
+      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+      background-size: 16px;
+      padding-right: 40px;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--bd-focus);
+      box-shadow: 0 0 0 3px rgba(197, 97, 58, 0.15);
+    }
+    textarea { min-height: 140px; resize: vertical; }
+
+    .custom-role-container {
+      display: none;
+      margin-top: 10px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
+    /* Centered Stacked Choices */
+    .choice-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+    .choice-card {
+      padding: 14px 18px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--tx);
+      transition: all 0.15s ease;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .choice-card:hover {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      transform: translateY(-1px);
+    }
+    .choice-card.selected {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      color: var(--brand);
+    }
+    .choice-arrow { color: var(--tx-muted); font-size: 16px; font-weight: bold; }
+
+    /* Import Method Tabs */
+    .import-methods-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 560px) {
+      .import-methods-grid { grid-template-columns: 1fr; }
+    }
+    .import-method-btn {
+      padding: 10px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .import-method-btn:hover {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+    .import-method-btn.active {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .file-upload-box {
+      border: 2px dashed var(--bd);
+      border-radius: 10px;
+      padding: 24px 16px;
+      text-align: center;
+      background: var(--card-subtle);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+    .file-upload-box:hover {
+      border-color: var(--brand);
+      background: var(--brand-light);
+    }
+
+    /* Buttons */
+    .btn-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 22px;
+      justify-content: center;
+    }
+    button {
+      font: inherit;
+      border: 0;
+      border-radius: 10px;
+      padding: 12px 24px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+    .btn-primary {
+      background: var(--brand);
+      color: #fff;
+      box-shadow: 0 2px 8px rgba(197, 97, 58, 0.25);
+      width: 100%;
+    }
+    .btn-primary:hover { background: var(--brand-hover); }
+    .btn-secondary {
+      background: transparent;
+      color: var(--tx-muted);
+      border: 1px solid var(--bd);
+    }
+    .btn-secondary:hover { background: var(--card-subtle); color: var(--tx); }
+    button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Demo Presets */
+    .preset-box {
+      border-top: 1px solid var(--bd);
+      padding-top: 16px;
+      margin-top: 16px;
+      text-align: center;
+    }
+    .preset-label { font-size: 12px; font-weight: 700; color: var(--tx-muted); text-transform: uppercase; margin-bottom: 8px; }
+    .preset-pills { display: flex; gap: 8px; justify-content: center; flex-wrap: wrap; }
+    .preset-pill {
+      font-size: 12px;
+      padding: 6px 12px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 20px;
+      cursor: pointer;
+      color: var(--indigo);
+      font-weight: 600;
+      transition: all 0.15s ease;
+    }
+    .preset-pill:hover { background: #eff6ff; border-color: var(--indigo); }
+
+    /* Output Results Area */
+    #log {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+    .message {
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-sm);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .message.user-query {
+      background: var(--brand-light);
+      border-color: rgba(197, 97, 58, 0.3);
+      border-left: 4px solid var(--brand);
+    }
+    .message.loading-state {
+      text-align: center;
+      color: var(--tx-muted);
+      font-style: italic;
+      padding: 36px 20px;
+    }
+    
+    /* Table Styling */
+    .message table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0;
+      font-size: 13px;
+    }
+    .message th, .message td {
+      border: 1px solid var(--bd);
+      padding: 10px 12px;
+      text-align: left;
+    }
+    .message th { background: var(--card-subtle); color: var(--tx); font-weight: 700; }
+    .message td { background: #ffffff; }
+
+    /* Interactive Follow-up Bar */
+    form.chat-bar {
+      display: none;
+      gap: 10px;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 12px;
+      box-shadow: var(--shadow-md);
+      position: sticky;
+      bottom: 20px;
+    }
+    form.chat-bar.active { display: flex; }
+    form.chat-bar input { flex: 1; border: 1px solid var(--bd); }
+    form.chat-bar button { width: auto; padding: 10px 24px; }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Centered Hero Header -->
+  <header>
+    <h1 class="hero-title">From Ghosted 👻 to Offer-Ready 🤝</h1>
+    <p class="hero-sub">Collaborate with an AI coach that structures real proof points without inventing fake metrics.</p>
+  </header>
+
+  <!-- Step Wizard Card -->
+  <div class="wizard-card" id="wizardCard">
+    <div class="step-header">
+      <span class="step-label" id="stepCounter">Step 1 of 3</span>
+      <span style="font-size: 12px; color: var(--tx-muted);">Personalization</span>
+    </div>
+    
+    <div class="step-progress-bar">
+      <div id="dot1" class="step-dot active"></div>
+      <div id="dot2" class="step-dot"></div>
+      <div id="dot3" class="step-dot"></div>
+    </div>
+
+    <!-- STEP 1: Driver -->
+    <div id="step1" class="wizard-step active">
+      <h3>What’s Fueling Your Next Move? 🚀</h3>
+      <p class="prompt-sub">Every breakthrough begins with clear intent. Tell us what matters most right now.</p>
+
+      <div class="choice-stack" id="motivationChoices">
+        <div class="choice-card" onclick="selectMotivation(this, 'New grad')">🎓 New grad <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectMotivation(this, 'Better work-life balance')">⚖️ Better work-life balance <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectMotivation(this, 'A fresh start')">🌱 A fresh start <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectMotivation(this, 'Develop new skills')">🚀 Leveling up skills <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectMotivation(this, 'Explore new opportunities')">🧭 Exploring new opportunities <span class="choice-arrow">&rarr;</span></div>
+      </div>
+    </div>
+
+    <!-- STEP 2: Timeline -->
+    <div id="step2" class="wizard-step">
+      <h3>When Do You Want to Make the Move? 🗓️</h3>
+      <p class="prompt-sub">We’ll calibrate your readiness roadmap and interview prep velocity to your target date.</p>
+
+      <div class="choice-stack" id="timelineChoices">
+        <div class="choice-card" onclick="selectTimeline(this, 'Whenever I find the right fit')">🎯 Whenever I find the right fit <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectTimeline(this, 'In the next couple months')">⏳ In the next 2 to 3 months <span class="choice-arrow">&rarr;</span></div>
+        <div class="choice-card" onclick="selectTimeline(this, 'As soon as possible')">⚡ As soon as possible <span class="choice-arrow">&rarr;</span></div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button>
+      </div>
+    </div>
+
+    <!-- STEP 3: Role Dropdown & Resume -->
+    <div id="step3" class="wizard-step">
+      <h3>Lock In Your Target Role & Proof Points 🎯</h3>
+      <p class="prompt-sub">Select your target position and paste your real experience. Receipts Mode handles the rest.</p>
+
+      <label for="roleSelect">Target Technical Role</label>
+      <select id="roleSelect" onchange="handleRoleChange()">
+        <option value="Junior / Early Career Software Engineer">Junior / Early Career Software Engineer</option>
+        <option value="Full Stack Software Engineer">Full Stack Software Engineer</option>
+        <option value="Backend Software Engineer">Backend Software Engineer</option>
+        <option value="Frontend Software Engineer">Frontend / Web Engineer</option>
+        <option value="AI / LLM Application Engineer">AI / LLM Application Engineer</option>
+        <option value="Data Scientist / ML Engineer">Data Scientist / ML Engineer</option>
+        <option value="DevOps / Cloud Platform Engineer">DevOps / Cloud Platform Engineer</option>
+        <option value="Data Engineer">Data Engineer</option>
+        <option value="Technical Product Manager">Technical Product Manager</option>
+        <option value="other">Other (specify custom role below)...</option>
+      </select>
+
+      <div id="customRoleWrap" class="custom-role-container">
+        <label for="customRoleInput">Specify Your Target Role</label>
+        <input id="customRoleInput" placeholder="e.g., iOS Engineer, Security Analyst, QA Lead...">
+      </div>
+
+      <!-- Career History Import Section -->
+      <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--bd);">
+        <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 4px; text-align: left; color: var(--tx);">Let's import your career history</h3>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px; text-align: left;">Import your information from an existing resume, or add it manually.</p>
+
+        <label style="margin-top: 0;">How would you like to add your career information?</label>
+        <div class="import-methods-grid">
+          <div class="import-method-btn active" id="tabPaste" onclick="switchImportMethod('paste')">📄 Paste Resume Text</div>
+          <div class="import-method-btn" id="tabUpload" onclick="switchImportMethod('upload')">📁 Upload File</div>
+          <div class="import-method-btn" id="tabManual" onclick="switchImportMethod('manual')">✍️ Add Manually</div>
+        </div>
+
+        <!-- Mode 1: Paste Textarea -->
+        <div id="importPasteView">
+          <textarea id="resume" placeholder="Paste your background, projects, technologies, and achievements. No fake metrics—Receipts Mode will structure and defend what you actually built."></textarea>
+        </div>
+
+        <!-- Mode 2: File Upload -->
+        <div id="importUploadView" style="display: none;">
+          <input type="file" id="fileInput" accept=".txt,.md" style="display: none;" onchange="handleFileUpload(event)">
+          <div class="file-upload-box" onclick="$('#fileInput').click()">
+            <div style="font-size: 26px; margin-bottom: 6px;">📄</div>
+            <div style="font-weight: 600; font-size: 14px; color: var(--tx);" id="uploadFileName">Click to upload .txt or .md resume file</div>
+            <div style="font-size: 12px; color: var(--tx-muted); margin-top: 4px;">Plain text or Markdown files supported</div>
+          </div>
+        </div>
+
+        <!-- Mode 3: Manual Entry -->
+        <div id="importManualView" style="display: none; flex-direction: column; gap: 10px;">
+          <input id="manualSkills" placeholder="Core Skills (e.g. Python, React, PostgreSQL, Docker)...">
+          <textarea id="manualProjects" placeholder="Key Projects & Work Experience (Bullet points of what you built, mechanisms used, and real outputs)..." style="min-height: 110px;"></textarea>
+        </div>
+      </div>
+
+      <div class="preset-box">
+        <div class="preset-label">Or quick load a workshop scenario:</div>
+        <div class="preset-pills">
+          <div class="preset-pill" onclick="loadScenarioA()">Load Maya (CS Grad)</div>
+          <div class="preset-pill" onclick="loadScenarioB()">Load Sophia (Skill Gap)</div>
+        </div>
+      </div>
+
+      <div class="btn-row">
+        <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
+        <button id="go" class="btn-primary" onclick="startAnalysis()">Start Coaching & Analyze &rarr;</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Output Log -->
+  <div id="log"></div>
+
+  <!-- Follow-up Chat Bar (Revealed after first analysis) -->
+  <form id="f" class="chat-bar">
+    <input id="q" placeholder="Ask a follow-up (e.g., 'How do I answer my gap in Kubernetes?', 'Tighten bullet 1')...">
+    <button id="send" class="btn-primary">Send</button>
+  </form>
+</div>
+
 <script>
-const $=s=>document.querySelector(s);let msgs=[];
-function md(t){
-  const e=t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
-  const lines=e.split("\n"),out=[];let tb=[];
-  const flush=()=>{if(tb.length){const rows=tb.filter(r=>!/^\|?[\s:|-]+\|?$/.test(r)).map(r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
-    out.push("<table>"+rows.map((r,i)=>"<tr>"+r.map(c=>i?`<td>${c}</td>`:`<th>${c}</th>`).join("")+"</tr>").join("")+"</table>");tb=[]}};
-  for(const l of lines){if(l.trim().startsWith("|"))tb.push(l.trim());else{flush();out.push(l)}}flush();
-  return out.join("\n").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^#{1,4} (.+)$/gm,"<b>$1</b>");
-}
-function add(cls,html){const d=document.createElement("div");d.className="m "+cls;d.innerHTML=html;$("#log").appendChild(d);d.scrollIntoView();return d}
-async function ask(){
-  const role=$("#role").value.trim(),resume=$("#resume").value.trim();
-  if(!role||!resume){add("e","Please enter both a target role and your resume.");return}
-  const wait=add("mu","Thinking...");
-  ["go","send","q"].forEach(i=>$("#"+i).disabled=true);
-  try{
-    const r=await fetch("/api/chat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({role,resume,messages:msgs})});
-    const d=await r.json();
-    if(!r.ok)throw new Error(d.error||"Request failed");
-    msgs.push({role:"assistant",content:d.text});wait.className="m";wait.innerHTML=md(d.text);
-  }catch(e){msgs.pop();wait.className="m e";wait.textContent=e.message}
-  ["go","send","q"].forEach(i=>$("#"+i).disabled=false);$("#q").focus();
-}
-$("#go").onclick=()=>{msgs=[{role:"user",content:"Analyze my resume against my target role and produce the full first analysis."}];$("#log").innerHTML="";add("u","Analyze my profile for: "+$("#role").value.replace(/</g,"&lt;"));ask()};
-$("#f").onsubmit=e=>{e.preventDefault();const t=$("#q").value.trim();if(!t)return;$("#q").value="";msgs.push({role:"user",content:t});add("u",t.replace(/</g,"&lt;"));ask()};
-</script></body></html>
+  const $ = s => document.querySelector(s);
+  let currentStep = 1;
+  let selectedMotivation = "New grad";
+  let selectedTimeline = "As soon as possible";
+  let activeImportMethod = "paste";
+  let msgs = [];
+
+  function goToStep(step) {
+    currentStep = step;
+    $("#stepCounter").innerText = `Step ${step} of 3`;
+    [1, 2, 3].forEach(s => {
+      $(`#step${s}`).classList.toggle("active", s === step);
+      const dot = $(`#dot${s}`);
+      dot.className = "step-dot";
+      if (s < step) dot.classList.add("completed");
+      if (s === step) dot.classList.add("active");
+    });
+  }
+
+  function selectMotivation(el, value) {
+    document.querySelectorAll("#motivationChoices .choice-card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedMotivation = value;
+    setTimeout(() => goToStep(2), 150);
+  }
+
+  function selectTimeline(el, value) {
+    document.querySelectorAll("#timelineChoices .choice-card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedTimeline = value;
+    setTimeout(() => goToStep(3), 150);
+  }
+
+  function switchImportMethod(method) {
+    activeImportMethod = method;
+    ["paste", "upload", "manual"].forEach(m => {
+      const cap = m.charAt(0).toUpperCase() + m.slice(1);
+      $(`#tab${cap}`).classList.toggle("active", m === method);
+      $(`#import${cap}View`).style.display = m === method ? (m === "manual" ? "flex" : "block") : "none";
+    });
+  }
+
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        $("#resume").value = e.target.result;
+        $("#uploadFileName").innerText = `Uploaded: ${file.name}`;
+      };
+      reader.readAsText(file);
+    }
+  }
+
+  function handleRoleChange() {
+    const val = $("#roleSelect").value;
+    const wrap = $("#customRoleWrap");
+    if (val === "other") {
+      wrap.style.display = "block";
+      $("#customRoleInput").focus();
+    } else {
+      wrap.style.display = "none";
+    }
+  }
+
+  function getTargetRole() {
+    const val = $("#roleSelect").value;
+    if (val === "other") {
+      return $("#customRoleInput").value.trim();
+    }
+    return val;
+  }
+
+  function getResumeContent() {
+    if (activeImportMethod === "manual") {
+      const skills = $("#manualSkills").value.trim();
+      const projects = $("#manualProjects").value.trim();
+      return `SKILLS:\n${skills}\n\nEXPERIENCE & PROJECTS:\n${projects}`.trim();
+    }
+    return $("#resume").value.trim();
+  }
+
+  function loadScenarioA() {
+    switchImportMethod("paste");
+    $("#roleSelect").value = "Junior / Early Career Software Engineer";
+    handleRoleChange();
+    $("#resume").value = "B.S. in Computer Science (recent graduate).\nCompleted 2 software engineering internships working with Python, JavaScript, and Node.js.\nBuilt full-stack React projects with MongoDB.\nOrganized a 48-hour campus hackathon with 150+ attendees.";
+  }
+
+  function loadScenarioB() {
+    switchImportMethod("paste");
+    $("#roleSelect").value = "Backend Software Engineer";
+    handleRoleChange();
+    $("#resume").value = "2 years frontend developer experience using React, TypeScript, and Tailwind.\nProficient in Python for scripting and consuming REST APIs.\nNo prior production experience with Java or Kubernetes clusters.";
+  }
+
+  function md(t) {
+    const e = t.replace(/[&<>]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]));
+    const lines = e.split("\n"), out = []; let tb = [];
+    const flush = () => {
+      if (tb.length) {
+        const rows = tb.filter(r => !/^\|?[\s:|-]+\|?$/.test(r)).map(r => r.replace(/^\||\|$/g, "").split("|").map(c => c.trim()));
+        out.push("<table>" + rows.map((r, i) => "<tr>" + r.map(c => i ? `<td>${c}</td>` : `<th>${c}</th>`).join("") + "</tr>").join("") + "</table>");
+        tb = [];
+      }
+    };
+    for (const l of lines) {
+      if (l.trim().startsWith("|")) tb.push(l.trim());
+      else { flush(); out.push(l); }
+    }
+    flush();
+    return out.join("\n")
+      .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
+      .replace(/^#{1,4} (.+)$/gm, "<b>$1</b>");
+  }
+
+  function add(cls, html) {
+    const d = document.createElement("div");
+    d.className = "message " + cls;
+    d.innerHTML = html;
+    $("#log").appendChild(d);
+    d.scrollIntoView({ behavior: 'smooth' });
+    return d;
+  }
+
+  async function ask() {
+    const role = getTargetRole();
+    const resume = getResumeContent();
+    const motivation = selectedMotivation;
+    const timeline = selectedTimeline;
+
+    const wait = add("loading-state", "Thinking in Receipts Mode: Analyzing decision signals and mapping verified evidence...");
+    ["go", "send", "q"].forEach(i => { if ($("#" + i)) $("#" + i).disabled = true; });
+
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ motivation, timeline, role, resume, messages: msgs })
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Request failed");
+      msgs.push({ role: "assistant", content: d.text });
+      wait.className = "message";
+      wait.innerHTML = md(d.text);
+      $("#f").classList.add("active");
+    } catch (e) {
+      msgs.pop();
+      wait.className = "message";
+      wait.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+    }
+    ["go", "send", "q"].forEach(i => { if ($("#" + i)) $("#" + i).disabled = false; });
+    $("#q").focus();
+  }
+
+  function startAnalysis() {
+    const role = getTargetRole();
+    const resume = getResumeContent();
+
+    if (!role) {
+      alert("Please select or specify a target role.");
+      return;
+    }
+    if (!resume) {
+      alert("Please provide your resume or career experience.");
+      return;
+    }
+
+    msgs = [{
+      role: "user",
+      content: `Analyze my background for '${role}'. Driver: '${selectedMotivation}', Timeline: '${selectedTimeline}'. Generate the full first analysis in Receipts Mode.`
+    }];
+
+    $("#log").innerHTML = "";
+    add("user-query", `<b>Driver:</b> ${selectedMotivation} &bull; <b>Timeline:</b> ${selectedTimeline}<br><b>Target Role:</b> ${role.replace(/</g, "&lt;")}`);
+    ask();
+  }
+
+  $("#f").onsubmit = e => {
+    e.preventDefault();
+    const t = $("#q").value.trim();
+    if (!t) return;
+    $("#q").value = "";
+    msgs.push({ role: "user", content: t });
+    add("user-query", t.replace(/</g, "&lt;"));
+    ask();
+  };
+</script>
+</body>
+</html>
