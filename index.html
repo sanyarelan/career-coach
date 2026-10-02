@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Career Coach</title>
+<style>
+:root{--bg:#f7f6f3;--card:#fff;--tx:#1c1b19;--mu:#6b6860;--bd:#e4e1da;--ac:#c5613a;--er:#b3261e}
+@media(prefers-color-scheme:dark){:root{--bg:#151514;--card:#201f1d;--tx:#f0eee9;--mu:#a19e95;--bd:#33312d;--ac:#e08a66;--er:#f2837c}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 system-ui,sans-serif;display:grid;grid-template-columns:340px 1fr;height:100vh}
+@media(max-width:800px){body{grid-template-columns:1fr;height:auto}}
+aside{padding:18px;border-right:1px solid var(--bd);overflow:auto}h1{font-size:20px;margin:0 0 4px}
+label{display:block;font-weight:600;font-size:13px;margin:14px 0 4px}
+input,textarea{width:100%;font:inherit;color:var(--tx);background:var(--card);border:1px solid var(--bd);border-radius:8px;padding:9px}textarea{min-height:260px}
+button{font:inherit;border:0;border-radius:8px;padding:9px 14px;background:var(--ac);color:#fff;font-weight:600;cursor:pointer}button:disabled{opacity:.5}
+.mu{color:var(--mu);font-size:13px}main{display:flex;flex-direction:column;min-height:0;height:100vh}
+#log{flex:1;overflow:auto;padding:18px}.m{max-width:820px;margin:0 auto 14px;padding:12px 14px;border-radius:12px;border:1px solid var(--bd);background:var(--card);white-space:pre-wrap;word-wrap:break-word}
+.u{background:var(--bg)}.e{color:var(--er)}form{display:flex;gap:8px;padding:12px 18px;border-top:1px solid var(--bd)}form input{flex:1}
+table{border-collapse:collapse;width:100%;font-size:13px;white-space:normal}td,th{border:1px solid var(--bd);padding:4px 6px;text-align:left}
+</style></head><body>
+<aside>
+<h1>Career Coach</h1><p class="mu">Receipts Mode: Structures your experience without inventing it. Missing evidence is labeled explicitly.</p>
+<label for="role">Target role</label><input id="role" placeholder="e.g. Backend Software Engineer">
+<label for="resume">Resume / profile</label><textarea id="resume" placeholder="Paste your resume or experience. Include metrics you can stand behind."></textarea>
+<p><button id="go">Analyze</button></p>
+</aside>
+<main><div id="log"><div class="m mu">Enter a target role and your resume, then click Analyze. Afterwards, ask follow-ups here (e.g. "make bullet 2 shorter", "how do I explain my gap in Kubernetes?").</div></div>
+<form id="f"><input id="q" placeholder="Ask a follow-up..." disabled><button id="send" disabled>Send</button></form></main>
+<script>
+const $=s=>document.querySelector(s);let msgs=[];
+function md(t){
+  const e=t.replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));
+  const lines=e.split("\n"),out=[];let tb=[];
+  const flush=()=>{if(tb.length){const rows=tb.filter(r=>!/^\|?[\s:|-]+\|?$/.test(r)).map(r=>r.replace(/^\||\|$/g,"").split("|").map(c=>c.trim()));
+    out.push("<table>"+rows.map((r,i)=>"<tr>"+r.map(c=>i?`<td>${c}</td>`:`<th>${c}</th>`).join("")+"</tr>").join("")+"</table>");tb=[]}};
+  for(const l of lines){if(l.trim().startsWith("|"))tb.push(l.trim());else{flush();out.push(l)}}flush();
+  return out.join("\n").replace(/\*\*(.+?)\*\*/g,"<b>$1</b>").replace(/^#{1,4} (.+)$/gm,"<b>$1</b>");
+}
+function add(cls,html){const d=document.createElement("div");d.className="m "+cls;d.innerHTML=html;$("#log").appendChild(d);d.scrollIntoView();return d}
+async function ask(){
+  const role=$("#role").value.trim(),resume=$("#resume").value.trim();
+  if(!role||!resume){add("e","Please enter both a target role and your resume.");return}
+  const wait=add("mu","Thinking...");
+  ["go","send","q"].forEach(i=>$("#"+i).disabled=true);
+  try{
+    const r=await fetch("/api/chat",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({role,resume,messages:msgs})});
+    const d=await r.json();
+    if(!r.ok)throw new Error(d.error||"Request failed");
+    msgs.push({role:"assistant",content:d.text});wait.className="m";wait.innerHTML=md(d.text);
+  }catch(e){msgs.pop();wait.className="m e";wait.textContent=e.message}
+  ["go","send","q"].forEach(i=>$("#"+i).disabled=false);$("#q").focus();
+}
+$("#go").onclick=()=>{msgs=[{role:"user",content:"Analyze my resume against my target role and produce the full first analysis."}];$("#log").innerHTML="";add("u","Analyze my profile for: "+$("#role").value.replace(/</g,"&lt;"));ask()};
+$("#f").onsubmit=e=>{e.preventDefault();const t=$("#q").value.trim();if(!t)return;$("#q").value="";msgs.push({role:"user",content:t});add("u",t.replace(/</g,"&lt;"));ask()};
+</script></body></html>
