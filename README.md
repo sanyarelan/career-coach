@@ -1,49 +1,13 @@
-Below is the complete, perfectly formatted **`README.md`** with all code blocks, syntax highlighting (`bash`, `env`, `text`), tables, and visual callouts intact so it renders cleanly on GitHub.
-
-```markdown
 # Agentic Career Coach
 
 > **A human-in-the-loop, zero-dependency AI career partner powered by the Google Gemini API.**  
 > *Developed for the GHC Workshop: "Human-AI Collaboration in Hiring: From Ghosted to Offer-Ready".*
 
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org/)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-1.5--Flash-4285F4?logo=google&logoColor=white)](https://ai.google.dev/)
-[![Fly.io](https://img.shields.io/badge/Deployed%20on-Fly.io-24185B?logo=flydotio&logoColor=white)](https://fly.io/)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-0-brightgreen)](package.json)
-
----
 
 ## Overview
 
 In an AI-saturated job market, generic, exaggerated applications are routinely filtered out. **Agentic Career Coach** shifts the paradigm from passive drafting to structured, **evidence-based career positioning**. 
 
-Operating under strict **Receipts Mode**, the agent maps candidate experience against inferred hiring decision signals without ever fabricating metrics, titles, or technical proficiencies.
-
-```text
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────────┐
-│  Target Role &  │ ──> │   Hiring Signal  │ ──> │ Evidence Map Table  │
-│ Candidate Data  │     │    Inference     │     │  & Receipts Bullets │
-└─────────────────┘     └──────────────────┘     └─────────────────────┘
-                                                            │
-                                                            ▼
-┌─────────────────┐     ┌──────────────────┐     ┌─────────────────────┐
-│ Multi-Turn Chat │ <── │  14-Day Readiness│ <── │  Gap Analysis &     │
-│  & Revision     │     │      Roadmap     │     │  "Why You" Pitch    │
-└─────────────────┘     └──────────────────┘     └─────────────────────┘
-```
-
----
-
-## Core Pillars & Guardrails
-
-| Pillar | Implementation |
-| :--- | :--- |
-| **Receipts Mode** | Every bullet cites verified source evidence. Missing facts are tagged `Missing evidence`; missing numbers are tagged `Metric needed`. |
-| **Decision Signal Mapping** | Deconstructs target roles into non-negotiable screening signals and evaluates candidate match strength (*Strong / Partial / Weak / Missing*). |
-| **Zero-Dependency Architecture** | Built purely with native Node.js (`http`, `fs`, `fetch`). Boots instantly with zero external package vulnerabilities. |
-| **Conversational Continuity** | Stateful multi-turn chat allowing iterative bullet refinement, gap exploration, and mock interview prep. |
-
----
 
 ## Repository Structure
 
