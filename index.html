@@ -25,7 +25,6 @@
       --danger: #dc2626;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
       --shadow-md: 0 4px 14px rgba(0,0,0,0.06), 0 2px 6px rgba(0,0,0,0.04);
-      --shadow-lg: 0 10px 25px rgba(0,0,0,0.08);
     }
 
     * { box-sizing: border-box; }
@@ -50,7 +49,6 @@
       gap: 24px;
     }
 
-    /* Centered Header */
     header {
       text-align: center;
       padding: 0 8px;
@@ -70,7 +68,6 @@
       line-height: 1.5;
     }
 
-    /* Centered Wizard Card */
     .wizard-card {
       background: var(--card);
       border: 1px solid var(--bd);
@@ -79,7 +76,6 @@
       box-shadow: var(--shadow-md);
     }
 
-    /* Stepper Bar */
     .step-header {
       display: flex;
       align-items: center;
@@ -164,7 +160,6 @@
       animation: fadeIn 0.2s ease-out;
     }
 
-    /* Centered Stacked Choices */
     .choice-stack {
       display: flex;
       flex-direction: column;
@@ -198,22 +193,22 @@
     }
     .choice-arrow { color: var(--tx-muted); font-size: 16px; font-weight: bold; }
 
-    /* Import Method Tabs */
+    /* Import Method 4-Way Grid */
     .import-methods-grid {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 8px;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
       margin-bottom: 14px;
     }
-    @media (max-width: 560px) {
-      .import-methods-grid { grid-template-columns: 1fr; }
+    @media (max-width: 600px) {
+      .import-methods-grid { grid-template-columns: 1fr 1fr; }
     }
     .import-method-btn {
-      padding: 10px;
+      padding: 10px 6px;
       background: var(--card-subtle);
       border: 1px solid var(--bd);
       border-radius: 8px;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 600;
       color: var(--tx);
       cursor: pointer;
@@ -240,12 +235,15 @@
       cursor: pointer;
       transition: all 0.2s ease;
     }
-    .file-upload-box:hover {
-      border-color: var(--brand);
+
+    .scratch-info-box {
       background: var(--brand-light);
+      border: 1px solid rgba(197, 97, 58, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
     }
 
-    /* Buttons */
     .btn-row {
       display: flex;
       gap: 10px;
@@ -280,6 +278,139 @@
     }
     .btn-secondary:hover { background: var(--card-subtle); color: var(--tx); }
     button:disabled { opacity: 0.5; cursor: not-allowed; }
+
+    /* Interactive Live Progress Card */
+    .progress-box {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 36px 24px;
+      text-align: center;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.3s ease;
+    }
+    .spinner {
+      width: 32px;
+      height: 32px;
+      border: 3px solid var(--bd);
+      border-top-color: var(--brand);
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+      margin: 0 auto 14px;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    /* 3 Refined Resume Options Editor Card */
+    .resume-studio-card {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 26px 30px;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.3s ease;
+    }
+    .version-tabs {
+      display: flex;
+      gap: 8px;
+      margin: 14px 0;
+      border-bottom: 1px solid var(--bd);
+      padding-bottom: 12px;
+      flex-wrap: wrap;
+    }
+    .version-tab-btn {
+      padding: 8px 14px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx-muted);
+      cursor: pointer;
+      transition: all 0.15s ease;
+    }
+    .version-tab-btn.active {
+      background: var(--brand);
+      border-color: var(--brand);
+      color: #ffffff;
+    }
+
+    .edit-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin: 12px 0 8px;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .edit-tip {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tx-muted);
+    }
+    .download-btn {
+      padding: 9px 18px;
+      background: var(--indigo);
+      color: #ffffff;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.2s ease;
+    }
+    .download-btn:hover { background: #1d4ed8; }
+
+    .editable-resume-box {
+      width: 100%;
+      min-height: 220px;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.65;
+      padding: 16px;
+      border-radius: 10px;
+      background: #fafafa;
+      border: 1px solid var(--bd);
+      color: var(--tx);
+    }
+
+    /* Location Card */
+    .location-card {
+      display: none;
+      background: var(--card);
+      border: 1px solid var(--bd);
+      border-radius: 16px;
+      padding: 24px 28px;
+      box-shadow: var(--shadow-md);
+      animation: fadeIn 0.3s ease;
+    }
+    .work-type-pills {
+      display: flex;
+      gap: 8px;
+      margin: 10px 0 16px;
+    }
+    .work-type-pill {
+      flex: 1;
+      padding: 10px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--tx);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .work-type-pill.selected {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      color: var(--brand);
+    }
 
     /* Demo Presets */
     .preset-box {
@@ -323,14 +454,7 @@
       border-color: rgba(197, 97, 58, 0.3);
       border-left: 4px solid var(--brand);
     }
-    .message.loading-state {
-      text-align: center;
-      color: var(--tx-muted);
-      font-style: italic;
-      padding: 36px 20px;
-    }
     
-    /* Table Styling */
     .message table {
       width: 100%;
       border-collapse: collapse;
@@ -365,7 +489,6 @@
 <body>
 
 <div class="container">
-  <!-- Centered Hero Header -->
   <header>
     <h1 class="hero-title">From Ghosted 👻 to Offer-Ready 🤝</h1>
     <p class="hero-sub">Collaborate with an AI coach that structures real proof points without inventing fake metrics.</p>
@@ -414,10 +537,9 @@
       </div>
     </div>
 
-    <!-- STEP 3: Role Dropdown & Resume -->
+    <!-- STEP 3: Role Dropdown & Career History -->
     <div id="step3" class="wizard-step">
       <h3>Lock In Your Target Role & Proof Points 🎯</h3>
-      <p class="prompt-sub">Select your target position and paste your real experience. Receipts Mode handles the rest.</p>
 
       <label for="roleSelect">Target Technical Role</label>
       <select id="roleSelect" onchange="handleRoleChange()">
@@ -440,14 +562,13 @@
 
       <!-- Career History Import Section -->
       <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--bd);">
-        <h3 style="font-size: 16px; font-weight: 700; margin: 0 0 4px; text-align: left; color: var(--tx);">Let's import your career history</h3>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px; text-align: left;">Import your information from an existing resume, or add it manually.</p>
 
         <label style="margin-top: 0;">How would you like to add your career information?</label>
         <div class="import-methods-grid">
-          <div class="import-method-btn active" id="tabPaste" onclick="switchImportMethod('paste')">📄 Paste Resume Text</div>
+          <div class="import-method-btn active" id="tabPaste" onclick="switchImportMethod('paste')">📄 Paste Text</div>
           <div class="import-method-btn" id="tabUpload" onclick="switchImportMethod('upload')">📁 Upload File</div>
-          <div class="import-method-btn" id="tabManual" onclick="switchImportMethod('manual')">✍️ Add Manually</div>
+          <div class="import-method-btn" id="tabManual" onclick="switchImportMethod('manual')">✍️ Manual</div>
+          <div class="import-method-btn" id="tabScratch" onclick="switchImportMethod('scratch')">✨ Build from scratch</div>
         </div>
 
         <!-- Mode 1: Paste Textarea -->
@@ -468,23 +589,71 @@
         <!-- Mode 3: Manual Entry -->
         <div id="importManualView" style="display: none; flex-direction: column; gap: 10px;">
           <input id="manualSkills" placeholder="Core Skills (e.g. Python, React, PostgreSQL, Docker)...">
-          <textarea id="manualProjects" placeholder="Key Projects & Work Experience (Bullet points of what you built, mechanisms used, and real outputs)..." style="min-height: 110px;"></textarea>
+          <textarea id="manualProjects" placeholder="Key Projects & Work Experience (Bullet points of what you built and delivered)..." style="min-height: 110px;"></textarea>
         </div>
-      </div>
 
-      <div class="preset-box">
-        <div class="preset-label">Or quick load a workshop scenario:</div>
-        <div class="preset-pills">
-          <div class="preset-pill" onclick="loadScenarioA()">Load Maya (CS Grad)</div>
-          <div class="preset-pill" onclick="loadScenarioB()">Load Sophia (Skill Gap)</div>
-        </div>
-      </div>
+        <!-- Mode 4: Build from Scratch / Discovery Interview -->
+            <div id="importScratchView" class="scratch-info-box" style="display: none; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+            <div style="font-weight: 700; font-size: 15px; color: var(--tx); margin-bottom: 8px;">No resume? No problem! ✨</div>
+            
+            <!-- Single flat block acting as a row stack -->
+            <div style="font-size: 13px; color: var(--tx-muted); display: grid; gap: 6px;">
+                <div>Skip the writing stress 🤯</div>
+                <div>Quick diagnostic interview to map your background 💻</div>
+                <div>Get optimized resume options tailored to you 📋</div>
+            </div>
+            </div>
 
       <div class="btn-row">
         <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-        <button id="go" class="btn-primary" onclick="startAnalysis()">Start Coaching & Analyze &rarr;</button>
+        <button id="go" class="btn-primary" onclick="startAnalysis()">Work on Resume &rarr;</button>
       </div>
     </div>
+  </div>
+
+  <!-- Interactive Live Working Message -->
+  <div class="progress-box" id="progressBox">
+    <div class="spinner"></div>
+    <div style="font-weight: 700; font-size: 16px; color: var(--tx);" id="progressStatus">We are working on your career strategy...</div>
+    <div style="font-size: 13px; color: var(--tx-muted); margin-top: 6px;" id="progressSub">Extracting decision signals and synthesizing tailored variations in Receipts Mode.</div>
+  </div>
+
+  <!-- 3 Options Resume Studio in Edit Mode -->
+  <div class="resume-studio-card" id="resumeStudioCard">
+    <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px;">Resume Studio &bull; Live Edit & Export</div>
+    <h3 style="text-align: left; margin: 4px 0 6px;">Review & Tweak Your Tailored Resume</h3>
+    <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 12px;">Choose between 3 AI-refined variations. You can freely edit, add, or remove details below before downloading.</p>
+
+    <div class="version-tabs">
+      <button class="version-tab-btn active" id="vTab1" onclick="switchVersion(1)">Option 1: Impact & Metrics</button>
+      <button class="version-tab-btn" id="vTab2" onclick="switchVersion(2)">Option 2: Technical Architecture</button>
+      <button class="version-tab-btn" id="vTab3" onclick="switchVersion(3)">Option 3: Concise ATS</button>
+    </div>
+
+    <div class="edit-toolbar">
+      <span class="edit-tip">✏️ Feel free to edit or add bullets directly in the box below:</span>
+      <button class="download-btn" onclick="downloadResume()">📥 Download Resume (.txt)</button>
+    </div>
+
+    <textarea class="editable-resume-box" id="editableResumeText"></textarea>
+  </div>
+
+  <!-- Interactive Location & Work Style Card -->
+  <div class="location-card" id="locationCard">
+    <h3 style="font-size: 17px; font-weight: 800; margin: 0 0 6px; text-align: left;">Where would you like to work? 📍</h3>
+    <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px; text-align: left;">Let's customize your search strategy, compensation alignment, and regional prep.</p>
+
+    <label style="margin-top: 0;">Which location are you looking for jobs?</label>
+    <input id="targetLocation" placeholder="e.g., San Francisco, CA / New York, NY / Anywhere US">
+
+    <label>What is your preferred work arrangement?</label>
+    <div class="work-type-pills" id="workTypePills">
+      <div class="work-type-pill selected" onclick="selectWorkType(this, 'Remote')">🏠 Remote</div>
+      <div class="work-type-pill" onclick="selectWorkType(this, 'Hybrid')">🏢 Hybrid</div>
+      <div class="work-type-pill" onclick="selectWorkType(this, 'In-Office')">📍 In-Office</div>
+    </div>
+
+    <button class="btn-primary" onclick="submitLocationPreferences()">Save Preferences & Continue Strategic Coaching &rarr;</button>
   </div>
 
   <!-- Output Log -->
@@ -502,7 +671,10 @@
   let currentStep = 1;
   let selectedMotivation = "New grad";
   let selectedTimeline = "As soon as possible";
+  let selectedWorkType = "Remote";
   let activeImportMethod = "paste";
+  let resumeVersions = { 1: "", 2: "", 3: "" };
+  let currentVersion = 1;
   let msgs = [];
 
   function goToStep(step) {
@@ -531,13 +703,25 @@
     setTimeout(() => goToStep(3), 150);
   }
 
+  function selectWorkType(el, val) {
+    document.querySelectorAll("#workTypePills .work-type-pill").forEach(p => p.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedWorkType = val;
+  }
+
   function switchImportMethod(method) {
     activeImportMethod = method;
-    ["paste", "upload", "manual"].forEach(m => {
+    ["paste", "upload", "manual", "scratch"].forEach(m => {
       const cap = m.charAt(0).toUpperCase() + m.slice(1);
       $(`#tab${cap}`).classList.toggle("active", m === method);
       $(`#import${cap}View`).style.display = m === method ? (m === "manual" ? "flex" : "block") : "none";
     });
+
+    if (method === "scratch") {
+      $("#go").innerText = "Work on Resume →";
+    } else {
+      $("#go").innerText = "Work on Resume →";
+    }
   }
 
   function handleFileUpload(event) {
@@ -555,43 +739,66 @@
   function handleRoleChange() {
     const val = $("#roleSelect").value;
     const wrap = $("#customRoleWrap");
-    if (val === "other") {
-      wrap.style.display = "block";
-      $("#customRoleInput").focus();
-    } else {
-      wrap.style.display = "none";
-    }
+    wrap.style.display = val === "other" ? "block" : "none";
   }
 
   function getTargetRole() {
     const val = $("#roleSelect").value;
-    if (val === "other") {
-      return $("#customRoleInput").value.trim();
-    }
-    return val;
+    return val === "other" ? $("#customRoleInput").value.trim() : val;
   }
 
   function getResumeContent() {
     if (activeImportMethod === "manual") {
-      const skills = $("#manualSkills").value.trim();
-      const projects = $("#manualProjects").value.trim();
-      return `SKILLS:\n${skills}\n\nEXPERIENCE & PROJECTS:\n${projects}`.trim();
+      return `SKILLS:\n${$("#manualSkills").value.trim()}\n\nEXPERIENCE & PROJECTS:\n${$("#manualProjects").value.trim()}`;
+    }
+    if (activeImportMethod === "scratch") {
+      return "[NO EXISTING RESUME: Candidate is building from scratch through conversational interview]";
     }
     return $("#resume").value.trim();
   }
 
-  function loadScenarioA() {
-    switchImportMethod("paste");
-    $("#roleSelect").value = "Junior / Early Career Software Engineer";
-    handleRoleChange();
-    $("#resume").value = "B.S. in Computer Science (recent graduate).\nCompleted 2 software engineering internships working with Python, JavaScript, and Node.js.\nBuilt full-stack React projects with MongoDB.\nOrganized a 48-hour campus hackathon with 150+ attendees.";
+//   function loadScenarioA() {
+//     switchImportMethod("paste");
+//     $("#roleSelect").value = "Junior / Early Career Software Engineer";
+//     handleRoleChange();
+//     $("#resume").value = "B.S. in Computer Science (recent graduate).\nCompleted 2 software engineering internships working with Python, JavaScript, and Node.js.\nBuilt full-stack React projects with MongoDB.\nOrganized a 48-hour campus hackathon with 150+ attendees.";
+//   }
+
+//   function loadScenarioB() {
+//     switchImportMethod("paste");
+//     $("#roleSelect").value = "Backend Software Engineer";
+//     handleRoleChange();
+//     $("#resume").value = "2 years frontend developer experience using React, TypeScript, and Tailwind.\nProficient in Python for scripting and consuming REST APIs.\nNo prior production experience with Java or Kubernetes clusters.";
+//   }
+
+  function switchVersion(v) {
+    resumeVersions[currentVersion] = $("#editableResumeText").value;
+    currentVersion = v;
+    [1, 2, 3].forEach(i => $(`#vTab${i}`).classList.toggle("active", i === v));
+    $("#editableResumeText").value = resumeVersions[v] || "";
   }
 
-  function loadScenarioB() {
-    switchImportMethod("paste");
-    $("#roleSelect").value = "Backend Software Engineer";
-    handleRoleChange();
-    $("#resume").value = "2 years frontend developer experience using React, TypeScript, and Tailwind.\nProficient in Python for scripting and consuming REST APIs.\nNo prior production experience with Java or Kubernetes clusters.";
+  function downloadResume() {
+    const text = $("#editableResumeText").value;
+    const role = getTargetRole() || "Software-Engineer";
+    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `Tailored-Resume-${role.replace(/[^a-z0-9]/gi, '_')}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  function parseResumeVersions(text) {
+    const role = getTargetRole();
+    resumeVersions[1] = `TARGET ROLE: ${role}\n\n[OPTION 1: IMPACT & METRICS FOCUSED]\n• Developed and deployed scalable software modules using verified full-stack technologies.\n• Refactored core application logic to improve maintainability and deliverable turnaround.\n• Collaborated with cross-functional teams to deliver end-to-end technical solutions under tight deadlines.`;
+    
+    resumeVersions[2] = `TARGET ROLE: ${role}\n\n[OPTION 2: TECHNICAL ARCHITECTURE & SCOPE]\n• Engineered robust backend services and structured RESTful APIs with comprehensive error handling.\n• Designed modular components and state architectures aligned with modern design systems.\n• Built and documented technical integration mechanisms meeting strict production benchmarks.`;
+
+    resumeVersions[3] = `TARGET ROLE: ${role}\n\n[OPTION 3: CONCISE ATS FORMAT]\n• Full-Stack Engineer with hands-on project experience in agile sprint environments.\n• Authored clean, tested, and interview-defensible codebases across key deliverables.\n• Automated routine technical workflows and documented project architectural receipts.`;
+
+    $("#editableResumeText").value = resumeVersions[1];
   }
 
   function md(t) {
@@ -609,9 +816,7 @@
       else { flush(); out.push(l); }
     }
     flush();
-    return out.join("\n")
-      .replace(/\*\*(.+?)\*\*/g, "<b>$1</b>")
-      .replace(/^#{1,4} (.+)$/gm, "<b>$1</b>");
+    return out.join("\n").replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/^#{1,4} (.+)$/gm, "<b>$1</b>");
   }
 
   function add(cls, html) {
@@ -623,37 +828,7 @@
     return d;
   }
 
-  async function ask() {
-    const role = getTargetRole();
-    const resume = getResumeContent();
-    const motivation = selectedMotivation;
-    const timeline = selectedTimeline;
-
-    const wait = add("loading-state", "Thinking in Receipts Mode: Analyzing decision signals and mapping verified evidence...");
-    ["go", "send", "q"].forEach(i => { if ($("#" + i)) $("#" + i).disabled = true; });
-
-    try {
-      const r = await fetch("/api/chat", {
-        method: "POST",
-        headers: { "content-type": "application/json" },
-        body: JSON.stringify({ motivation, timeline, role, resume, messages: msgs })
-      });
-      const d = await r.json();
-      if (!r.ok) throw new Error(d.error || "Request failed");
-      msgs.push({ role: "assistant", content: d.text });
-      wait.className = "message";
-      wait.innerHTML = md(d.text);
-      $("#f").classList.add("active");
-    } catch (e) {
-      msgs.pop();
-      wait.className = "message";
-      wait.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
-    }
-    ["go", "send", "q"].forEach(i => { if ($("#" + i)) $("#" + i).disabled = false; });
-    $("#q").focus();
-  }
-
-  function startAnalysis() {
+  async function startAnalysis() {
     const role = getTargetRole();
     const resume = getResumeContent();
 
@@ -661,29 +836,107 @@
       alert("Please select or specify a target role.");
       return;
     }
-    if (!resume) {
+    if (!resume && activeImportMethod !== "scratch") {
       alert("Please provide your resume or career experience.");
       return;
     }
 
-    msgs = [{
-      role: "user",
-      content: `Analyze my background for '${role}'. Driver: '${selectedMotivation}', Timeline: '${selectedTimeline}'. Generate the full first analysis in Receipts Mode.`
-    }];
+    $("#wizardCard").style.display = "none";
+    $("#progressBox").style.display = "block";
 
-    $("#log").innerHTML = "";
-    add("user-query", `<b>Driver:</b> ${selectedMotivation} &bull; <b>Timeline:</b> ${selectedTimeline}<br><b>Target Role:</b> ${role.replace(/</g, "&lt;")}`);
-    ask();
+    const isScratch = activeImportMethod === "scratch";
+    const promptMsg = isScratch
+      ? `I do not have an existing resume yet. My target role is '${role}', driver is '${selectedMotivation}', and timeline is '${selectedTimeline}'. Please conduct an interactive discovery interview with 3 targeted questions to extract my background, then draft my resume in Receipts Mode.`
+      : `Analyze my background for '${role}'. Driver: '${selectedMotivation}', Timeline: '${selectedTimeline}'. Generate the full first analysis in Receipts Mode.`;
+
+    msgs = [{ role: "user", content: promptMsg }];
+
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ motivation: selectedMotivation, timeline: selectedTimeline, role, resume, messages: msgs })
+      });
+      const d = await r.json();
+      $("#progressBox").style.display = "none";
+
+      if (!r.ok) throw new Error(d.error || "Request failed");
+      msgs.push({ role: "assistant", content: d.text });
+
+      // Always render Resume Studio & Location Card
+      parseResumeVersions(d.text);
+      $("#resumeStudioCard").style.display = "block";
+      $("#locationCard").style.display = "block";
+
+      add("strategy-analysis", md(d.text));
+      $("#f").classList.add("active");
+    } catch (e) {
+      $("#progressBox").style.display = "none";
+      $("#wizardCard").style.display = "block";
+      alert("Error: " + e.message);
+    }
   }
 
-  $("#f").onsubmit = e => {
+  async function submitLocationPreferences() {
+    const loc = $("#targetLocation").value.trim() || "Anywhere / US Remote";
+    $("#locationCard").style.display = "none";
+
+    const prompt = `My target location is '${loc}' and my preferred work arrangement is '${selectedWorkType}'. Provide a customized application roadmap, regional salary alignment insights, and the next strategic interview prep step.`;
+    msgs.push({ role: "user", content: prompt });
+    add("user-query", `<b>Target Location:</b> ${loc} &bull; <b>Work Arrangement:</b> ${selectedWorkType}`);
+
+    const wait = add("loading-state", "Tailoring geographic application strategy and interview roadmap...");
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          motivation: selectedMotivation,
+          timeline: selectedTimeline,
+          role: getTargetRole(),
+          resume: $("#editableResumeText").value,
+          messages: msgs
+        })
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Request failed");
+      msgs.push({ role: "assistant", content: d.text });
+      wait.className = "message";
+      wait.innerHTML = md(d.text);
+    } catch (e) {
+      wait.innerHTML = `<span style="color:var(--danger)">Error: ${e.message}</span>`;
+    }
+  }
+
+  $("#f").onsubmit = async e => {
     e.preventDefault();
     const t = $("#q").value.trim();
     if (!t) return;
     $("#q").value = "";
     msgs.push({ role: "user", content: t });
     add("user-query", t.replace(/</g, "&lt;"));
-    ask();
+
+    const wait = add("loading-state", "Thinking in Receipts Mode...");
+    try {
+      const r = await fetch("/api/chat", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          motivation: selectedMotivation,
+          timeline: selectedTimeline,
+          role: getTargetRole(),
+          resume: $("#editableResumeText").value,
+          messages: msgs
+        })
+      });
+      const d = await r.json();
+      if (!r.ok) throw new Error(d.error || "Request failed");
+      msgs.push({ role: "assistant", content: d.text });
+      wait.className = "message";
+      wait.innerHTML = md(d.text);
+    } catch (err) {
+      wait.innerHTML = `<span style="color:var(--danger)">Error: ${err.message}</span>`;
+    }
   };
 </script>
 </body>
