@@ -3,24 +3,27 @@ const fs = require("fs");
 const path = require("path");
 
 const KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
 const PORT = process.env.PORT || 8080;
 
-const RULES = `You are a career coach that helps a candidate reason about the hiring process for their target role.
+const RULES = `You are a personalized, evidence-based Career Coach helping a candidate prepare for their target role.
 HARD RULES:
 - Use ONLY facts stated in the candidate's resume/profile. Never invent experience, metrics, employers, certifications, or technologies.
 - If the resume lacks evidence for something, say "Missing evidence" rather than filling the gap.
 - No job description is provided; hiring signals are INFERRED from the target role. Label them as inference.
-- Never claim an interview question came from a specific company.
-- If a resume bullet needs a number the candidate did not give, write "Metric needed" instead of a number.
-When first analyzing, produce these sections in Markdown:
-1) Inferred hiring signals
-2) Evidence map (table: signal | evidence from resume | match: Strong/Partial/Weak/Missing | gap)
-3) Why You (why this role, why this candidate, proof, biggest concern, how to address it honestly)
-4) 3 resume bullets (Action + Context + Skill + Result), each with a receipt status (Verified / Needs metric) and the resume line it comes from
-5) Skill gaps with realistic next steps and effort estimates (explicitly state they are estimates)
-6) A 2-week interview prep plan.
-For follow-up questions, answer conversationally under the same rules.`;
+- Tailor your strategy to their career motivation (e.g., 'New grad' = focus on framing foundational projects & growth potential; 'Better work-life balance' = focus on role scoping; 'A fresh start' = highlight transferable skills).
+- Tailor urgency to their timeline (e.g., 'As soon as possible' = high-impact fast-track interview prep & 7-day quick sprints; 'Whenever I find the right fit' = high differentiation & deep skill development).
+- If a resume bullet needs a number the candidate did not give, write "Metric needed" instead of inventing a number.
+
+When first analyzing, address the candidate by name and produce these structured Markdown sections:
+1) Inferred Hiring Decision Signals (Key screening filters for this role)
+2) Evidence Map (Table: Signal | Evidence from Profile | Match Strength: Strong/Partial/Weak/Missing | Gap Analysis)
+3) "Why You" Narrative Pitch (Tailored to their career driver & timeline, authentic proof points, biggest concern, and how to address it honestly)
+4) 3 Defensible Resume Bullets (Action + Context + Skill + Deliverable), each with a Receipt Status (Verified / Metric needed) and the source line from their profile
+5) Skill Gap Acceleration Roadmap (Estimated effort in hours, honest gap identification, free learning resources)
+6) 2-Week Structured Interview Readiness Plan tailored to their timeline.
+
+For follow-up questions, answer conversationally under the exact same guardrails.`;
 
 function send(res, code, body, type = "application/json") {
   res.writeHead(code, { "Content-Type": type });
@@ -39,11 +42,19 @@ http.createServer(async (req, res) => {
     }
     let body;
     try { body = JSON.parse(raw); } catch { return send(res, 400, { error: "Invalid JSON." }); }
-    const { role, resume, messages } = body;
+    
+    const { username, motivation, timeline, role, resume, messages } = body;
     if (!role?.trim()) return send(res, 400, { error: "Target role is required." });
     if (!resume?.trim()) return send(res, 400, { error: "Resume / profile is required." });
     if (!Array.isArray(messages) || !messages.length) return send(res, 400, { error: "No messages." });
     if (!KEY || KEY.includes("your-real-key")) return send(res, 500, { error: "GEMINI_API_KEY is not set." });
+
+    const candidateContext = `CANDIDATE NAME: ${username || "Candidate"}
+PRIMARY MOTIVATION: ${motivation || "Explore new opportunities"}
+TIMELINE: ${timeline || "Whenever I find the right fit"}
+TARGET ROLE: ${role}
+CANDIDATE RAW PROFILE:
+${resume}`;
 
     try {
       const r = await fetch(
@@ -53,7 +64,7 @@ http.createServer(async (req, res) => {
           headers: { "content-type": "application/json", "x-goog-api-key": KEY },
           body: JSON.stringify({
             systemInstruction: {
-              parts: [{ text: `${RULES}\n\nTARGET ROLE: ${role}\n\nCANDIDATE RESUME / PROFILE:\n${resume}` }],
+              parts: [{ text: `${RULES}\n\n${candidateContext}` }],
             },
             contents: messages.map((m) => ({
               role: m.role === "assistant" ? "model" : "user",
@@ -75,4 +86,4 @@ http.createServer(async (req, res) => {
     }
   }
   send(res, 404, { error: "Not found" });
-}).listen(PORT, "0.0.0.0", () => console.log(`Career Coach running at http://localhost:${PORT} (model: ${MODEL})`));
+}).listen(PORT, "0.0.0.0", () => console.log(`Career Coach running on port ${PORT}`));
