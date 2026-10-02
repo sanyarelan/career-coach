@@ -3,7 +3,7 @@ const fs = require("fs");
 const path = require("path");
 
 const KEY = process.env.GEMINI_API_KEY;
-const MODEL = process.env.GEMINI_MODEL || "gemini-1.5-flash";
+const MODEL = process.env.GEMINI_MODEL || "gemini-3.8-flash";
 const PORT = process.env.PORT || 8080;
 
 const RULES = `You are a career coach that helps a candidate reason about the hiring process for their target role.
