@@ -1,0 +1,56 @@
+Jordan Smith
+
+Jersey City, NJ · maya.patel@example.com · (555) 013-4827 · linkedin.com/in/mayapatel-dev · github.com/mayapatel-dev
+
+Summary
+
+New grad software engineer with full stack experience building Java/Spring Boot REST APIs, PostgreSQL-backed services, and React frontends. Completed two internships shipping production features, and built and deployed several personal projects end to end.
+
+Technical Skills
+Languages: Java, TypeScript, JavaScript, SQL, Python
+Backend: Spring Boot, Spring Data JPA, Spring Security, REST API design, JUnit 5, Mockito
+Frontend: React, Next.js, Redux, Tailwind CSS, HTML/CSS
+Data: PostgreSQL, Redis, Flyway
+Tools and DevOps: Git, Gradle, Docker, GitHub Actions, AWS (EC2, S3, RDS), Postman
+Experience
+
+Software Engineering Intern | Northbridge Financial Technologies, New York, NY | May 2025 – Aug 2025
+
+Built 12 Spring Boot REST endpoints for a client reporting service, backed by PostgreSQL and serving about 8,000 requests per day
+Cut the slowest dashboard query from 4.1s to 0.6s by adding composite indexes and eliminating N+1 queries in JPA
+Developed React components for a transaction filtering UI, reducing support tickets about "missing data" by 30%
+Raised service test coverage from 54% to 85% with JUnit and Testcontainers integration tests
+Delivered 6 features in a team of 8 through two-week sprints, code reviews, and CI/CD pipelines
+
+Software Engineering Intern | BrightPath Health Tech, Newark, NJ | Jun 2024 – Aug 2024
+
+Implemented a Spring Boot microservice for appointment reminders, sending 2,500+ notifications per week
+Wrote Flyway migrations and refactored 3 legacy tables, removing duplicate records and improving data integrity
+Added request validation and global exception handling, cutting API 500 errors by 40%
+
+Teaching Assistant, Data Structures and Algorithms | New Jersey Institute of Technology | Jan 2024 – May 2025
+
+Led weekly recitations for 45 students and graded assignments in Java; held office hours on recursion, trees, and graphs
+Projects
+
+TaskFlow: Team Project Management App | Java, Spring Boot, PostgreSQL, React, TypeScript, Docker | github.com/mayapatel-dev/taskflow
+
+Designed a normalized PostgreSQL schema and a full CRUD REST API with pagination, filtering, and OpenAPI documentation
+Implemented JWT authentication and role-based access control for admin, manager, and member roles
+Built a responsive React/TypeScript UI with drag-and-drop Kanban boards and optimistic updates
+Containerized with Docker, managed builds with Gradle, and deployed through GitHub Actions to AWS; 40+ unit and integration tests
+
+CampusEats: Student Meal Planner | Next.js, TypeScript, Tailwind CSS, Supabase | campuseats.example.com
+
+Built a meal-planning web app used by 300+ students at launch, with search, saved plans, and dietary filters
+Improved Lighthouse performance score from 68 to 94 through image optimization and server-side rendering
+Education
+
+New Jersey Institute of Technology, Newark, NJ | B.S. in Computer Science | May 2026
+GPA: 3.7/4.0 · Dean's List (6 semesters)
+Relevant coursework: Data Structures and Algorithms, Database Systems, Operating Systems, Software Engineering, Web Systems Development
+
+Leadership and Extras
+Vice President, NJIT Women in Computing; organized 4 hackathon and workshop events with 150+ attendees
+2nd place, HackNJIT 2025: built a real-time transit delay tracker in 24 hours
+AWS Certified Cloud Practitioner (2025)
