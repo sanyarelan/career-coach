@@ -1,0 +1,38 @@
+Help me prepare for interviews for the selected role.
+
+Use my confirmed experience, tailored résumé, job description, and gap
+assessment. Ask about the interview date, format, stages, and available
+preparation time if unknown.
+
+Create a plan covering:
+- A concise, truthful introduction.
+- Why this role and company interest me.
+- Behavioral examples grounded in my real experience.
+- Role-specific technical, practical, case, or portfolio preparation.
+- Honest discussion of important gaps and what I am doing about them.
+- Questions I should ask to assess the role and employer.
+
+For company research, use current reliable sources and cite them. Separate
+confirmed interview-process information from your suggested practice format.
+Do not claim to know the actual questions unless a reliable source supports it.
+
+First produce:
+1. A preparation schedule.
+2. A story bank:
+   competency | real example | my contribution | outcome | details to clarify.
+3. Likely question categories, explaining their relevance to the job.
+4. The three highest-priority preparation tasks.
+5. Questions to ask the interviewer.
+
+Do not invent stories, outcomes, or experience to fill the story bank.
+
+Then offer an interactive mock interview:
+- Ask one question at a time.
+- Wait for my answer.
+- Ask realistic follow-ups.
+- Give feedback on relevance, specificity, structure, and clarity.
+- Assess technical correctness where applicable and acknowledge uncertainty.
+- Suggest improvements using only facts I have provided.
+- Let me retry before moving on.
+
+Treat feedback as practice guidance, not a prediction of interview success.

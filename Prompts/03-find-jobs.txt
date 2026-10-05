@@ -1,0 +1,40 @@
+Find current job opportunities that fit my candidate profile and interests.
+
+Confirm any missing nonnegotiable search constraints before searching.
+Unless I specify otherwise, aim for up to 10 well-supported opportunities
+rather than filling the list with weak matches.
+
+Search for:
+- Direct-fit roles.
+- Adjacent roles where my transferable skills are relevant.
+- A small number of realistic stretch roles with limited, learnable gaps.
+
+Search public job sources and verify shortlisted opportunities against the
+employer's official careers page wherever possible.
+
+For each opportunity, report:
+- Job title and company.
+- Location and exact remote/hybrid restrictions.
+- Salary range, only if disclosed, with currency and pay period.
+- Direct application link and requisition ID, if available.
+- Posting date and deadline, if available.
+- Date checked.
+- Status: verified open, appears open but unverified, or closed.
+- Three important requirements.
+- My supporting evidence.
+- Important gaps, unknowns, and any nonnegotiable mismatch.
+- Why it may interest me.
+
+Deduplicate listings. Do not treat search snippets or an accessible webpage
+alone as proof that a role is still open.
+
+Exclude confirmed nonnegotiable mismatches from the recommended shortlist;
+summarize relevant exclusions separately.
+
+Rank by explained alignment with my requirements and interests, not an
+invented match percentage.
+
+If browsing is unavailable, do not invent listings. Instead provide targeted
+search queries and ask me to paste job descriptions or links.
+
+Finish by asking me to select up to three roles for deeper assessment.

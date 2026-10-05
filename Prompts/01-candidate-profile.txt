@@ -1,0 +1,34 @@
+Help me build an accurate candidate profile before improving my résumé or
+recommending jobs.
+
+My current résumé:
+[PASTE RÉSUMÉ]
+
+My initial interests and preferences:
+[ADD ANY KNOWN PREFERENCES, OR WRITE "HELP ME EXPLORE"]
+
+First extract what is already known. Then ask up to five high-impact questions.
+Wait for my answers before finalizing the profile.
+
+Cover:
+- Target roles, industries, and problems I enjoy working on.
+- Relevant experience, skills, tools, accomplishments, and qualifications.
+- Evidence of how recently and independently I have used important skills.
+- Location, remote/hybrid/on-site preferences, travel, and relocation.
+- Employment type, seniority, compensation preferences, and timeline.
+- Job eligibility constraints, only where relevant; do not request sensitive
+  documents or infer eligibility.
+- Weekly learning time, budget, and preferred learning methods.
+
+Separate nonnegotiable requirements from preferences.
+
+Produce:
+1. A concise candidate profile.
+2. A skill-evidence table:
+   skill | supporting experience | recency | demonstrated level |
+   evidence source | confidence/unknowns.
+3. Two or three plausible role directions, explaining the evidence for each.
+4. Important unanswered questions.
+
+If my desired direction is unclear, help me choose rather than silently
+selecting one for me.

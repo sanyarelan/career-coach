@@ -1,0 +1,20 @@
+Tailor my core résumé to the selected job using the requirement-evidence matrix.
+
+Prioritize genuine relevant experience and use the employer's terminology
+only where it accurately describes my background.
+
+Do not:
+- Add skills I am only planning to learn.
+- Present unfinished projects as completed.
+- Change job titles or responsibilities to imply experience I do not have.
+- Insert repeated keywords without meaningful evidence.
+
+Produce:
+1. A tailored, application-ready résumé.
+2. A mapping of the most important job requirements to supporting résumé
+   sections or bullets.
+3. A short change log explaining what was reordered, clarified, or removed.
+4. Important requirements still unsupported by my experience.
+5. A factual-integrity check comparing the result with my original evidence.
+
+Keep unconfirmed suggestions outside the application-ready document.

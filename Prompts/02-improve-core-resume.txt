@@ -1,0 +1,36 @@
+Improve my résumé using the confirmed candidate profile.
+
+If we have not selected a target role or role family, ask me to choose one
+before rewriting.
+
+Evaluate:
+- Ease of navigation and reading.
+- Clarity of relevant experience.
+- Prioritization of information.
+- Specificity of my personal contribution.
+- Clarity of purpose, scope, and outcomes.
+- Career chronology.
+- Grammar, consistency, and internal coherence.
+
+Rewrite it so a reader can quickly understand what I have done and why it
+matters for the target role.
+
+Constraints:
+- Preserve all factual meaning.
+- Use concrete qualitative evidence when no verified metric exists.
+- Remove vague claims, unnecessary repetition, and unexplained jargon.
+- Do not hide career gaps through misleading dates.
+- Do not add skills merely because they commonly appear in target jobs.
+- Use straightforward headings and formatting without claiming guaranteed
+  compatibility with every applicant-tracking system.
+
+Produce:
+1. The five most important problems in the original.
+2. A revised, application-ready résumé containing confirmed facts only.
+3. A change log:
+   original wording | revised wording | reason | factual confirmation needed.
+4. A separate list of questions that could strengthen the résumé further.
+5. A brief self-audit against the evaluation criteria.
+
+Your self-audit is an editorial check, not independent evidence that the
+revision will improve hiring outcomes.

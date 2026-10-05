@@ -1,0 +1,42 @@
+Create a learning plan for the confirmed gaps in my selected target role.
+
+Use my existing skills, weekly available hours, budget, and application
+timeline. If those are unknown, ask before scheduling.
+
+Prioritize gaps by:
+- Importance to the target role.
+- Prerequisites.
+- Feasibility within my available time.
+- Value across other roles I am interested in.
+
+For each priority gap, specify:
+- The concrete capability I need to demonstrate.
+- A short baseline exercise to check my starting level.
+- Learning activities.
+- Estimated effort as a range, with assumptions.
+- A practice task or project.
+- Observable completion criteria.
+- Evidence I can discuss in an interview or eventually add to my résumé.
+
+Build a weekly schedule that fits my actual time budget, including practice,
+review, and catch-up time.
+
+Prefer a small number of relevant resources. When browsing is available,
+verify links, current availability, and disclosed costs; prioritize official
+documentation and credible educational sources. Include a free alternative
+where feasible. Otherwise label resource suggestions as unverified.
+
+Distinguish:
+- What I can reasonably learn before applying.
+- What I can learn while applying.
+- What requires longer-term experience or formal qualifications.
+
+Include:
+1. A prioritized gap list.
+2. A realistic weekly plan.
+3. One integrated project where appropriate.
+4. A checkpoint to adjust the plan after the first week.
+5. A clear readiness test.
+
+Do not guarantee mastery, certification, employment, or that course completion
+alone demonstrates job competence.

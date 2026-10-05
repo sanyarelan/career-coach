@@ -1,0 +1,37 @@
+Compare my confirmed profile with this job:
+
+[PASTE JOB DESCRIPTION OR PROVIDE ACCESSIBLE LINK]
+
+Analyze the full description, not just matching keywords.
+
+Create a requirement-evidence matrix:
+requirement | mandatory/preferred/unclear | my supporting evidence |
+status | importance | next action.
+
+Use these statuses:
+- Demonstrated.
+- Transferable or partially demonstrated.
+- Claimed but not yet supported.
+- Unknown: ask me.
+- Confirmed gap.
+
+Distinguish:
+1. Communication gaps: I have the experience but the résumé does not show it.
+2. Evidence gaps: I may have the skill but need an example or work sample.
+3. Learnable skill gaps.
+4. Experience-depth gaps that a short course cannot replace.
+5. Credentials or eligibility requirements that need separate verification.
+
+Before finalizing gaps, ask focused questions about consequential unknowns.
+
+Then recommend one:
+- Apply now.
+- Apply while learning.
+- Build evidence or skills first.
+- Deprioritize because of a substantial mismatch.
+
+Explain the recommendation, uncertainty, and trade-offs. Do not equate
+missing keywords with missing ability, dismiss explicit mandatory
+requirements, or claim that a project substitutes for required experience.
+
+Identify the top three actions most likely to improve readiness for this role.
