@@ -127,7 +127,7 @@
 
     .container {
       width: 100%;
-      max-width: 820px;
+      max-width: 840px;
       display: flex;
       flex-direction: column;
       gap: 24px;
@@ -137,13 +137,15 @@
     .hero-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 0 0 8px; }
     .hero-sub { font-size: 15px; color: var(--tx-muted); max-width: 580px; margin: 0 auto; line-height: 1.5; }
 
-    .wizard-card {
+    .wizard-card, .download-card, .location-card, .jobs-container-card, .tracker-card, .learning-card {
       background: var(--card);
       border: 1px solid var(--bd);
       border-radius: 16px;
       padding: 28px 32px;
       box-shadow: var(--shadow-md);
+      display: none;
     }
+    .wizard-card { display: block; }
 
     .step-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
     .step-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand); }
@@ -172,6 +174,12 @@
     }
     textarea { min-height: 140px; resize: vertical; }
 
+    .custom-role-container {
+      display: none;
+      margin-top: 10px;
+      animation: fadeIn 0.2s ease-out;
+    }
+
     .choice-stack { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; }
     .choice-card {
       padding: 14px 18px;
@@ -187,6 +195,43 @@
     }
     .choice-card:hover { border-color: var(--brand); background: var(--brand-light); }
     .choice-card.selected { border-color: var(--brand); background: var(--brand-light); color: var(--brand); }
+
+    .import-methods-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    @media (max-width: 600px) {
+      .import-methods-grid { grid-template-columns: 1fr 1fr; }
+    }
+    .import-method-btn {
+      padding: 10px 6px;
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--tx);
+      cursor: pointer;
+      text-align: center;
+      transition: all 0.15s ease;
+    }
+    .import-method-btn:hover { border-color: var(--brand); background: var(--brand-light); }
+    .import-method-btn.active {
+      border-color: var(--brand);
+      background: var(--brand-light);
+      color: var(--brand);
+      font-weight: 700;
+    }
+
+    .scratch-info-box {
+      background: var(--brand-light);
+      border: 1px solid rgba(197, 97, 58, 0.3);
+      border-radius: 12px;
+      padding: 20px;
+      text-align: center;
+    }
 
     .btn-row { display: flex; gap: 10px; margin-top: 22px; justify-content: center; }
     button {
@@ -237,8 +282,8 @@
     .chat-msg.system { align-self: center; background: var(--indigo-light); color: var(--indigo); font-size: 12px; text-align: center; }
     .chat-input-bar { display: flex; gap: 10px; padding: 14px 18px; background: #ffffff; border-top: 1px solid var(--bd); }
 
-    /* RIGHT SIDE PANEL 1: PROMPTS LIST (Resume Studio) */
-    aside.prompts-sidebar {
+    /* RIGHT SIDE PANELS */
+    aside.prompts-sidebar, aside.job-sidebar {
       display: none;
       background: var(--sidebar-bg);
       border-left: 1px solid var(--bd);
@@ -250,46 +295,16 @@
       overflow-y: auto;
       width: 360px;
     }
-    aside.prompts-sidebar.active { display: flex; }
-    .prompt-check-item { background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+    aside.prompts-sidebar.active, aside.job-sidebar.active { display: flex; }
+    .prompt-check-item { background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
     .prompt-check-item.selected { background: var(--success-light); border-color: var(--success); }
-    .prompt-check-item.selected label { color: #15803d; }
-
-    /* RIGHT SIDE PANEL 2: JOB SKILL FIT & ACTION (Matched Jobs Step) */
-    aside.job-sidebar {
-      display: none;
-      background: var(--sidebar-bg);
-      border-left: 1px solid var(--bd);
-      padding: 24px 18px;
-      flex-direction: column;
-      height: 100vh;
-      position: sticky;
-      top: 0;
-      overflow-y: auto;
-      width: 360px;
-    }
-    aside.job-sidebar.active { display: flex; }
 
     .skill-pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
-    .skill-pill {
-      font-size: 11.5px;
-      font-weight: 700;
-      padding: 4px 10px;
-      border-radius: 16px;
-    }
+    .skill-pill { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 16px; }
     .skill-pill.required { background: var(--indigo-light); color: var(--indigo); border: 1px solid rgba(37, 99, 235, 0.2); }
     .skill-pill.matched { background: var(--success-light); color: var(--success); border: 1px solid rgba(22, 163, 74, 0.25); }
     .skill-pill.missing { background: var(--amber-light); color: var(--amber); border: 1px solid rgba(217, 119, 6, 0.25); }
 
-    /* Download Format Card */
-    .download-card, .location-card, .jobs-container-card {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 28px 32px;
-      box-shadow: var(--shadow-md);
-    }
     .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
     .download-format-btn { padding: 16px 12px; background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 12px; cursor: pointer; text-align: center; }
 
@@ -310,59 +325,47 @@
     .job-card.active-selected { border-color: var(--brand); background: var(--brand-light); }
     .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
 
-    /* TABBED HEADER FOR MATCHED JOBS VS TRACKER */
-    .tracker-toggle-bar {
-      display: flex;
-      gap: 10px;
-      border-bottom: 2px solid var(--bd);
-      padding-bottom: 12px;
-      margin-bottom: 16px;
-    }
-    .tracker-toggle-btn {
-      padding: 8px 16px;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--tx-muted);
-      border-radius: 8px;
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      cursor: pointer;
-    }
-    .tracker-toggle-btn.active {
-      background: var(--brand);
-      color: #fff;
-      border-color: var(--brand);
-    }
-
     /* APPLICATION TRACKER TABLE */
     .tracker-table-wrap {
       width: 100%;
       overflow-x: auto;
       border: 1px solid var(--bd);
       border-radius: 12px;
-      margin-top: 14px;
+      margin: 18px 0;
     }
     .tracker-table {
       width: 100%;
       border-collapse: collapse;
-      font-size: 12.5px;
+      font-size: 13px;
       text-align: left;
     }
     .tracker-table th, .tracker-table td {
-      padding: 12px 14px;
+      padding: 13px 14px;
       border-bottom: 1px solid var(--bd);
       white-space: nowrap;
     }
     .tracker-table th { background: #f8fafc; font-weight: 700; color: var(--tx-muted); }
     .tracker-status-badge {
       display: inline-block;
-      padding: 3px 8px;
-      border-radius: 12px;
+      padding: 3px 10px;
+      border-radius: 14px;
       font-size: 11px;
       font-weight: 700;
     }
     .status-applied { background: var(--success-light); color: var(--success); }
     .status-bookmarked { background: var(--indigo-light); color: var(--indigo); }
+
+    /* LEARNING PLAN CONTAINER */
+    .plan-output-box {
+      background: #ffffff;
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 24px;
+      font-size: 13.5px;
+      line-height: 1.7;
+      margin-top: 18px;
+    }
+    .plan-output-box h1, .plan-output-box h2, .plan-output-box h3 { color: var(--brand); margin-top: 18px; }
   </style>
 </head>
 <body>
@@ -384,7 +387,17 @@
       </div>
       <div class="nav-item" id="navJobs" onclick="navToJobs()">
         <span>💼</span>
-        <span>Matched Jobs & Tracker</span>
+        <span>Matched Jobs</span>
+      </div>
+      <!-- DISTINCT APPLICATION TRACKER TAB -->
+      <div class="nav-item" id="navTracker" onclick="navToTracker()">
+        <span>📊</span>
+        <span>Application Tracker</span>
+      </div>
+      <!-- DISTINCT SKILL IMPROVEMENT / STUDY PLAN TAB -->
+      <div class="nav-item" id="navLearning" onclick="navToLearning()">
+        <span>📚</span>
+        <span>Skill Improvement Plan</span>
       </div>
     </div>
 
@@ -416,6 +429,7 @@
           <div id="dot3" class="step-dot"></div>
         </div>
 
+        <!-- STEP 1: Driver (ALL 5 RESTORED) -->
         <div id="step1" class="wizard-step active">
           <h3>What’s Fueling Your Next Move? 🚀</h3>
           <p class="prompt-sub">Every breakthrough begins with clear intent. Tell us what matters most right now.</p>
@@ -424,31 +438,81 @@
             <div class="choice-card" onclick="selectMotivation(this, 'Better work-life balance')">⚖️ Better work-life balance <span>&rarr;</span></div>
             <div class="choice-card" onclick="selectMotivation(this, 'A fresh start')">🌱 A fresh start <span>&rarr;</span></div>
             <div class="choice-card" onclick="selectMotivation(this, 'Develop new skills')">🚀 Leveling up skills <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectMotivation(this, 'Explore new opportunities')">🧭 Exploring new opportunities <span>&rarr;</span></div>
           </div>
         </div>
 
+        <!-- STEP 2: Timeline -->
         <div id="step2" class="wizard-step">
           <h3>When Do You Want to Make the Move? 🗓️</h3>
+          <p class="prompt-sub">We’ll calibrate your readiness roadmap and interview prep velocity to your target date.</p>
           <div class="choice-stack" id="timelineChoices">
             <div class="choice-card" onclick="selectTimeline(this, 'Whenever I find the right fit')">🎯 Whenever I find the right fit <span>&rarr;</span></div>
-            <div class="choice-card" onclick="selectTimeline(this, 'In the next couple months')">⏳ In the next 2 to 3 months <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectTimeline(this, 'In the next 2 to 3 months')">⏳ In the next 2 to 3 months <span>&rarr;</span></div>
             <div class="choice-card" onclick="selectTimeline(this, 'As soon as possible')">⚡ As soon as possible <span>&rarr;</span></div>
           </div>
           <div class="btn-row"><button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button></div>
         </div>
 
+        <!-- STEP 3: Role & Background Input (FULL OPTIONS RESTORED) -->
         <div id="step3" class="wizard-step">
-          <h3>Lock In Target Role & Background 🎯</h3>
+          <h3>Lock In Your Target Role & Proof Points 🎯</h3>
+          <p class="prompt-sub">Select your target position and paste or upload your background details.</p>
+
           <label for="roleSelect">Target Technical Role</label>
-          <select id="roleSelect">
+          <select id="roleSelect" onchange="handleRoleChange()">
             <option value="AI / LLM Application Engineer">AI / LLM Application Engineer</option>
+            <option value="Junior / Early Career Software Engineer">Junior / Early Career Software Engineer</option>
             <option value="Full Stack Software Engineer">Full Stack Software Engineer</option>
             <option value="Backend Software Engineer">Backend Software Engineer</option>
-            <option value="Frontend Software Engineer">Frontend Software Engineer</option>
+            <option value="Frontend Software Engineer">Frontend / Web Engineer</option>
             <option value="Data Scientist / ML Engineer">Data Scientist / ML Engineer</option>
+            <option value="DevOps / Cloud Platform Engineer">DevOps / Cloud Platform Engineer</option>
+            <option value="Data Engineer">Data Engineer</option>
+            <option value="Technical Product Manager">Technical Product Manager</option>
+            <option value="other">Other (specify custom role below)...</option>
           </select>
-          <label>Your Background / Projects</label>
-          <textarea id="resume" placeholder="Paste your background notes, projects, skills..."></textarea>
+
+          <div id="customRoleWrap" class="custom-role-container">
+            <label for="customRoleInput">Specify Your Target Role</label>
+            <input id="customRoleInput" placeholder="e.g., iOS Engineer, Security Analyst...">
+          </div>
+
+          <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--bd);">
+            <label style="margin-top: 0;">How would you like to add your career information?</label>
+            <div class="import-methods-grid">
+              <div class="import-method-btn active" id="tabPaste" onclick="switchImportMethod('paste')">📄 Paste Text</div>
+              <div class="import-method-btn" id="tabUpload" onclick="switchImportMethod('upload')">📁 Upload File</div>
+              <div class="import-method-btn" id="tabManual" onclick="switchImportMethod('manual')">✍️ Manual</div>
+              <div class="import-method-btn" id="tabScratch" onclick="switchImportMethod('scratch')">✨ Build from 0</div>
+            </div>
+
+            <div id="importPasteView">
+              <textarea id="resume" placeholder="Paste your background, projects, technologies, and achievements here..."></textarea>
+            </div>
+
+            <div id="importUploadView" style="display: none;">
+              <input type="file" id="fileInput" accept=".txt,.md" style="display: none;" onchange="handleFileUpload(event)">
+              <div class="file-upload-box" onclick="$('#fileInput').click()" style="border: 2px dashed var(--bd); border-radius: 10px; padding: 24px; text-align: center; background: var(--card-subtle); cursor: pointer;">
+                <div style="font-size: 26px;">📄</div>
+                <div style="font-weight: 600; font-size: 14px; margin-top: 6px;" id="uploadFileName">Click to upload .txt or .md resume file</div>
+              </div>
+            </div>
+
+            <div id="importManualView" style="display: none; flex-direction: column; gap: 10px;">
+              <input id="manualSkills" placeholder="Core Skills (e.g. Python, TypeScript, LangChain, PostgreSQL)...">
+              <textarea id="manualProjects" placeholder="Key Projects & Work Experience..." style="min-height: 110px;"></textarea>
+            </div>
+
+            <div id="importScratchView" class="scratch-info-box" style="display: none;">
+              <div style="font-weight: 700; font-size: 15px; color: var(--tx); margin-bottom: 8px;">No existing resume? No problem! ✨</div>
+              <div style="font-size: 13px; color: var(--tx-muted); display: grid; gap: 6px;">
+                <div>Gemini will generate a verified baseline framework adhering to core career coaching instructions.</div>
+                <div>You'll review and edit your options, then ask follow-ups in the AI chatbox.</div>
+              </div>
+            </div>
+          </div>
+
           <div class="btn-row">
             <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
             <button class="btn-primary" onclick="startAnalysis()">Generate Resume with AI &rarr;</button>
@@ -459,7 +523,7 @@
       <!-- Interactive Progress -->
       <div class="progress-box" id="progressBox">
         <div class="spinner"></div>
-        <div style="font-weight: 700; font-size: 16px;">Generating tailored resume with AI... ⚙️</div>
+        <div style="font-weight: 700; font-size: 16px;">Processing with Gemini AI... ⚙️</div>
       </div>
 
       <!-- STEP 4: Review & Edit Resumes Card -->
@@ -523,81 +587,122 @@
         </div>
       </div>
 
-      <!-- STEP 7: LIVE MATCHED JOBS & APPLICATION TRACKER -->
+      <!-- STEP 7: LIVE MATCHED JOBS -->
       <div class="jobs-container-card" id="jobsCard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
           <div>
-            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 4: Live Openings & Tracker</div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 4: Live Openings</div>
             <h3 style="margin: 4px 0 0;" id="jobsHeaderTitle">Live Job Opportunities</h3>
           </div>
           <button class="btn-secondary" style="font-size: 12px; padding: 6px 14px;" onclick="backToLocationFromJobs()">&larr; Change Location</button>
         </div>
 
-        <!-- Toggle: Live Openings vs. Tracker Table -->
-        <div class="tracker-toggle-bar">
-          <button class="tracker-toggle-btn active" id="tabLiveJobs" onclick="switchJobsView('openings')">💼 Live Openings</button>
-          <button class="tracker-toggle-btn" id="tabTracker" onclick="switchJobsView('tracker')">📊 Application Tracker (<span id="trackerCount">0</span>)</button>
-        </div>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">💡 <b>Click any job opening</b> to view Required Skills, Matched Skills, and Missing Gaps in the right-hand panel.</p>
+        <div class="job-list" id="jobListContainer"></div>
 
-        <!-- VIEW A: LIVE JOBS LIST -->
-        <div id="liveJobsView">
-          <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">💡 <b>Click any job card</b> to analyze your skill match, view required vs. missing skills, and track your application on the right panel.</p>
-          <div class="job-list" id="jobListContainer"></div>
-        </div>
-
-        <!-- VIEW B: APPLICATION TRACKER TABLE (Matching Screenshot) -->
-        <div id="applicationTrackerView" style="display: none;">
-          <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Review and track your status across all bookmarked and applied positions.</p>
-          <div class="tracker-table-wrap">
-            <table class="tracker-table">
-              <thead>
-                <tr>
-                  <th style="width: 30px;"><input type="checkbox"></th>
-                  <th>Job Position</th>
-                  <th>Company</th>
-                  <th>Max. Salary</th>
-                  <th>Location</th>
-                  <th>Status</th>
-                  <th>Date Saved</th>
-                  <th>Deadline</th>
-                  <th>Date Applied</th>
-                </tr>
-              </thead>
-              <tbody id="trackerTableBody">
-                <!-- Dynamically filled rows -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="btn-row" style="margin-top: 24px;">
+        <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
           <button class="btn-secondary" onclick="backToLocationFromJobs()">&larr; Back</button>
-          <button class="btn-primary" onclick="navToStudio()">Return to Resume & AI Coach Chat &rarr;</button>
+          <button class="btn-primary" onclick="navToTracker()">Go to Application Tracker &rarr;</button>
         </div>
       </div>
+
+      <!-- STEP 8: STANDALONE APPLICATION TRACKER -->
+      <div class="tracker-card" id="trackerCard">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Application Pipeline</div>
+            <h3 style="margin: 4px 0 0; text-align:left;">Job Application Tracker</h3>
+          </div>
+          <span style="font-size:12px; background:var(--brand-light); color:var(--brand); font-weight:700; padding:4px 12px; border-radius:12px;" id="trackerSummaryBadge">2 Jobs Tracked</span>
+        </div>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px;">Track all opportunities bookmarked or submitted during your search.</p>
+
+        <div class="tracker-table-wrap">
+          <table class="tracker-table">
+            <thead>
+              <tr>
+                <th style="width: 30px;"><input type="checkbox"></th>
+                <th>Job Position</th>
+                <th>Company</th>
+                <th>Max. Salary</th>
+                <th>Location</th>
+                <th>Status</th>
+                <th>Date Saved</th>
+                <th>Deadline</th>
+                <th>Date Applied</th>
+              </tr>
+            </thead>
+            <tbody id="trackerTableBody"></tbody>
+          </table>
+        </div>
+
+        <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
+          <button class="btn-secondary" onclick="navToJobs()">&larr; Back to Matched Jobs</button>
+          <button class="btn-primary" onclick="navToLearning()">Continue to Skill Improvement Plan &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 9: SKILL IMPROVEMENT & TARGETED STUDY PLAN (06-learning-plan.txt) -->
+      <div class="learning-card" id="learningCard">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 5: Skill Acceleration</div>
+            <h3 style="margin: 4px 0 0; text-align:left;">Targeted Study & Learning Plan 📚</h3>
+          </div>
+        </div>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 18px;">
+          Powered by <b>06-learning-plan.txt</b>. Synthesize your identified skill gaps into an actionable milestone roadmap.
+        </p>
+
+        <div style="background:var(--card-subtle); border:1px solid var(--bd); padding:16px; border-radius:12px;">
+          <label style="margin-top:0;">Gaps & Skills to Bridge</label>
+          <input id="planMissingSkillsInput" value="Senior-level experience, .Net, C#, Android, Azure, Architecture Patterns">
+
+          <label>Target Readiness Timeline</label>
+          <select id="planTimelineSelect">
+            <option value="14-Day Accelerated Sprint">14-Day Accelerated Sprint</option>
+            <option value="30-Day Project-Based Mastery">30-Day Project-Based Mastery</option>
+            <option value="60-Day Comprehensive Readiness">60-Day Comprehensive Readiness</option>
+          </select>
+
+          <button class="btn-primary" style="margin-top:14px; width:100%;" onclick="generateLearningPlan()">
+            ✨ Generate Targeted Study Plan with Gemini AI
+          </button>
+        </div>
+
+        <div id="planLoading" style="display:none; text-align:center; padding:30px;">
+          <div class="spinner"></div>
+          <div>Synthesizing your personalized curriculum and milestones...</div>
+        </div>
+
+        <div class="plan-output-box" id="planOutputBox" style="display:none;"></div>
+
+        <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
+          <button class="btn-secondary" onclick="navToTracker()">&larr; Back to Tracker</button>
+          <button class="btn-primary" onclick="navToStudio()">Return to Resume Studio &rarr;</button>
+        </div>
+      </div>
+
     </div>
   </main>
 
-  <!-- RIGHT SIDE PANEL 1: RESUME IMPROVEMENT PROMPTS (Only in Resume Studio) -->
+  <!-- RIGHT SIDE PANEL 1: RESUME IMPROVEMENT PROMPTS -->
   <aside class="prompts-sidebar" id="rightPromptsPanel">
     <div style="padding-bottom: 12px; border-bottom: 1px solid var(--bd); margin-bottom: 12px;">
       <div style="font-size: 15px; font-weight: 800; display:flex; justify-content:space-between;">
         <span>✨ Improvement Prompts</span>
         <span id="promptCountBadge" style="font-size: 11px; background: var(--success-light); color: var(--success); padding: 2px 8px; border-radius: 12px;">0/7</span>
       </div>
-      <div style="font-size: 12px; color: var(--tx-muted); margin-top: 4px;">Select prompts to enhance your resume.</div>
     </div>
-
     <div id="applySelectedPromptsWrap" style="margin-bottom: 12px;">
       <button id="applySelectedPromptsBtn" class="btn-primary" style="width: 100%; font-size: 12px; padding: 10px; background: var(--success); display: none;" onclick="applySelectedPrompts()">
         🚀 Generate Resume with Selected (<span id="selectedPromptsCount">0</span>)
       </button>
     </div>
-
     <div class="prompt-items-container" id="promptItemsContainer"></div>
   </aside>
 
-  <!-- RIGHT SIDE PANEL 2: JOB SKILL FIT & APPLICATION ACTION (Only in Matched Jobs) -->
+  <!-- RIGHT SIDE PANEL 2: JOB SKILL FIT & APPLICATION ACTION -->
   <aside class="job-sidebar" id="rightJobSidebar">
     <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:12px; border-bottom:1px solid var(--bd);">
       <span style="font-size: 15px; font-weight: 800; color: var(--tx);">🎯 AI Skill Fit Match</span>
@@ -617,38 +722,30 @@
           <div style="font-size: 12px; color: var(--tx-muted); margin-top: 4px;" id="jsJobMeta">Location • Salary</div>
         </div>
 
-        <div style="background: var(--card-subtle); padding: 10px 12px; border-radius: 8px; font-size: 12px; line-height: 1.5;" id="jsFitSummary">
-          AI Fit Rationale
-        </div>
+        <div style="background: var(--card-subtle); padding: 10px 12px; border-radius: 8px; font-size: 12px; line-height: 1.5;" id="jsFitSummary"></div>
 
-        <!-- Section 1: Required Skills -->
         <div>
           <div style="font-size: 12px; font-weight: 800; color: var(--tx); text-transform: uppercase;">📌 Skills Required for the Job</div>
           <div class="skill-pill-list" id="jsRequiredSkills"></div>
         </div>
 
-        <!-- Section 2: Matched Skills -->
         <div>
           <div style="font-size: 12px; font-weight: 800; color: var(--success); text-transform: uppercase;">✅ Matched Skills You Have</div>
           <div class="skill-pill-list" id="jsMatchedSkills"></div>
         </div>
 
-        <!-- Section 3: Missing Skills -->
         <div>
           <div style="font-size: 12px; font-weight: 800; color: var(--amber); text-transform: uppercase;">⚠️ Missing Skills / Gaps to Address</div>
           <div class="skill-pill-list" id="jsMissingSkills"></div>
         </div>
 
-        <!-- Action Box -->
-        <div style="background: #ffffff; border: 1px solid var(--bd); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);">
-          <div style="font-weight: 800; font-size: 13.5px; color: var(--tx);">Are you going to apply?</div>
-          <p style="font-size: 12px; color: var(--tx-muted); margin: 0;">Track this opening in your personal Application Tracker table.</p>
-          
-          <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
-            <button class="btn-primary" style="background: var(--success); font-size: 13px;" onclick="trackApplication('Applied')">
+        <div style="background: #ffffff; border: 1px solid var(--bd); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px;">
+          <div style="font-weight: 800; font-size: 13px;">Are you going to apply?</div>
+          <div style="display:flex; flex-direction:column; gap:8px;">
+            <button class="btn-primary" style="background: var(--success); font-size: 12.5px;" onclick="trackApplication('Applied')">
               🚀 I Have Applied
             </button>
-            <button class="btn-secondary" style="font-size: 13px;" onclick="trackApplication('Bookmarked')">
+            <button class="btn-secondary" style="font-size: 12.5px;" onclick="trackApplication('Bookmarked')">
               📌 Bookmark / Save for Later
             </button>
           </div>
@@ -663,38 +760,18 @@
   let selectedMotivation = "New grad";
   let selectedTimeline = "As soon as possible";
   let selectedWorkType = "Remote";
+  let activeImportMethod = "paste";
   let resumeVersions = { 1: "" };
-  let currentVersion = 1;
   let chatHistory = [];
   
-  // Tracked Jobs List (Application Tracker Data)
   let trackedApplications = [
-    {
-      id: "demo-1",
-      title: "Operations Manager - Sample Job",
-      company: "Acme Corp",
-      salary: "US$0",
-      location: "remote",
-      status: "Bookmarked",
-      dateSaved: "10/02/2026",
-      deadline: "N/A",
-      dateApplied: "10/02/2026"
-    },
-    {
-      id: "demo-2",
-      title: "Product Designer - Sample Job",
-      company: "Acme Corp",
-      salary: "US$0",
-      location: "Anywhere, USA",
-      status: "Bookmarked",
-      dateSaved: "10/02/2026",
-      deadline: "N/A",
-      dateApplied: "10/02/2026"
-    }
+    { id: "demo-1", title: "Operations Manager - Sample Job", company: "Acme Corp", salary: "US$0", location: "remote", status: "Bookmarked", dateSaved: "10/02/2026", deadline: "N/A", dateApplied: "10/02/2026" },
+    { id: "demo-2", title: "Product Designer - Sample Job", company: "Acme Corp", salary: "US$0", location: "Anywhere, USA", status: "Bookmarked", dateSaved: "10/02/2026", deadline: "N/A", dateApplied: "10/02/2026" }
   ];
 
   let currentLiveJobs = [];
   let selectedJob = null;
+  let lastIdentifiedMissingSkills = [];
 
   let promptsList = [
     { id: 1, text: "Diagnose the 5 most important problems in this draft regarding navigation, prioritization, and vague claims, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
@@ -739,7 +816,6 @@
     handleChatSubmit(new Event("submit"));
   }
 
-  // Sidebar Panel Visibility Controls
   function showPromptsPanel() {
     document.body.classList.add("with-right-panel");
     $("#rightJobSidebar").classList.remove("active");
@@ -768,40 +844,38 @@
     $(`#${id}`)?.classList.add("active");
   }
 
-  function resetToHome() {
+  function hideAllPages() {
     hideAllSidebars();
+    $("#wizardCard").style.display = "none";
     $("#resumeStudioCard").style.display = "none";
     $("#downloadCard").style.display = "none";
     $("#locationCard").style.display = "none";
     $("#jobsCard").style.display = "none";
+    $("#trackerCard").style.display = "none";
+    $("#learningCard").style.display = "none";
+  }
+
+  function resetToHome() {
+    hideAllPages();
     $("#wizardCard").style.display = "block";
     goToStep(1);
     updateNavHighlight("navStudio");
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 
+  // NAVIGATION ROUTING
   function navToStudio() {
     if (resumeVersions[1]) {
-      hideAllSidebars();
-      $("#wizardCard").style.display = "none";
-      $("#downloadCard").style.display = "none";
-      $("#locationCard").style.display = "none";
-      $("#jobsCard").style.display = "none";
+      hideAllPages();
       $("#resumeStudioCard").style.display = "block";
       showPromptsPanel();
       updateNavHighlight("navStudio");
-    } else {
-      resetToHome();
-    }
+    } else resetToHome();
   }
 
   function navToDownload() {
     if (resumeVersions[1]) {
-      hideAllSidebars();
-      $("#wizardCard").style.display = "none";
-      $("#resumeStudioCard").style.display = "none";
-      $("#locationCard").style.display = "none";
-      $("#jobsCard").style.display = "none";
+      hideAllPages();
       $("#downloadCard").style.display = "block";
       updateNavHighlight("navDownload");
     } else alert("Generate your resume first.");
@@ -809,11 +883,7 @@
 
   function navToLocation() {
     if (resumeVersions[1]) {
-      hideAllSidebars();
-      $("#wizardCard").style.display = "none";
-      $("#resumeStudioCard").style.display = "none";
-      $("#downloadCard").style.display = "none";
-      $("#jobsCard").style.display = "none";
+      hideAllPages();
       $("#locationCard").style.display = "block";
       updateNavHighlight("navLocation");
     } else alert("Generate your resume first.");
@@ -821,15 +891,26 @@
 
   function navToJobs() {
     if (resumeVersions[1]) {
-      hideAllSidebars();
-      $("#wizardCard").style.display = "none";
-      $("#resumeStudioCard").style.display = "none";
-      $("#downloadCard").style.display = "none";
-      $("#locationCard").style.display = "none";
+      hideAllPages();
       $("#jobsCard").style.display = "block";
       updateNavHighlight("navJobs");
-      renderTrackerTable();
     } else alert("Generate your resume first.");
+  }
+
+  function navToTracker() {
+    hideAllPages();
+    $("#trackerCard").style.display = "block";
+    updateNavHighlight("navTracker");
+    renderTrackerTable();
+  }
+
+  function navToLearning() {
+    hideAllPages();
+    $("#learningCard").style.display = "block";
+    updateNavHighlight("navLearning");
+    if (lastIdentifiedMissingSkills.length > 0) {
+      $("#planMissingSkillsInput").value = lastIdentifiedMissingSkills.join(", ");
+    }
   }
 
   function goToStep(s) {
@@ -842,9 +923,62 @@
     });
   }
 
-  function selectMotivation(el, v) { selectedMotivation = v; setTimeout(() => goToStep(2), 120); }
-  function selectTimeline(el, v) { selectedTimeline = v; setTimeout(() => goToStep(3), 120); }
+  function selectMotivation(el, v) { 
+    document.querySelectorAll("#motivationChoices .choice-card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedMotivation = v; 
+    setTimeout(() => goToStep(2), 120); 
+  }
+
+  function selectTimeline(el, v) { 
+    document.querySelectorAll("#timelineChoices .choice-card").forEach(c => c.classList.remove("selected"));
+    el.classList.add("selected");
+    selectedTimeline = v; 
+    setTimeout(() => goToStep(3), 120); 
+  }
+
   function selectWorkType(el, v) { selectedWorkType = v; }
+
+  function handleRoleChange() {
+    const val = $("#roleSelect").value;
+    $("#customRoleWrap").style.display = val === "other" ? "block" : "none";
+  }
+
+  function getTargetRole() {
+    const val = $("#roleSelect").value;
+    return val === "other" ? $("#customRoleInput").value.trim() : val;
+  }
+
+  function switchImportMethod(method) {
+    activeImportMethod = method;
+    ["paste", "upload", "manual", "scratch"].forEach(m => {
+      const cap = m.charAt(0).toUpperCase() + m.slice(1);
+      $(`#tab${cap}`).classList.toggle("active", m === method);
+      $(`#import${cap}View`).style.display = m === method ? (m === "manual" ? "flex" : "block") : "none";
+    });
+  }
+
+  function handleFileUpload(event) {
+    const file = event.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = e => {
+        $("#resume").value = e.target.result;
+        $("#uploadFileName").innerText = `Uploaded: ${file.name}`;
+      };
+      reader.readAsText(file);
+    }
+  }
+
+  function getResumeContent() {
+    if (activeImportMethod === "manual") {
+      return `SKILLS:\n${$("#manualSkills").value.trim()}\n\nEXPERIENCE & PROJECTS:\n${$("#manualProjects").value.trim()}`;
+    }
+    if (activeImportMethod === "scratch") {
+      return "";
+    }
+    return $("#resume").value.trim();
+  }
 
   function backToStep3FromStudio() {
     $("#resumeStudioCard").style.display = "none";
@@ -859,8 +993,8 @@
 
   // 1. GENERATE RESUMES
   async function startAnalysis() {
-    const role = $("#roleSelect").value;
-    const resumeText = $("#resume").value.trim();
+    const role = getTargetRole();
+    const resumeText = getResumeContent();
 
     $("#wizardCard").style.display = "none";
     $("#progressBox").style.display = "block";
@@ -889,7 +1023,7 @@
     }
   }
 
-  // 2. CHAT HANDLER & LOAD INTO EDITOR
+  // 2. CHAT HANDLER
   window.loadResumeIntoEditor = function(encoded) {
     const clean = decodeURIComponent(encoded);
     $("#editableResumeText").value = clean;
@@ -934,7 +1068,7 @@
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role: $("#roleSelect").value, resume: $("#editableResumeText").value, messages: chatHistory })
+        body: JSON.stringify({ role: getTargetRole(), resume: $("#editableResumeText").value, messages: chatHistory })
       });
       const data = await res.json();
       chatHistory.push({ role: "assistant", content: data.text });
@@ -962,17 +1096,11 @@
 
   function saveAndProceedToDownload() {
     resumeVersions[1] = $("#editableResumeText").value;
-    $("#resumeStudioCard").style.display = "none";
-    $("#downloadCard").style.display = "block";
-    hideAllSidebars();
-    updateNavHighlight("navDownload");
+    navToDownload();
   }
 
   function proceedToLocationStep() {
-    $("#downloadCard").style.display = "none";
-    $("#locationCard").style.display = "block";
-    hideAllSidebars();
-    updateNavHighlight("navLocation");
+    navToLocation();
   }
 
   function downloadAsDocx() {
@@ -995,16 +1123,14 @@
     a.click();
   }
 
-  // 3. FIND MATCHING JOBS & SKILLS MATCH
+  // 3. MATCHING JOBS
   async function findMatchingJobs() {
     const loc = $("#targetLocation").value.trim() || "Remote / US";
-    const role = $("#roleSelect").value;
+    const role = getTargetRole();
     
-    hideAllSidebars();
-    $("#locationCard").style.display = "none";
+    hideAllPages();
     $("#jobsCard").style.display = "block";
     updateNavHighlight("navJobs");
-    renderTrackerTable();
 
     $("#jobListContainer").innerHTML = `<div style="text-align:center; padding:30px;"><div class="spinner"></div>Searching live jobs for <b>${role}</b>...</div>`;
 
@@ -1048,7 +1174,7 @@
     }
   }
 
-  // 4. SELECT JOB & CALL AI SKILL FIT
+  // 4. SELECT JOB & AI SKILL FIT MATCH
   async function selectJobForAnalysis(index) {
     const job = currentLiveJobs[index];
     if (!job) return;
@@ -1068,6 +1194,7 @@
         body: JSON.stringify({ job, resume: $("#editableResumeText").value })
       });
       const fitData = await res.json();
+      lastIdentifiedMissingSkills = fitData.missingSkills || [];
 
       $("#jsJobTitle").innerText = job.title;
       $("#jsJobCompany").innerText = job.company;
@@ -1103,28 +1230,12 @@
     };
 
     trackedApplications.unshift(newEntry);
-    renderTrackerTable();
     alert(`🎉 Successfully marked as '${status}' in your Application Tracker!`);
-    switchJobsView('tracker');
-  }
-
-  function switchJobsView(view) {
-    if (view === 'openings') {
-      $("#tabLiveJobs").classList.add("active");
-      $("#tabTracker").classList.remove("active");
-      $("#liveJobsView").style.display = "block";
-      $("#applicationTrackerView").style.display = "none";
-    } else {
-      $("#tabLiveJobs").classList.remove("active");
-      $("#tabTracker").classList.add("active");
-      $("#liveJobsView").style.display = "none";
-      $("#applicationTrackerView").style.display = "block";
-      closeJobSidebar();
-    }
+    navToTracker();
   }
 
   function renderTrackerTable() {
-    $("#trackerCount").innerText = trackedApplications.length;
+    $("#trackerSummaryBadge").innerText = `${trackedApplications.length} Jobs Tracked`;
     const body = $("#trackerTableBody");
     if (!body) return;
 
@@ -1145,6 +1256,46 @@
         <td>${app.dateApplied}</td>
       </tr>
     `).join("");
+  }
+
+  // 6. GENERATE STUDY & LEARNING PLAN (06-learning-plan.txt)
+  async function generateLearningPlan() {
+    const role = getTargetRole();
+    const missing = $("#planMissingSkillsInput").value.split(",").map(s => s.trim()).filter(Boolean);
+    const timeline = $("#planTimelineSelect").value;
+
+    $("#planLoading").style.display = "block";
+    $("#planOutputBox").style.display = "none";
+
+    try {
+      const res = await fetch("/api/generate-learning-plan", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role,
+          missingSkills: missing,
+          resume: $("#editableResumeText").value,
+          timeline
+        })
+      });
+      const data = await res.json();
+      $("#planLoading").style.display = "none";
+
+      if (data.error) throw new Error(data.error);
+
+      $("#planOutputBox").innerHTML = data.plan
+        .replace(/^### (.*$)/gim, '<h3 style="color:var(--brand); margin-top:20px;">$1</h3>')
+        .replace(/^## (.*$)/gim, '<h2 style="color:var(--tx); margin-top:24px;">$1</h2>')
+        .replace(/^\* (.*$)/gim, '• $1<br>')
+        .replace(/\*\*(.*?)\*\*/g, '<b>$1</b>')
+        .replace(/\n/g, '<br>');
+
+      $("#planOutputBox").style.display = "block";
+      $("#planOutputBox").scrollIntoView({ behavior: 'smooth' });
+    } catch (err) {
+      $("#planLoading").style.display = "none";
+      alert("Error generating learning plan: " + err.message);
+    }
   }
 
   renderPromptsList();

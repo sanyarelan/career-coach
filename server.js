@@ -28,6 +28,7 @@ function loadPromptFile(fileName) {
   for (const p of possiblePaths) {
     if (fs.existsSync(p)) {
       try {
+        console.log(`[Prompts] Successfully loaded ${fileName} from ${p}`);
         return fs.readFileSync(p, "utf-8").trim();
       } catch (e) {}
     }
@@ -37,6 +38,7 @@ function loadPromptFile(fileName) {
 
 const sharedInstructions = loadPromptFile("00-shared-instructions.txt");
 const defaultCandidateProfile = loadPromptFile("01-candidate-profile.txt");
+const learningPlanInstructions = loadPromptFile("06-learning-plan.txt");
 
 http.createServer(async (req, res) => {
   // 1. SERVE FRONTEND
@@ -48,7 +50,7 @@ http.createServer(async (req, res) => {
     return send(res, 404, { error: "index.html not found" });
   }
 
-  // 2. GENERATE FIRST DRAFT RESUME
+  // 2. GENERATE 3 RESUME OPTIONS
   if (req.method === "POST" && req.url === "/api/generate-resumes") {
     let raw = "";
     for await (const c of req) raw += c;
@@ -57,15 +59,32 @@ http.createServer(async (req, res) => {
 
     const { role, resume, motivation, timeline } = body;
     if (!role?.trim()) return send(res, 400, { error: "Target role is required." });
-    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing in your environment." });
+    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing." });
 
     const candidateContext = (resume && resume.trim().length > 10)
       ? resume.trim()
-      : (defaultCandidateProfile || "Candidate has verified software engineering experience.");
+      : (defaultCandidateProfile || "Candidate has verified software engineering experience, project portfolios, and relevant CS background.");
 
     const systemPrompt = `You are an elite, evidence-based Technical Career Coach operating under strict rules:
-${sharedInstructions ? `=== SHARED INSTRUCTIONS ===\n${sharedInstructions}` : "Adhere strictly to verified facts only."}
-TASK: Generate 1 complete FIRST DRAFT resume for "${role}". Output ONLY the clean resume text without markdown backticks.`;
+${sharedInstructions ? `=== SHARED INSTRUCTIONS ===\n${sharedInstructions}` : "Adhere strictly to verified facts only. Never hallucinate fake metrics, companies, or tools."}
+
+TASK:
+Generate 3 distinct, full-length resumes tailored specifically for the target role: '${role}'.
+
+Use these EXACT 3 delimiters so the frontend can parse each option:
+===OPTION 1===
+[Full complete resume text for Option 1 - Focus on Deliverables, Scope, and Outcomes]
+===OPTION 2===
+[Full complete resume text for Option 2 - Focus on Technical Architecture, Engineering Depth, and System Design]
+===OPTION 3===
+[Full complete resume text for Option 3 - Focus on Clean, Modern, Concise Structure]`;
+
+    const userContent = `TARGET ROLE: ${role}
+MOTIVATION: ${motivation || "New grad"}
+TIMELINE: ${timeline || "As soon as possible"}
+
+CANDIDATE PROFILE EVIDENCE:
+${candidateContext}`;
 
     try {
       const geminiRes = await fetch(
@@ -75,7 +94,7 @@ TASK: Generate 1 complete FIRST DRAFT resume for "${role}". Output ONLY the clea
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: "user", parts: [{ text: `TARGET: ${role}\nMOTIVATION: ${motivation}\nTIMELINE: ${timeline}\n\nEVIDENCE:\n${candidateContext}` }] }],
+            contents: [{ role: "user", parts: [{ text: userContent }] }],
             generationConfig: { temperature: 0.25 }
           }),
         }
@@ -84,10 +103,27 @@ TASK: Generate 1 complete FIRST DRAFT resume for "${role}". Output ONLY the clea
       const data = await geminiRes.json();
       if (!geminiRes.ok) throw new Error(data?.error?.message || "Gemini error");
 
-      let cleanDraft = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("\n").trim();
-      cleanDraft = cleanDraft.replace(/^```[a-z]*\n?/i, "").replace(/```$/g, "").trim();
+      let rawText = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("\n").trim();
+      let opt1 = "", opt2 = "", opt3 = "";
 
-      return send(res, 200, { draft: cleanDraft, option1: cleanDraft });
+      if (rawText.includes("===OPTION 1===")) {
+        const parts = rawText.split(/===OPTION [123]===/);
+        opt1 = (parts[1] || "").trim();
+        opt2 = (parts[2] || "").trim();
+        opt3 = (parts[3] || "").trim();
+      } else {
+        const clean = rawText.replace(/^```[a-z]*\n?/i, "").replace(/```$/g, "").trim();
+        opt1 = clean;
+        opt2 = clean;
+        opt3 = clean;
+      }
+
+      return send(res, 200, {
+        draft: opt1,
+        option1: opt1,
+        option2: opt2,
+        option3: opt3
+      });
     } catch (err) {
       return send(res, 500, { error: err.message });
     }
@@ -108,10 +144,12 @@ TASK: Generate 1 complete FIRST DRAFT resume for "${role}". Output ONLY the clea
       searchKeyword = "python";
     } else if (rLower.includes("backend")) {
       searchKeyword = "backend";
-    } else if (rLower.includes("frontend") || rLower.includes("web")) {
+    } else if (rLower.includes("frontend") || rLower.includes("web") || rLower.includes("react")) {
       searchKeyword = "react";
     } else if (rLower.includes("devops") || rLower.includes("cloud")) {
       searchKeyword = "devops";
+    } else if (rLower.includes("data engineer")) {
+      searchKeyword = "data";
     }
 
     try {
@@ -161,7 +199,7 @@ CANDIDATE RESUME:
 ${resume}
 
 TASK:
-Analyze the match and return STRICT valid JSON only (no markdown, no backticks, no comments) with this exact schema:
+Analyze the match and return STRICT valid JSON only (no markdown, no backticks):
 {
   "requiredSkills": ["Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5"],
   "matchedSkills": ["Skill Candidate Has 1", "Skill Candidate Has 2"],
@@ -200,7 +238,63 @@ Analyze the match and return STRICT valid JSON only (no markdown, no backticks, 
     }
   }
 
-  // 5. CHAT COACH API
+  // 5. GENERATE LEARNING & STUDY PLAN (06-learning-plan.txt)
+  if (req.method === "POST" && req.url === "/api/generate-learning-plan") {
+    let raw = "";
+    for await (const c of req) raw += c;
+    let body = {};
+    try { body = JSON.parse(raw); } catch {}
+
+    const { role, missingSkills, resume, timeline } = body;
+    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing." });
+
+    const systemPrompt = `You are a Principal Engineering Career Coach and Curriculum Architect.
+${learningPlanInstructions ? `=== LEARNING PLAN GUIDELINES (06-learning-plan.txt) ===\n${learningPlanInstructions}\n======================================================` : ""}
+${sharedInstructions ? `=== SHARED INSTRUCTIONS ===\n${sharedInstructions}` : ""}
+
+TASK:
+Create a high-impact, realistic, project-based Technical Study Plan to bridge the candidate's verified skill gaps for the target role: "${role}".
+
+MISSING SKILLS / GAPS IDENTIFIED:
+${Array.isArray(missingSkills) && missingSkills.length ? missingSkills.join(", ") : "Advanced System Design, Cloud Deployments, Microservice Resiliency"}
+
+CANDIDATE CURRENT PROFILE:
+${resume || "Early career software engineer with solid CS fundamentals and full-stack projects."}
+
+TIMELINE: ${timeline || "14-Day Accelerated Plan"}
+
+STRUCTURE YOUR OUTPUT CLEARLY WITH MARKDOWN:
+1. Executive Summary & Readiness Assessment
+2. Phase-by-Phase Roadmap (Daily / Weekly Breakdown with concrete code deliverables)
+3. 1 Concrete Capstone Portfolio Feature/Project to prove these skills
+4. 5 Deep Architecture Interview Questions with talking points to practice
+5. Top 3 Curated Documentation & Free Learning Resources`;
+
+    try {
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            systemInstruction: { parts: [{ text: systemPrompt }] },
+            contents: [{ role: "user", parts: [{ text: "Generate the complete, customized technical study plan now." }] }],
+            generationConfig: { temperature: 0.3 }
+          })
+        }
+      );
+
+      const data = await geminiRes.json();
+      if (!geminiRes.ok) throw new Error(data?.error?.message || "Gemini error");
+
+      const planText = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("\n");
+      return send(res, 200, { plan: planText });
+    } catch (err) {
+      return send(res, 500, { error: "Failed to generate learning plan: " + err.message });
+    }
+  }
+
+  // 6. CHAT COACH API
   if (req.method === "POST" && req.url === "/api/chat") {
     let raw = "";
     for await (const c of req) raw += c;
@@ -211,7 +305,7 @@ Analyze the match and return STRICT valid JSON only (no markdown, no backticks, 
     if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is not set." });
     if (!Array.isArray(messages) || !messages.length) return send(res, 400, { error: "No messages provided." });
 
-    const systemInstructionText = `You are a Senior Technical Career Coach and Resume Auditor operating under strict Receipts Mode for '${role || "AI / LLM Application Engineer"}'.
+    const systemInstructionText = `You are a Senior Technical Career Coach and Resume Auditor operating under strict Receipts Mode for '${role || "Software Engineer"}'.
 ${sharedInstructions ? `Adhere to instructions:\n${sharedInstructions}` : ""}
 
 Current Resume Context:
