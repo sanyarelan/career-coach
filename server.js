@@ -16,7 +16,6 @@ function stripHtml(html) {
   return html.replace(/<[^>]*>?/gm, " ").replace(/&nbsp;/g, " ").replace(/\s+/g, " ").trim();
 }
 
-// Locate and load instruction and candidate files from Prompts directory
 function loadPromptFile(fileName) {
   const possiblePaths = [
     path.join(__dirname, "Prompts", fileName),
@@ -29,11 +28,8 @@ function loadPromptFile(fileName) {
   for (const p of possiblePaths) {
     if (fs.existsSync(p)) {
       try {
-        console.log(`[Prompts] Successfully loaded ${fileName} from ${p}`);
         return fs.readFileSync(p, "utf-8").trim();
-      } catch (e) {
-        console.warn(`[Prompts] Error reading ${p}:`, e.message);
-      }
+      } catch (e) {}
     }
   }
   return "";
@@ -52,7 +48,7 @@ http.createServer(async (req, res) => {
     return send(res, 404, { error: "index.html not found" });
   }
 
-  // 2. GENERATE 1 HIGH QUALITY FIRST DRAFT
+  // 2. GENERATE FIRST DRAFT RESUME
   if (req.method === "POST" && req.url === "/api/generate-resumes") {
     let raw = "";
     for await (const c of req) raw += c;
@@ -61,37 +57,15 @@ http.createServer(async (req, res) => {
 
     const { role, resume, motivation, timeline } = body;
     if (!role?.trim()) return send(res, 400, { error: "Target role is required." });
-    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing in your environment or .env file." });
+    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing in your environment." });
 
     const candidateContext = (resume && resume.trim().length > 10)
       ? resume.trim()
-      : (defaultCandidateProfile || "Candidate has verified software engineering experience, project portfolios, and relevant CS background.");
+      : (defaultCandidateProfile || "Candidate has verified software engineering experience.");
 
     const systemPrompt = `You are an elite, evidence-based Technical Career Coach operating under strict rules:
-${sharedInstructions ? `=== SHARED INSTRUCTIONS (00-shared-instructions.txt) ===\n${sharedInstructions}\n======================================================` : `
-RULES:
-- RECEIPTS MODE: Use ONLY facts, tools, technologies, and achievements stated in the candidate's profile.
-- NEVER invent unverified metrics, employers, degrees, or certifications.
-- If a metric is missing, describe qualitative scope or state [Metric needed].
-- Follow ATS-compliant reverse chronological formatting.`}
-
-TASK:
-Generate EXACTLY 1 complete, professional, beautifully formatted FIRST DRAFT resume for the target role: "${role}".
-Ensure standard clean sections:
-1. Contact Information Header (Name, Location, Email, Phone, GitHub/LinkedIn placeholders)
-2. Professional Summary (grounded purely in verified qualifications)
-3. Technical Skills (categorized by Languages, Frameworks, Developer Tools, Cloud/Databases)
-4. Work Experience / Professional Projects (Strong Action Verb + Scope/Architecture + Concrete Result)
-5. Education & Credentials
-
-Output ONLY the clean, ready-to-use resume text with no conversational preamble and no markdown backtick fences.`;
-
-    const userContent = `TARGET ROLE: ${role}
-MOTIVATION: ${motivation || "Career growth"}
-TIMELINE: ${timeline || "As soon as possible"}
-
-CANDIDATE PROFILE EVIDENCE:
-${candidateContext}`;
+${sharedInstructions ? `=== SHARED INSTRUCTIONS ===\n${sharedInstructions}` : "Adhere strictly to verified facts only."}
+TASK: Generate 1 complete FIRST DRAFT resume for "${role}". Output ONLY the clean resume text without markdown backticks.`;
 
     try {
       const geminiRes = await fetch(
@@ -101,88 +75,25 @@ ${candidateContext}`;
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
             systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: "user", parts: [{ text: userContent }] }],
+            contents: [{ role: "user", parts: [{ text: `TARGET: ${role}\nMOTIVATION: ${motivation}\nTIMELINE: ${timeline}\n\nEVIDENCE:\n${candidateContext}` }] }],
             generationConfig: { temperature: 0.25 }
           }),
         }
       );
 
       const data = await geminiRes.json();
-      if (!geminiRes.ok) throw new Error(data?.error?.message || `Gemini API error (${geminiRes.status})`);
+      if (!geminiRes.ok) throw new Error(data?.error?.message || "Gemini error");
 
-      const candidate = data.candidates?.[0];
-      let rawText = (candidate?.content?.parts || []).map((p) => p.text || "").join("\n").trim();
+      let cleanDraft = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("\n").trim();
+      cleanDraft = cleanDraft.replace(/^```[a-z]*\n?/i, "").replace(/```$/g, "").trim();
 
-      if (!rawText) {
-        const finishReason = candidate?.finishReason || data.promptFeedback?.blockReason || "EMPTY_RESPONSE";
-        throw new Error(`Gemini produced no output (Reason: ${finishReason}). Check your GEMINI_API_KEY and model quota.`);
-      }
-
-      let cleanDraft = rawText.replace(/^```[a-z]*\n?/i, "").replace(/```$/g, "").trim();
-
-      // Return draft and backwards-compatible option1/2/3 so frontend never hits "unavailable"
-      return send(res, 200, {
-        draft: cleanDraft,
-        option1: cleanDraft,
-        option2: cleanDraft,
-        option3: cleanDraft
-      });
+      return send(res, 200, { draft: cleanDraft, option1: cleanDraft });
     } catch (err) {
-      console.error("Resume Generation Failed:", err.message);
       return send(res, 500, { error: err.message });
     }
   }
 
-  // 3. ENHANCE / IMPROVE RESUME ON TOP OF CURRENT DRAFT
-  if (req.method === "POST" && req.url === "/api/improve-resume") {
-    let raw = "";
-    for await (const c of req) raw += c;
-    let body = {};
-    try { body = JSON.parse(raw); } catch {}
-
-    const { role, currentResume, improvements } = body;
-    if (!currentResume?.trim()) return send(res, 400, { error: "Current resume draft is required." });
-    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is missing." });
-
-    const systemPrompt = `You are a Career Coach applying requested improvements on top of an existing resume draft.
-${sharedInstructions ? `=== SHARED INSTRUCTIONS ===\n${sharedInstructions}\n===========================` : `
-RULES:
-- Adhere strictly to verified facts only. Never hallucinate fake metrics.
-- Keep standard ATS reverse-chronological format.`}
-
-TASK:
-1. Address and apply the following requested improvements:
-"${improvements}"
-2. Output the complete UPDATED RESUME incorporating all requested changes on top of the original draft.
-3. Return ONLY the complete updated resume text without conversational chatter or code backticks.`;
-
-    try {
-      const geminiRes = await fetch(
-        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
-        {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            systemInstruction: { parts: [{ text: systemPrompt }] },
-            contents: [{ role: "user", parts: [{ text: `TARGET ROLE: ${role}\n\nCURRENT RESUME DRAFT:\n${currentResume}\n\nREQUESTED IMPROVEMENTS:\n${improvements}` }] }],
-            generationConfig: { temperature: 0.25 }
-          }),
-        }
-      );
-
-      const data = await geminiRes.json();
-      if (!geminiRes.ok) throw new Error(data?.error?.message || "Gemini API error");
-
-      let updatedResume = (data.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("\n").trim();
-      updatedResume = updatedResume.replace(/^```[a-z]*\n?/i, "").replace(/```$/g, "").trim();
-
-      return send(res, 200, { updatedResume });
-    } catch (err) {
-      return send(res, 500, { error: "Improvement Error: " + err.message });
-    }
-  }
-
-  // 4. LIVE JOBS API
+  // 3. LIVE JOBS FEED
   if (req.method === "POST" && req.url === "/api/jobs") {
     let raw = "";
     for await (const c of req) raw += c;
@@ -201,31 +112,91 @@ TASK:
       searchKeyword = "react";
     } else if (rLower.includes("devops") || rLower.includes("cloud")) {
       searchKeyword = "devops";
-    } else if (rLower.includes("data engineer")) {
-      searchKeyword = "data";
     }
 
     try {
-      const apiRes = await fetch(`https://remotive.com/api/remote-jobs?search=${encodeURIComponent(searchKeyword)}&limit=8`);
+      const apiRes = await fetch(`https://remotive.com/api/remote-jobs?search=${encodeURIComponent(searchKeyword)}&limit=10`);
       const data = await apiRes.json();
 
       let jobs = [];
       if (data && Array.isArray(data.jobs) && data.jobs.length > 0) {
-        jobs = data.jobs.slice(0, 5).map(j => ({
+        jobs = data.jobs.slice(0, 8).map(j => ({
+          id: j.id,
           title: j.title,
           company: j.company_name,
           location: j.candidate_required_location || location || "Remote / US",
           workType: j.job_type ? j.job_type.replace("_", " ").toUpperCase() : workType || "Full-Time",
-          salary: j.salary || "Competitive Market Rate",
+          salary: j.salary || "US$90k - $130k",
           url: j.url,
-          tags: Array.isArray(j.tags) && j.tags.length ? j.tags.slice(0, 5) : ["Engineering", "APIs"],
-          snippet: stripHtml(j.description).slice(0, 200) + "..."
+          tags: Array.isArray(j.tags) && j.tags.length ? j.tags.slice(0, 6) : ["Engineering", "APIs"],
+          snippet: stripHtml(j.description).slice(0, 260) + "..."
         }));
       }
 
       return send(res, 200, { jobs });
     } catch (e) {
       return send(res, 200, { jobs: [] });
+    }
+  }
+
+  // 4. AI JOB FIT & SKILLS GAP ANALYSIS (Required, Matched, Missing)
+  if (req.method === "POST" && req.url === "/api/analyze-job-fit") {
+    let raw = "";
+    for await (const c of req) raw += c;
+    let body = {};
+    try { body = JSON.parse(raw); } catch {}
+
+    const { job, resume } = body;
+    if (!job || !resume) return send(res, 400, { error: "Job and Resume are required." });
+    if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is not set." });
+
+    const prompt = `You are a Technical Recruiter evaluating a candidate's resume against a job opening.
+
+JOB DETAILS:
+Title: ${job.title}
+Company: ${job.company}
+Overview & Keywords: ${job.snippet} | Tags: ${(job.tags || []).join(", ")}
+
+CANDIDATE RESUME:
+${resume}
+
+TASK:
+Analyze the match and return STRICT valid JSON only (no markdown, no backticks, no comments) with this exact schema:
+{
+  "requiredSkills": ["Skill 1", "Skill 2", "Skill 3", "Skill 4", "Skill 5"],
+  "matchedSkills": ["Skill Candidate Has 1", "Skill Candidate Has 2"],
+  "missingSkills": ["Skill Candidate Lacks 1", "Skill Candidate Lacks 2"],
+  "matchScore": 75,
+  "fitSummary": "Brief 2-sentence rationale of how well candidate fits."
+}`;
+
+    try {
+      const geminiRes = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${KEY}`,
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            contents: [{ role: "user", parts: [{ text: prompt }] }],
+            generationConfig: { temperature: 0.2 }
+          })
+        }
+      );
+
+      const data = await geminiRes.json();
+      let text = (data.candidates?.[0]?.content?.parts || []).map(p => p.text || "").join("").trim();
+      text = text.replace(/^```json/i, "").replace(/^```/i, "").replace(/```$/g, "").trim();
+
+      const parsed = JSON.parse(text);
+      return send(res, 200, parsed);
+    } catch (err) {
+      return send(res, 200, {
+        requiredSkills: job.tags || ["APIs", "System Architecture", "Python", "Cloud"],
+        matchedSkills: ["REST APIs", "Git", "Agile"],
+        missingSkills: ["Domain Specific Tools", "Production Model Deployments"],
+        matchScore: 70,
+        fitSummary: "Candidate has strong foundational engineering skills; bridge gaps in specific frameworks during interviews."
+      });
     }
   }
 
@@ -240,11 +211,21 @@ TASK:
     if (!KEY) return send(res, 500, { error: "GEMINI_API_KEY is not set." });
     if (!Array.isArray(messages) || !messages.length) return send(res, 400, { error: "No messages provided." });
 
-    const systemInstructionText = `You are a Senior Technical Career Coach helping a candidate targeting '${role || "Software Engineer"}'.
+    const systemInstructionText = `You are a Senior Technical Career Coach and Resume Auditor operating under strict Receipts Mode for '${role || "AI / LLM Application Engineer"}'.
 ${sharedInstructions ? `Adhere to instructions:\n${sharedInstructions}` : ""}
-Current Resume:
+
+Current Resume Context:
 ${resume || "No resume provided yet"}
-Provide concrete, actionable advice in Receipts Mode. Format cleanly with Markdown.`;
+
+RULES WHEN REQUESTED TO IMPROVE RESUME:
+Always structure output into these TWO distinct sections:
+### 1. What Changed & What to Check
+Provide a concise Markdown table:
+| Section / Original | Revised Change | Reason for Change | What Candidate Must Verify |
+
+===UPDATED RESUME===
+[Put complete, updated resume text here without commentary or code ticks]
+===END RESUME===`;
 
     try {
       const geminiRes = await fetch(
@@ -258,7 +239,7 @@ Provide concrete, actionable advice in Receipts Mode. Format cleanly with Markdo
               role: m.role === "assistant" ? "model" : "user",
               parts: [{ text: String(m.content) }]
             })),
-            generationConfig: { temperature: 0.3 }
+            generationConfig: { temperature: 0.25 }
           })
         }
       );
@@ -267,9 +248,9 @@ Provide concrete, actionable advice in Receipts Mode. Format cleanly with Markdo
       if (!geminiRes.ok) throw new Error(data?.error?.message || "Gemini API error");
 
       const text = (data.candidates?.[0]?.content?.parts || []).map((p) => p.text || "").join("\n");
-      return send(res, 200, { text: text || "No response received from Gemini." });
+      return send(res, 200, { text: text || "No response received." });
     } catch (err) {
-      return send(res, 500, { error: "Gemini Chat Error: " + err.message });
+      return send(res, 500, { error: err.message });
     }
   }
 

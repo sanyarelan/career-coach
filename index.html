@@ -26,6 +26,8 @@
       --success: #16a34a;
       --success-light: #f0fdf4;
       --danger: #dc2626;
+      --amber: #d97706;
+      --amber-light: #fffbeb;
       --shadow-sm: 0 1px 3px rgba(0,0,0,0.06);
       --shadow-md: 0 4px 14px rgba(0,0,0,0.06);
     }
@@ -43,14 +45,12 @@
     }
 
     body.with-right-panel {
-      grid-template-columns: 240px 1fr 340px;
+      grid-template-columns: 240px 1fr 360px;
     }
 
     @media (max-width: 1100px) {
-      body.with-right-panel {
-        grid-template-columns: 240px 1fr;
-      }
-      aside.prompts-sidebar {
+      body.with-right-panel { grid-template-columns: 240px 1fr; }
+      aside.prompts-sidebar, aside.job-sidebar {
         position: fixed;
         right: 0;
         top: 0;
@@ -80,11 +80,7 @@
       overflow-y: auto;
     }
 
-    .nav-menu {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-    }
+    .nav-menu { display: flex; flex-direction: column; gap: 6px; }
     .nav-item {
       display: flex;
       align-items: center;
@@ -98,20 +94,10 @@
       transition: all 0.15s ease;
       text-decoration: none;
     }
-    .nav-item:hover {
-      background: var(--card-subtle);
-      color: var(--tx);
-    }
-    .nav-item.active {
-      background: var(--brand-light);
-      color: var(--brand);
-      font-weight: 700;
-    }
+    .nav-item:hover { background: var(--card-subtle); color: var(--tx); }
+    .nav-item.active { background: var(--brand-light); color: var(--brand); font-weight: 700; }
 
-    .sidebar-footer {
-      padding-top: 18px;
-      border-top: 1px solid var(--bd);
-    }
+    .sidebar-footer { padding-top: 18px; border-top: 1px solid var(--bd); }
     .reset-app-btn {
       width: 100%;
       padding: 10px 14px;
@@ -126,13 +112,8 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.15s ease;
     }
-    .reset-app-btn:hover {
-      border-color: var(--danger);
-      color: var(--danger);
-      background: #fef2f2;
-    }
+    .reset-app-btn:hover { border-color: var(--danger); color: var(--danger); background: #fef2f2; }
 
     /* Main Viewport */
     main.content-area {
@@ -146,30 +127,15 @@
 
     .container {
       width: 100%;
-      max-width: 760px;
+      max-width: 820px;
       display: flex;
       flex-direction: column;
       gap: 24px;
     }
 
-    header {
-      text-align: center;
-      padding: 0 8px;
-    }
-    .hero-title {
-      font-size: 28px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin: 0 0 8px;
-      color: var(--tx);
-    }
-    .hero-sub {
-      font-size: 15px;
-      color: var(--tx-muted);
-      max-width: 560px;
-      margin: 0 auto;
-      line-height: 1.5;
-    }
+    header { text-align: center; padding: 0 8px; }
+    .hero-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 0 0 8px; }
+    .hero-sub { font-size: 15px; color: var(--tx-muted); max-width: 580px; margin: 0 auto; line-height: 1.5; }
 
     .wizard-card {
       background: var(--card);
@@ -179,57 +145,21 @@
       box-shadow: var(--shadow-md);
     }
 
-    .step-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 12px;
-    }
-    .step-label {
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.6px;
-      color: var(--brand);
-    }
-    .step-progress-bar {
-      display: flex;
-      gap: 8px;
-      margin-bottom: 24px;
-    }
-    .step-dot {
-      flex: 1;
-      height: 5px;
-      background: var(--bd);
-      border-radius: 4px;
-      transition: all 0.3s ease;
-    }
+    .step-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .step-label { font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--brand); }
+    .step-progress-bar { display: flex; gap: 8px; margin-bottom: 24px; }
+    .step-dot { flex: 1; height: 5px; background: var(--bd); border-radius: 4px; transition: all 0.3s ease; }
     .step-dot.active { background: var(--brand); }
     .step-dot.completed { background: var(--success); }
 
     .wizard-step { display: none; }
-    .wizard-step.active {
-      display: block;
-      animation: fadeIn 0.25s ease-out;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
+    .wizard-step.active { display: block; animation: fadeIn 0.25s ease-out; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
-    h3 { font-size: 19px; font-weight: 800; margin: 0 0 6px; text-align: center; color: var(--tx); }
-    p.prompt-sub { font-size: 14px; color: var(--tx-muted); margin: 0 0 20px; text-align: center; line-height: 1.5; }
+    h3 { font-size: 19px; font-weight: 800; margin: 0 0 6px; text-align: center; }
+    p.prompt-sub { font-size: 14px; color: var(--tx-muted); margin: 0 0 20px; text-align: center; }
 
-    label {
-      display: block;
-      font-size: 12px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.5px;
-      color: var(--tx-muted);
-      margin: 16px 0 6px;
-    }
-
+    label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--tx-muted); margin: 16px 0 6px; }
     input, select, textarea {
       width: 100%;
       font: inherit;
@@ -239,37 +169,10 @@
       border-radius: 10px;
       padding: 12px 14px;
       font-size: 14px;
-      transition: all 0.2s ease;
-    }
-    select {
-      cursor: pointer;
-      appearance: none;
-      background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%2364748b' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-      background-size: 16px;
-      padding-right: 40px;
-    }
-    input:focus, select:focus, textarea:focus {
-      outline: none;
-      border-color: var(--bd-focus);
-      box-shadow: 0 0 0 3px rgba(197, 97, 58, 0.15);
     }
     textarea { min-height: 140px; resize: vertical; }
 
-    .custom-role-container {
-      display: none;
-      margin-top: 10px;
-      animation: fadeIn 0.2s ease-out;
-    }
-
-    .choice-stack {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-width: 520px;
-      margin: 0 auto;
-    }
+    .choice-stack { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; }
     .choice-card {
       padding: 14px 18px;
       background: var(--card-subtle);
@@ -278,67 +181,14 @@
       cursor: pointer;
       font-size: 14px;
       font-weight: 600;
-      color: var(--tx);
-      transition: all 0.15s ease;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
-    .choice-card:hover {
-      border-color: var(--brand);
-      background: var(--brand-light);
-      transform: translateY(-1px);
-    }
-    .choice-card.selected {
-      border-color: var(--brand);
-      background: var(--brand-light);
-      color: var(--brand);
-    }
-    .choice-arrow { color: var(--tx-muted); font-size: 16px; font-weight: bold; }
+    .choice-card:hover { border-color: var(--brand); background: var(--brand-light); }
+    .choice-card.selected { border-color: var(--brand); background: var(--brand-light); color: var(--brand); }
 
-    .import-methods-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    @media (max-width: 600px) {
-      .import-methods-grid { grid-template-columns: 1fr 1fr; }
-    }
-    .import-method-btn {
-      padding: 10px 6px;
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 600;
-      color: var(--tx);
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-    }
-    .import-method-btn:hover { border-color: var(--brand); background: var(--brand-light); }
-    .import-method-btn.active {
-      border-color: var(--brand);
-      background: var(--brand-light);
-      color: var(--brand);
-      font-weight: 700;
-    }
-
-    .scratch-info-box {
-      background: var(--brand-light);
-      border: 1px solid rgba(197, 97, 58, 0.3);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .btn-row {
-      display: flex;
-      gap: 10px;
-      margin-top: 22px;
-      justify-content: center;
-    }
+    .btn-row { display: flex; gap: 10px; margin-top: 22px; justify-content: center; }
     button {
       font: inherit;
       border: 0;
@@ -351,182 +201,43 @@
       align-items: center;
       justify-content: center;
       gap: 8px;
-      transition: all 0.2s ease;
     }
-    .btn-primary {
-      background: var(--brand);
-      color: #fff;
-      box-shadow: 0 2px 8px rgba(197, 97, 58, 0.25);
-    }
+    .btn-primary { background: var(--brand); color: #fff; box-shadow: 0 2px 8px rgba(197, 97, 58, 0.25); }
     .btn-primary:hover { background: var(--brand-hover); }
-    .btn-secondary {
-      background: transparent;
-      color: var(--tx-muted);
-      border: 1px solid var(--bd);
-    }
+    .btn-secondary { background: transparent; color: var(--tx-muted); border: 1px solid var(--bd); }
     .btn-secondary:hover { background: var(--card-subtle); color: var(--tx); }
 
-    /* Interactive Live Progress Card */
-    .progress-box {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 36px 24px;
-      text-align: center;
-      box-shadow: var(--shadow-md);
-      animation: fadeIn 0.3s ease;
-    }
-    .spinner {
-      width: 32px;
-      height: 32px;
-      border: 3px solid var(--bd);
-      border-top-color: var(--brand);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 14px;
-    }
+    /* Interactive Progress */
+    .progress-box { display: none; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 36px 24px; text-align: center; }
+    .spinner { width: 32px; height: 32px; border: 3px solid var(--bd); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Review & Edit 3 Resumes Card */
-    .resume-studio-card {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 28px 32px;
-      box-shadow: var(--shadow-md);
-      animation: fadeIn 0.3s ease;
-    }
-    .version-tabs {
-      display: flex;
-      gap: 8px;
-      margin: 16px 0 12px;
-      border-bottom: 1px solid var(--bd);
-      padding-bottom: 12px;
-      flex-wrap: wrap;
-    }
-    .version-tab-btn {
-      padding: 8px 18px;
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      border-radius: 8px;
-      font-size: 13.5px;
-      font-weight: 700;
-      color: var(--tx-muted);
-      cursor: pointer;
-      transition: all 0.15s ease;
-    }
-    .version-tab-btn.active {
-      background: var(--brand);
-      border-color: var(--brand);
-      color: #ffffff;
-    }
-
+    /* Resume Studio Card */
+    .resume-studio-card { display: none; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 28px 32px; box-shadow: var(--shadow-md); }
     .editable-resume-box {
       width: 100%;
       min-height: 320px;
-      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-family: ui-monospace, Menlo, Consolas, monospace;
       font-size: 12.5px;
       line-height: 1.6;
       padding: 16px;
       border-radius: 10px;
       background: #fafafa;
       border: 1px solid var(--bd);
-      color: var(--tx);
       margin: 10px 0 16px;
     }
 
-    /* Embedded Chatbox on Same Screen */
-    .integrated-chatbox-card {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      box-shadow: var(--shadow-md);
-      overflow: hidden;
-      margin-top: 20px;
-      animation: fadeIn 0.3s ease;
-    }
+    /* Embedded Chatbox */
+    .integrated-chatbox-card { background: var(--card); border: 1px solid var(--bd); border-radius: 16px; overflow: hidden; margin-top: 20px; }
+    .chatbox-header { background: var(--brand-light); border-bottom: 1px solid rgba(197, 97, 58, 0.2); padding: 14px 20px; display: flex; justify-content: space-between; }
+    .chat-messages-container { padding: 20px; display: flex; flex-direction: column; gap: 14px; max-height: 440px; overflow-y: auto; background: #fbfcfe; }
+    .chat-msg { max-width: 92%; padding: 14px 18px; border-radius: 12px; font-size: 13.5px; line-height: 1.6; }
+    .chat-msg.user { align-self: flex-end; background: var(--brand); color: #fff; }
+    .chat-msg.assistant { align-self: flex-start; background: #ffffff; border: 1px solid var(--bd); }
+    .chat-msg.system { align-self: center; background: var(--indigo-light); color: var(--indigo); font-size: 12px; text-align: center; }
+    .chat-input-bar { display: flex; gap: 10px; padding: 14px 18px; background: #ffffff; border-top: 1px solid var(--bd); }
 
-    .chatbox-header {
-      background: var(--brand-light);
-      border-bottom: 1px solid rgba(197, 97, 58, 0.2);
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .chatbox-title {
-      font-size: 14px;
-      font-weight: 800;
-      color: var(--brand);
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .chat-messages-container {
-      padding: 20px;
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-      max-height: 380px;
-      overflow-y: auto;
-      background: #fbfcfe;
-    }
-
-    .chat-msg {
-      max-width: 88%;
-      padding: 12px 16px;
-      border-radius: 12px;
-      font-size: 13.5px;
-      line-height: 1.6;
-      word-wrap: break-word;
-    }
-    .chat-msg.user {
-      align-self: flex-end;
-      background: var(--brand);
-      color: #fff;
-      border-bottom-right-radius: 2px;
-    }
-    .chat-msg.assistant {
-      align-self: flex-start;
-      background: #ffffff;
-      border: 1px solid var(--bd);
-      color: var(--tx);
-      border-bottom-left-radius: 2px;
-      box-shadow: var(--shadow-sm);
-    }
-    .chat-msg.system {
-      align-self: center;
-      background: var(--indigo-light);
-      color: var(--indigo);
-      font-size: 12px;
-      font-weight: 600;
-      border: 1px solid rgba(37, 99, 235, 0.2);
-      text-align: center;
-    }
-
-    .chat-input-bar {
-      display: flex;
-      gap: 10px;
-      padding: 14px 18px;
-      background: #ffffff;
-      border-top: 1px solid var(--bd);
-    }
-    .chat-input-bar input {
-      flex: 1;
-      padding: 10px 14px;
-      font-size: 13.5px;
-    }
-    .chat-input-bar button {
-      padding: 10px 20px;
-      font-size: 13px;
-    }
-
-    /* RIGHT SIDE PANEL: RESUME IMPROVEMENT PROMPTS */
+    /* RIGHT SIDE PANEL 1: PROMPTS LIST (Resume Studio) */
     aside.prompts-sidebar {
       display: none;
       background: var(--sidebar-bg);
@@ -537,295 +248,121 @@
       position: sticky;
       top: 0;
       overflow-y: auto;
-      width: 340px;
-      box-sizing: border-box;
-      animation: fadeIn 0.3s ease;
+      width: 360px;
     }
-    aside.prompts-sidebar.active {
-      display: flex;
-    }
+    aside.prompts-sidebar.active { display: flex; }
+    .prompt-check-item { background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; margin-bottom: 8px; }
+    .prompt-check-item.selected { background: var(--success-light); border-color: var(--success); }
+    .prompt-check-item.selected label { color: #15803d; }
 
-    .prompts-panel-header {
-      padding-bottom: 14px;
-      border-bottom: 1px solid var(--bd);
-      margin-bottom: 14px;
-    }
-    .prompts-panel-title {
-      font-size: 15px;
-      font-weight: 800;
-      color: var(--tx);
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .prompts-panel-sub {
-      font-size: 12px;
-      color: var(--tx-muted);
-      margin-top: 4px;
-      line-height: 1.4;
-    }
-
-    .prompt-items-container {
-      display: flex;
+    /* RIGHT SIDE PANEL 2: JOB SKILL FIT & ACTION (Matched Jobs Step) */
+    aside.job-sidebar {
+      display: none;
+      background: var(--sidebar-bg);
+      border-left: 1px solid var(--bd);
+      padding: 24px 18px;
       flex-direction: column;
-      gap: 10px;
-      flex: 1;
+      height: 100vh;
+      position: sticky;
+      top: 0;
       overflow-y: auto;
-      margin-bottom: 16px;
+      width: 360px;
     }
+    aside.job-sidebar.active { display: flex; }
 
-    .prompt-check-item {
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      border-radius: 10px;
-      padding: 12px 12px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-      transition: all 0.15s ease;
-    }
-    .prompt-check-item:hover {
-      border-color: var(--success);
-      background: #ffffff;
-    }
-    /* Selected items highlight in green without strikethrough */
-    .prompt-check-item.selected,
-    .prompt-check-item.completed {
-      background: var(--success-light);
-      border-color: var(--success);
-    }
-    .prompt-check-item.selected .prompt-text-label,
-    .prompt-check-item.completed .prompt-text-label {
-      text-decoration: none;
-      color: #15803d;
+    .skill-pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
+    .skill-pill {
+      font-size: 11.5px;
       font-weight: 700;
-    }
-
-    .prompt-header-row {
-      display: flex;
-      align-items: flex-start;
-      gap: 10px;
-    }
-    .prompt-checkbox {
-      margin-top: 3px;
-      width: 17px;
-      height: 17px;
-      cursor: pointer;
-      accent-color: var(--success);
-    }
-    .prompt-text-label {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--tx);
-      line-height: 1.4;
-      cursor: pointer;
-      flex: 1;
-    }
-
-    .prompt-action-row {
-      display: flex;
-      justify-content: flex-end;
-      gap: 6px;
-    }
-    .prompt-action-btn {
       padding: 4px 10px;
-      font-size: 11px;
-      font-weight: 700;
-      background: #ffffff;
-      border: 1px solid var(--bd);
-      border-radius: 6px;
-      cursor: pointer;
-      color: var(--brand);
-      transition: all 0.15s ease;
+      border-radius: 16px;
     }
-    .prompt-action-btn:hover {
-      background: var(--brand-light);
-      border-color: var(--brand);
-    }
-
-    .add-prompt-box {
-      border-top: 1px solid var(--bd);
-      padding-top: 14px;
-      display: flex;
-      flex-direction: column;
-      gap: 8px;
-    }
-    .add-prompt-box input {
-      padding: 9px 12px;
-      font-size: 12.5px;
-    }
-    .add-prompt-box button {
-      padding: 8px 12px;
-      font-size: 12px;
-      width: 100%;
-    }
+    .skill-pill.required { background: var(--indigo-light); color: var(--indigo); border: 1px solid rgba(37, 99, 235, 0.2); }
+    .skill-pill.matched { background: var(--success-light); color: var(--success); border: 1px solid rgba(22, 163, 74, 0.25); }
+    .skill-pill.missing { background: var(--amber-light); color: var(--amber); border: 1px solid rgba(217, 119, 6, 0.25); }
 
     /* Download Format Card */
-    .download-card {
+    .download-card, .location-card, .jobs-container-card {
       display: none;
       background: var(--card);
       border: 1px solid var(--bd);
       border-radius: 16px;
       padding: 28px 32px;
       box-shadow: var(--shadow-md);
-      animation: fadeIn 0.3s ease;
-      text-align: center;
     }
-    .download-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 12px;
-      margin: 20px 0;
-    }
-    @media (max-width: 560px) {
-      .download-grid { grid-template-columns: 1fr; }
-    }
-    .download-format-btn {
-      padding: 16px 12px;
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      border-radius: 12px;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 6px;
-      font-weight: 700;
-      font-size: 14px;
-      color: var(--tx);
-      transition: all 0.2s ease;
-    }
-    .download-format-btn:hover {
-      border-color: var(--indigo);
-      background: #eff6ff;
-      color: var(--indigo);
-      transform: translateY(-2px);
-    }
+    .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
+    .download-format-btn { padding: 16px 12px; background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 12px; cursor: pointer; text-align: center; }
 
-    /* Location & Work Arrangement Card */
-    .location-card {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 28px 32px;
-      box-shadow: var(--shadow-md);
-      animation: fadeIn 0.3s ease;
-    }
-    .work-type-pills {
-      display: flex;
-      gap: 8px;
-      margin: 10px 0 20px;
-    }
-    .work-type-pill {
-      flex: 1;
-      padding: 12px;
-      background: var(--card-subtle);
-      border: 1px solid var(--bd);
-      border-radius: 8px;
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--tx);
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.15s ease;
-    }
-    .work-type-pill.selected {
-      border-color: var(--brand);
-      background: var(--brand-light);
-      color: var(--brand);
-    }
-
-    /* Matched Jobs Card */
-    .jobs-container-card {
-      display: none;
-      background: var(--card);
-      border: 1px solid var(--bd);
-      border-radius: 16px;
-      padding: 28px 32px;
-      box-shadow: var(--shadow-md);
-      animation: fadeIn 0.3s ease;
-    }
-    .job-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin: 20px 0;
-    }
+    /* Job Card Styling */
+    .job-list { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
     .job-card {
       background: #ffffff;
       border: 1px solid var(--bd);
       border-radius: 12px;
-      padding: 20px;
+      padding: 18px 20px;
+      cursor: pointer;
       transition: all 0.2s ease;
       display: flex;
       flex-direction: column;
-      gap: 10px;
-    }
-    .job-card:hover {
-      border-color: var(--brand);
-      box-shadow: var(--shadow-sm);
-    }
-    .job-card-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      flex-wrap: wrap;
       gap: 8px;
     }
-    .job-role-title {
-      font-size: 16px;
-      font-weight: 800;
-      color: var(--tx);
-    }
-    .job-company {
-      font-size: 13px;
-      font-weight: 600;
-      color: var(--brand);
-    }
-    .fit-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      padding: 4px 10px;
-      border-radius: 20px;
-      font-size: 11px;
-      font-weight: 700;
-      background: var(--success-light);
-      color: var(--success);
-      border: 1px solid rgba(22, 163, 74, 0.2);
-    }
-    .job-meta-row {
+    .job-card:hover { border-color: var(--brand); transform: translateY(-1px); }
+    .job-card.active-selected { border-color: var(--brand); background: var(--brand-light); }
+    .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
+
+    /* TABBED HEADER FOR MATCHED JOBS VS TRACKER */
+    .tracker-toggle-bar {
       display: flex;
-      gap: 14px;
-      font-size: 12.5px;
-      color: var(--tx-muted);
-      flex-wrap: wrap;
+      gap: 10px;
+      border-bottom: 2px solid var(--bd);
+      padding-bottom: 12px;
+      margin-bottom: 16px;
     }
-    .job-receipts-box {
-      background: var(--card-subtle);
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 12.5px;
-      line-height: 1.5;
-    }
-    .pitch-btn {
+    .tracker-toggle-btn {
       padding: 8px 16px;
+      font-size: 13.5px;
+      font-weight: 700;
+      color: var(--tx-muted);
+      border-radius: 8px;
       background: var(--card-subtle);
       border: 1px solid var(--bd);
-      border-radius: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--tx);
       cursor: pointer;
-      width: fit-content;
-      transition: all 0.15s ease;
     }
-    .pitch-btn:hover {
-      background: var(--indigo-light);
-      border-color: var(--indigo);
-      color: var(--indigo);
+    .tracker-toggle-btn.active {
+      background: var(--brand);
+      color: #fff;
+      border-color: var(--brand);
     }
+
+    /* APPLICATION TRACKER TABLE */
+    .tracker-table-wrap {
+      width: 100%;
+      overflow-x: auto;
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      margin-top: 14px;
+    }
+    .tracker-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 12.5px;
+      text-align: left;
+    }
+    .tracker-table th, .tracker-table td {
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--bd);
+      white-space: nowrap;
+    }
+    .tracker-table th { background: #f8fafc; font-weight: 700; color: var(--tx-muted); }
+    .tracker-status-badge {
+      display: inline-block;
+      padding: 3px 8px;
+      border-radius: 12px;
+      font-size: 11px;
+      font-weight: 700;
+    }
+    .status-applied { background: var(--success-light); color: var(--success); }
+    .status-bookmarked { background: var(--indigo-light); color: var(--indigo); }
   </style>
 </head>
 <body>
@@ -847,7 +384,7 @@
       </div>
       <div class="nav-item" id="navJobs" onclick="navToJobs()">
         <span>💼</span>
-        <span>Matched Jobs</span>
+        <span>Matched Jobs & Tracker</span>
       </div>
     </div>
 
@@ -873,181 +410,95 @@
           <span class="step-label" id="stepCounter">Step 1 of 3</span>
           <span style="font-size: 12px; color: var(--tx-muted);">Personalization</span>
         </div>
-        
         <div class="step-progress-bar">
           <div id="dot1" class="step-dot active"></div>
           <div id="dot2" class="step-dot"></div>
           <div id="dot3" class="step-dot"></div>
         </div>
 
-        <!-- STEP 1: Driver -->
         <div id="step1" class="wizard-step active">
           <h3>What’s Fueling Your Next Move? 🚀</h3>
           <p class="prompt-sub">Every breakthrough begins with clear intent. Tell us what matters most right now.</p>
-
           <div class="choice-stack" id="motivationChoices">
-            <div class="choice-card" onclick="selectMotivation(this, 'New grad')">🎓 New grad <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectMotivation(this, 'Better work-life balance')">⚖️ Better work-life balance <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectMotivation(this, 'A fresh start')">🌱 A fresh start <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectMotivation(this, 'Develop new skills')">🚀 Leveling up skills <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectMotivation(this, 'Explore new opportunities')">🧭 Exploring new opportunities <span class="choice-arrow">&rarr;</span></div>
+            <div class="choice-card" onclick="selectMotivation(this, 'New grad')">🎓 New grad <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectMotivation(this, 'Better work-life balance')">⚖️ Better work-life balance <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectMotivation(this, 'A fresh start')">🌱 A fresh start <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectMotivation(this, 'Develop new skills')">🚀 Leveling up skills <span>&rarr;</span></div>
           </div>
         </div>
 
-        <!-- STEP 2: Timeline -->
         <div id="step2" class="wizard-step">
           <h3>When Do You Want to Make the Move? 🗓️</h3>
-          <p class="prompt-sub">We’ll calibrate your readiness roadmap and interview prep velocity to your target date.</p>
-
           <div class="choice-stack" id="timelineChoices">
-            <div class="choice-card" onclick="selectTimeline(this, 'Whenever I find the right fit')">🎯 Whenever I find the right fit <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectTimeline(this, 'In the next couple months')">⏳ In the next 2 to 3 months <span class="choice-arrow">&rarr;</span></div>
-            <div class="choice-card" onclick="selectTimeline(this, 'As soon as possible')">⚡ As soon as possible <span class="choice-arrow">&rarr;</span></div>
+            <div class="choice-card" onclick="selectTimeline(this, 'Whenever I find the right fit')">🎯 Whenever I find the right fit <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectTimeline(this, 'In the next couple months')">⏳ In the next 2 to 3 months <span>&rarr;</span></div>
+            <div class="choice-card" onclick="selectTimeline(this, 'As soon as possible')">⚡ As soon as possible <span>&rarr;</span></div>
           </div>
-
-          <div class="btn-row">
-            <button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button>
-          </div>
+          <div class="btn-row"><button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button></div>
         </div>
 
-        <!-- STEP 3: Role & Resume Input -->
         <div id="step3" class="wizard-step">
-          <h3>Lock In Your Target Role & Proof Points 🎯</h3>
-          <p class="prompt-sub">Select your target position and paste or upload your background details.</p>
-
+          <h3>Lock In Target Role & Background 🎯</h3>
           <label for="roleSelect">Target Technical Role</label>
-          <select id="roleSelect" onchange="handleRoleChange()">
+          <select id="roleSelect">
             <option value="AI / LLM Application Engineer">AI / LLM Application Engineer</option>
-            <option value="Junior / Early Career Software Engineer">Junior / Early Career Software Engineer</option>
             <option value="Full Stack Software Engineer">Full Stack Software Engineer</option>
             <option value="Backend Software Engineer">Backend Software Engineer</option>
-            <option value="Frontend Software Engineer">Frontend / Web Engineer</option>
+            <option value="Frontend Software Engineer">Frontend Software Engineer</option>
             <option value="Data Scientist / ML Engineer">Data Scientist / ML Engineer</option>
-            <option value="DevOps / Cloud Platform Engineer">DevOps / Cloud Platform Engineer</option>
-            <option value="Data Engineer">Data Engineer</option>
-            <option value="Technical Product Manager">Technical Product Manager</option>
-            <option value="other">Other (specify custom role below)...</option>
           </select>
-
-          <div id="customRoleWrap" class="custom-role-container">
-            <label for="customRoleInput">Specify Your Target Role</label>
-            <input id="customRoleInput" placeholder="e.g., iOS Engineer, Security Analyst...">
-          </div>
-
-          <div style="margin-top: 24px; padding-top: 20px; border-top: 1px solid var(--bd);">
-            <label style="margin-top: 0;">How would you like to add your career information?</label>
-            <div class="import-methods-grid">
-              <div class="import-method-btn active" id="tabPaste" onclick="switchImportMethod('paste')">📄 Paste Text</div>
-              <div class="import-method-btn" id="tabUpload" onclick="switchImportMethod('upload')">📁 Upload File</div>
-              <div class="import-method-btn" id="tabManual" onclick="switchImportMethod('manual')">✍️ Manual</div>
-              <div class="import-method-btn" id="tabScratch" onclick="switchImportMethod('scratch')">✨ Build from 0</div>
-            </div>
-
-            <div id="importPasteView">
-              <textarea id="resume" placeholder="Paste your background, projects, technologies, and achievements here..."></textarea>
-            </div>
-
-            <div id="importUploadView" style="display: none;">
-              <input type="file" id="fileInput" accept=".txt,.md" style="display: none;" onchange="handleFileUpload(event)">
-              <div class="file-upload-box" onclick="$('#fileInput').click()" style="border: 2px dashed var(--bd); border-radius: 10px; padding: 24px; text-align: center; background: var(--card-subtle); cursor: pointer;">
-                <div style="font-size: 26px;">📄</div>
-                <div style="font-weight: 600; font-size: 14px; margin-top: 6px;" id="uploadFileName">Click to upload .txt or .md resume file</div>
-              </div>
-            </div>
-
-            <div id="importManualView" style="display: none; flex-direction: column; gap: 10px;">
-              <input id="manualSkills" placeholder="Core Skills (e.g. Python, TypeScript, LangChain, PostgreSQL)...">
-              <textarea id="manualProjects" placeholder="Key Projects & Work Experience..." style="min-height: 110px;"></textarea>
-            </div>
-
-            <div id="importScratchView" class="scratch-info-box" style="display: none;">
-              <div style="font-weight: 700; font-size: 15px; color: var(--tx); margin-bottom: 8px;">No existing resume? No problem! ✨</div>
-              <div style="font-size: 13px; color: var(--tx-muted); display: grid; gap: 6px;">
-                <div>AI will generate a verified baseline framework adhering to given instructions.</div>
-                <div>You can review and edit 3 options</div>
-              </div>
-            </div>
-          </div>
-
+          <label>Your Background / Projects</label>
+          <textarea id="resume" placeholder="Paste your background notes, projects, skills..."></textarea>
           <div class="btn-row">
             <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-            <button id="go" class="btn-primary" onclick="startAnalysis()">Generate Resumes with AI &rarr;</button>
+            <button class="btn-primary" onclick="startAnalysis()">Generate Resume with AI &rarr;</button>
           </div>
         </div>
       </div>
 
-      <!-- Interactive Progress Message -->
+      <!-- Interactive Progress -->
       <div class="progress-box" id="progressBox">
         <div class="spinner"></div>
-        <div style="font-weight: 700; font-size: 16px; color: var(--tx);">Generating tailored resumes with AI... ⚙️</div>
-        <div style="font-size: 13px; color: var(--tx-muted); margin-top: 6px;">Synthesizing 3 customized variations strictly grounded in your Instructions.</div>
+        <div style="font-weight: 700; font-size: 16px;">Generating tailored resume with AI... ⚙️</div>
       </div>
 
-      <!-- STEP 4: Review, Edit & Save 3 Resumes Card -->
+      <!-- STEP 4: Review & Edit Resumes Card -->
       <div class="resume-studio-card" id="resumeStudioCard">
-        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px;">Step 1: Review & Modify</div>
-        <h3 style="text-align: left; margin: 4px 0 6px;">Please review all 3 refined resume options below 📋</h3>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Select your preferred version, make any edits directly in the text box, and use the chatbox below or prompts on the right panel to guide the AI.</p>
-
-        <div class="version-tabs">
-          <button class="version-tab-btn active" id="vTab1" onclick="switchVersion(1)">Option 1 </button>
-          <button class="version-tab-btn" id="vTab2" onclick="switchVersion(2)">Option 2 </button>
-          <button class="version-tab-btn" id="vTab3" onclick="switchVersion(3)">Option 3 </button>
-        </div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 1: Review & Modify</div>
+        <h3 style="text-align: left; margin: 4px 0 6px;">Review & Iterate on Your Resume 📋</h3>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Edit directly in the text box below or use the prompts panel on the right to guide Gemini AI.</p>
 
         <textarea class="editable-resume-box" id="editableResumeText"></textarea>
 
-        <div class="btn-row" style="justify-content: flex-start;">
-          <button class="btn-secondary" onclick="backToStep3FromStudio()">&larr; Back to Input</button>
-          <button class="btn-primary" onclick="saveAndProceedToDownload()">💾 Save Modifications & Choose Format &rarr;</button>
-        </div>
-
-        <!-- EMBEDDED AI CHATBOX ON THE SAME SCREEN -->
         <div class="integrated-chatbox-card" id="integratedChatbox">
           <div class="chatbox-header">
-            <div class="chatbox-title">
-              <span>💬</span>
-              <span>AI Career Coach Assistant</span>
-            </div>
+            <span style="font-size: 14px; font-weight: 800; color: var(--brand);">💬 AI Career Coach Assistant</span>
+            <span style="font-size: 11px; color: var(--tx-muted);">Receipts Mode & Strict Verification</span>
           </div>
-
           <div class="chat-messages-container" id="chatMessages">
-            <div class="chat-msg system">
-              Your AI Career Coach is ready to evaluate, refine, or audit this resume without hallucinating facts.
-            </div>
+            <div class="chat-msg system">AI Coach ready to evaluate and refine your resume.</div>
           </div>
-
           <form class="chat-input-bar" id="chatForm" onsubmit="handleChatSubmit(event)">
-            <input type="text" id="chatInput" placeholder="Give a prompt to AI (e.g. 'Audit bullet 2 against Kafka requirements', 'Create behavioral questions')...">
+            <input type="text" id="chatInput" placeholder="Give prompt to AI or pick from Improvement Prompts on the right...">
             <button type="submit" class="btn-primary">Send</button>
           </form>
+        </div>
+
+        <div class="btn-row" style="justify-content: space-between; margin-top: 24px; padding-top: 18px; border-top: 1px solid var(--bd);">
+          <button class="btn-secondary" onclick="backToStep3FromStudio()">&larr; Back to Input</button>
+          <button class="btn-primary" onclick="saveAndProceedToDownload()">💾 Save Modifications & Choose Format &rarr;</button>
         </div>
       </div>
 
       <!-- STEP 5: Choose Download Format Card -->
       <div class="download-card" id="downloadCard">
-        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px;">Step 2: Export Your Resume</div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 2: Export Your Resume</div>
         <h3 style="margin: 8px 0 4px;">Your modifications are saved! 🎉</h3>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px;">Would you like to download your refined resume in <b>.DOCX</b>, <b>PDF</b>, or <b>TXT</b> format?</p>
-
         <div class="download-grid">
-          <div class="download-format-btn" onclick="downloadAsDocx()">
-            <span style="font-size: 24px;">📝</span>
-            <span>Download .DOCX</span>
-            <span style="font-size: 11px; color: var(--tx-muted); font-weight: 400;">Word Document</span>
-          </div>
-          <div class="download-format-btn" onclick="downloadAsPdf()">
-            <span style="font-size: 24px;">📄</span>
-            <span>Download PDF</span>
-            <span style="font-size: 11px; color: var(--tx-muted); font-weight: 400;">Print / Save to PDF</span>
-          </div>
-          <div class="download-format-btn" onclick="downloadAsTxt()">
-            <span style="font-size: 24px;">📋</span>
-            <span>Download .TXT</span>
-            <span style="font-size: 11px; color: var(--tx-muted); font-weight: 400;">Plain Text File</span>
-          </div>
+          <div class="download-format-btn" onclick="downloadAsDocx()">📝 Download .DOCX</div>
+          <div class="download-format-btn" onclick="downloadAsPdf()">📄 Download PDF</div>
+          <div class="download-format-btn" onclick="downloadAsTxt()">📋 Download .TXT</div>
         </div>
-
         <div class="btn-row">
           <button class="btn-secondary" onclick="backToStudioFromDownload()">&larr; Back to Resume & Chat</button>
           <button class="btn-primary" onclick="proceedToLocationStep()">Continue to Job Preferences &rarr;</button>
@@ -1056,40 +507,70 @@
 
       <!-- STEP 6: Location & Work Style Card -->
       <div class="location-card" id="locationCard">
-        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px;">Step 3: Job Preferences</div>
-        <h3 style="font-size: 18px; font-weight: 800; margin: 6px 0 4px; text-align: left;">Which location and work style are you targeting? 📍</h3>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 18px; text-align: left;">Let's match your refined qualifications to real, live job postings.</p>
-
-        <label style="margin-top: 0;">Which location are you looking for jobs?</label>
-        <input id="targetLocation" placeholder="e.g., San Francisco, CA / New York, NY / Anywhere US" value="San Francisco, CA">
-
-        <label>What is your preferred work arrangement?</label>
-        <div class="work-type-pills" id="workTypePills">
-          <div class="work-type-pill selected" onclick="selectWorkType(this, 'Remote')">🏠 Remote</div>
-          <div class="work-type-pill" onclick="selectWorkType(this, 'Hybrid')">🏢 Hybrid</div>
-          <div class="work-type-pill" onclick="selectWorkType(this, 'In-Office')">📍 In-Office</div>
+        <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 3: Job Preferences</div>
+        <h3 style="margin: 6px 0 4px; text-align: left;">Target Location & Style 📍</h3>
+        <label>Which location are you looking for jobs?</label>
+        <input id="targetLocation" value="San Francisco, CA / Anywhere US">
+        <label>Preferred work arrangement?</label>
+        <div style="display: flex; gap: 8px; margin: 10px 0 20px;">
+          <button class="btn-secondary" onclick="selectWorkType(this, 'Remote')">🏠 Remote</button>
+          <button class="btn-secondary" onclick="selectWorkType(this, 'Hybrid')">🏢 Hybrid</button>
+          <button class="btn-secondary" onclick="selectWorkType(this, 'In-Office')">📍 In-Office</button>
         </div>
-
         <div class="btn-row">
           <button class="btn-secondary" onclick="backToDownloadFromLocation()">&larr; Back</button>
           <button class="btn-primary" onclick="findMatchingJobs()">Find Matching Jobs & Application Strategy &rarr;</button>
         </div>
       </div>
 
-      <!-- STEP 7: LIVE MATCHED OPPORTUNITIES -->
+      <!-- STEP 7: LIVE MATCHED JOBS & APPLICATION TRACKER -->
       <div class="jobs-container-card" id="jobsCard">
-        <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px;">
           <div>
-            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px;">Step 4: Live Openings</div>
-            <h3 style="font-size: 19px; font-weight: 800; margin: 4px 0 2px; text-align: left;" id="jobsHeaderTitle">Live Openings</h3>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 4: Live Openings & Tracker</div>
+            <h3 style="margin: 4px 0 0;" id="jobsHeaderTitle">Live Job Opportunities</h3>
           </div>
-          <button class="btn-secondary" style="padding: 6px 14px; font-size: 12px;" onclick="backToLocationFromJobs()">&larr; Change Location</button>
+          <button class="btn-secondary" style="font-size: 12px; padding: 6px 14px;" onclick="backToLocationFromJobs()">&larr; Change Location</button>
         </div>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px;">Real-time job postings pulled dynamically based on your target role and work preferences.</p>
 
-        <div class="job-list" id="jobListContainer"></div>
+        <!-- Toggle: Live Openings vs. Tracker Table -->
+        <div class="tracker-toggle-bar">
+          <button class="tracker-toggle-btn active" id="tabLiveJobs" onclick="switchJobsView('openings')">💼 Live Openings</button>
+          <button class="tracker-toggle-btn" id="tabTracker" onclick="switchJobsView('tracker')">📊 Application Tracker (<span id="trackerCount">0</span>)</button>
+        </div>
 
-        <div class="btn-row">
+        <!-- VIEW A: LIVE JOBS LIST -->
+        <div id="liveJobsView">
+          <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">💡 <b>Click any job card</b> to analyze your skill match, view required vs. missing skills, and track your application on the right panel.</p>
+          <div class="job-list" id="jobListContainer"></div>
+        </div>
+
+        <!-- VIEW B: APPLICATION TRACKER TABLE (Matching Screenshot) -->
+        <div id="applicationTrackerView" style="display: none;">
+          <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Review and track your status across all bookmarked and applied positions.</p>
+          <div class="tracker-table-wrap">
+            <table class="tracker-table">
+              <thead>
+                <tr>
+                  <th style="width: 30px;"><input type="checkbox"></th>
+                  <th>Job Position</th>
+                  <th>Company</th>
+                  <th>Max. Salary</th>
+                  <th>Location</th>
+                  <th>Status</th>
+                  <th>Date Saved</th>
+                  <th>Deadline</th>
+                  <th>Date Applied</th>
+                </tr>
+              </thead>
+              <tbody id="trackerTableBody">
+                <!-- Dynamically filled rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top: 24px;">
           <button class="btn-secondary" onclick="backToLocationFromJobs()">&larr; Back</button>
           <button class="btn-primary" onclick="navToStudio()">Return to Resume & AI Coach Chat &rarr;</button>
         </div>
@@ -1097,31 +578,82 @@
     </div>
   </main>
 
-  <!-- RIGHT-HAND SIDE PANEL: RESUME IMPROVEMENT PROMPTS -->
+  <!-- RIGHT SIDE PANEL 1: RESUME IMPROVEMENT PROMPTS (Only in Resume Studio) -->
   <aside class="prompts-sidebar" id="rightPromptsPanel">
-    <div class="prompts-panel-header">
-      <div class="prompts-panel-title">
-        <span>✨ Resume Improvement Prompts</span>
-        <span id="promptCountBadge" style="font-size: 11px; background: var(--success-light); color: var(--success); padding: 2px 8px; border-radius: 12px; border: 1px solid rgba(22, 163, 74, 0.25);">0/7</span>
+    <div style="padding-bottom: 12px; border-bottom: 1px solid var(--bd); margin-bottom: 12px;">
+      <div style="font-size: 15px; font-weight: 800; display:flex; justify-content:space-between;">
+        <span>✨ Improvement Prompts</span>
+        <span id="promptCountBadge" style="font-size: 11px; background: var(--success-light); color: var(--success); padding: 2px 8px; border-radius: 12px;">0/7</span>
       </div>
-      <div class="prompts-panel-sub">
-        Select prompts to enhance your resume on top of the first draft.
-      </div>
+      <div style="font-size: 12px; color: var(--tx-muted); margin-top: 4px;">Select prompts to enhance your resume.</div>
     </div>
 
-    <!-- Multi-select action trigger button -->
     <div id="applySelectedPromptsWrap" style="margin-bottom: 12px;">
-      <button id="applySelectedPromptsBtn" class="btn-primary" style="width: 100%; font-size: 12px; padding: 10px; background: var(--success); display: none; box-shadow: 0 2px 8px rgba(22, 163, 74, 0.3);" onclick="applySelectedPrompts()">
+      <button id="applySelectedPromptsBtn" class="btn-primary" style="width: 100%; font-size: 12px; padding: 10px; background: var(--success); display: none;" onclick="applySelectedPrompts()">
         🚀 Generate Resume with Selected (<span id="selectedPromptsCount">0</span>)
       </button>
     </div>
 
-    <!-- Checkbox list items rendered dynamically from promptsList array -->
     <div class="prompt-items-container" id="promptItemsContainer"></div>
+  </aside>
 
-    <div class="add-prompt-box">
-      <input type="text" id="newPromptInput" placeholder="+ Add a custom improvement prompt...">
-      <button class="btn-secondary" onclick="addCustomPrompt()">Add Prompt</button>
+  <!-- RIGHT SIDE PANEL 2: JOB SKILL FIT & APPLICATION ACTION (Only in Matched Jobs) -->
+  <aside class="job-sidebar" id="rightJobSidebar">
+    <div style="display:flex; justify-content:space-between; align-items:center; padding-bottom:12px; border-bottom:1px solid var(--bd);">
+      <span style="font-size: 15px; font-weight: 800; color: var(--tx);">🎯 AI Skill Fit Match</span>
+      <button onclick="closeJobSidebar()" style="background:transparent; border:0; font-size:16px; cursor:pointer;">✕</button>
+    </div>
+
+    <div id="jobSidebarContent" style="display:flex; flex-direction:column; gap:16px; margin-top:16px;">
+      <div id="jobSidebarLoading" style="text-align:center; padding:30px 10px; color:var(--tx-muted);">
+        <div class="spinner"></div>
+        <div>Evaluating skills against your resume with Gemini AI...</div>
+      </div>
+
+      <div id="jobSidebarBody" style="display:none; flex-direction:column; gap:16px;">
+        <div>
+          <div style="font-weight: 800; font-size: 16px; color: var(--tx);" id="jsJobTitle">Job Title</div>
+          <div style="font-size: 13px; font-weight: 700; color: var(--brand);" id="jsJobCompany">Company</div>
+          <div style="font-size: 12px; color: var(--tx-muted); margin-top: 4px;" id="jsJobMeta">Location • Salary</div>
+        </div>
+
+        <div style="background: var(--card-subtle); padding: 10px 12px; border-radius: 8px; font-size: 12px; line-height: 1.5;" id="jsFitSummary">
+          AI Fit Rationale
+        </div>
+
+        <!-- Section 1: Required Skills -->
+        <div>
+          <div style="font-size: 12px; font-weight: 800; color: var(--tx); text-transform: uppercase;">📌 Skills Required for the Job</div>
+          <div class="skill-pill-list" id="jsRequiredSkills"></div>
+        </div>
+
+        <!-- Section 2: Matched Skills -->
+        <div>
+          <div style="font-size: 12px; font-weight: 800; color: var(--success); text-transform: uppercase;">✅ Matched Skills You Have</div>
+          <div class="skill-pill-list" id="jsMatchedSkills"></div>
+        </div>
+
+        <!-- Section 3: Missing Skills -->
+        <div>
+          <div style="font-size: 12px; font-weight: 800; color: var(--amber); text-transform: uppercase;">⚠️ Missing Skills / Gaps to Address</div>
+          <div class="skill-pill-list" id="jsMissingSkills"></div>
+        </div>
+
+        <!-- Action Box -->
+        <div style="background: #ffffff; border: 1px solid var(--bd); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 10px; box-shadow: var(--shadow-sm);">
+          <div style="font-weight: 800; font-size: 13.5px; color: var(--tx);">Are you going to apply?</div>
+          <p style="font-size: 12px; color: var(--tx-muted); margin: 0;">Track this opening in your personal Application Tracker table.</p>
+          
+          <div style="display:flex; flex-direction:column; gap:8px; margin-top:4px;">
+            <button class="btn-primary" style="background: var(--success); font-size: 13px;" onclick="trackApplication('Applied')">
+              🚀 I Have Applied
+            </button>
+            <button class="btn-secondary" style="font-size: 13px;" onclick="trackApplication('Bookmarked')">
+              📌 Bookmark / Save for Later
+            </button>
+          </div>
+        </div>
+      </div>
     </div>
   </aside>
 
@@ -1131,73 +663,62 @@
   let selectedMotivation = "New grad";
   let selectedTimeline = "As soon as possible";
   let selectedWorkType = "Remote";
-  let activeImportMethod = "paste";
-  let resumeVersions = { 1: "", 2: "", 3: "" };
+  let resumeVersions = { 1: "" };
   let currentVersion = 1;
   let chatHistory = [];
+  
+  // Tracked Jobs List (Application Tracker Data)
+  let trackedApplications = [
+    {
+      id: "demo-1",
+      title: "Operations Manager - Sample Job",
+      company: "Acme Corp",
+      salary: "US$0",
+      location: "remote",
+      status: "Bookmarked",
+      dateSaved: "10/02/2026",
+      deadline: "N/A",
+      dateApplied: "10/02/2026"
+    },
+    {
+      id: "demo-2",
+      title: "Product Designer - Sample Job",
+      company: "Acme Corp",
+      salary: "US$0",
+      location: "Anywhere, USA",
+      status: "Bookmarked",
+      dateSaved: "10/02/2026",
+      deadline: "N/A",
+      dateApplied: "10/02/2026"
+    }
+  ];
+
+  let currentLiveJobs = [];
+  let selectedJob = null;
 
   let promptsList = [
-    {
-      id: 1,
-      text: "Diagnose the 5 most important problems in this draft regarding navigation, prioritization, and vague claims, and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 2,
-      text: "Audit my personal contributions and scope: identify unverified metrics or jargon, suggest qualitative evidence replacements, and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 3,
-      text: "Generate a list of targeted discovery questions about my projects/roles that could strengthen this résumé with confirmed facts, and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 4,
-      text: "Rewrite this résumé for my target role using confirmed facts only, emphasizing purpose, scope, and outcomes, and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 5,
-      text: "Generate a Markdown Change Log table comparing the original to revision (| Original Wording | Revised Wording | Reason | Factual Confirmation Needed |), and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 6,
-      text: "Perform an editorial self-audit of the revision evaluating navigation, clarity of experience, chronology honesty, and internal coherence, and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    },
-    {
-      id: 7,
-      text: "RUN COMPLETE MASTER AUDIT: Execute all 5 outputs (Top 5 Problems, Confirmed Facts Rewrite, Change Log Table, Discovery Questions, and Editorial Self-Audit), and after addressing these problems give me updated resume on top of the first draft.",
-      checked: false
-    }
+    { id: 1, text: "Diagnose the 5 most important problems in this draft regarding navigation, prioritization, and vague claims, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 2, text: "Audit my personal contributions and scope: identify unverified metrics or jargon, suggest qualitative evidence replacements, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 3, text: "Generate a list of targeted discovery questions about my projects/roles that could strengthen this résumé with confirmed facts, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 4, text: "Rewrite this résumé for my target role using confirmed facts only, emphasizing purpose, scope, and outcomes, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 5, text: "Generate a Markdown Change Log table comparing original to revision, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 6, text: "Perform an editorial self-audit of the revision evaluating navigation, clarity of experience, and chronology honesty, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
+    { id: 7, text: "RUN COMPLETE MASTER AUDIT: Execute all 5 outputs and after addressing these problems give me updated resume on top of the first draft.", checked: false }
   ];
 
   function renderPromptsList() {
     const container = $("#promptItemsContainer");
     if (!container) return;
-
     const selectedList = promptsList.filter(p => p.checked);
-    const completed = selectedList.length;
-    $("#promptCountBadge").innerText = `${completed}/${promptsList.length}`;
-
-    // Handle multi-select button state
-    const applyBtn = $("#applySelectedPromptsBtn");
-    const countBadge = $("#selectedPromptsCount");
-    if (applyBtn && countBadge) {
-      countBadge.innerText = completed;
-      applyBtn.style.display = completed > 0 ? "block" : "none";
-    }
+    $("#promptCountBadge").innerText = `${selectedList.length}/${promptsList.length}`;
+    $("#applySelectedPromptsBtn").style.display = selectedList.length > 0 ? "block" : "none";
+    $("#selectedPromptsCount").innerText = selectedList.length;
 
     container.innerHTML = promptsList.map(item => `
-      <div class="prompt-check-item ${item.checked ? 'selected' : ''}" id="promptCard-${item.id}">
-        <div class="prompt-header-row">
-          <input type="checkbox" class="prompt-checkbox" id="chk-${item.id}" ${item.checked ? 'checked' : ''} onchange="togglePromptCheck(${item.id})">
-          <label class="prompt-text-label" for="chk-${item.id}">${item.text}</label>
-        </div>
-        <div class="prompt-action-row">
-          <button class="prompt-action-btn" onclick="usePromptInChat('${item.text.replace(/'/g, "\\'")}')">💬 Use in Chat</button>
+      <div class="prompt-check-item ${item.checked ? 'selected' : ''}">
+        <div style="display:flex; align-items:flex-start; gap:8px;">
+          <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="togglePromptCheck(${item.id})">
+          <label style="font-size:12.5px; line-height:1.4; cursor:pointer;" onclick="togglePromptCheck(${item.id})">${item.text}</label>
         </div>
       </div>
     `).join("");
@@ -1205,74 +726,55 @@
 
   function togglePromptCheck(id) {
     const item = promptsList.find(p => p.id === id);
-    if (item) {
-      item.checked = !item.checked;
-      renderPromptsList();
-    }
+    if (item) { item.checked = !item.checked; renderPromptsList(); }
   }
 
   function applySelectedPrompts() {
     const selected = promptsList.filter(p => p.checked);
-    if (selected.length === 0) return;
-
-    let combinedPrompt = "";
-    if (selected.length === 1) {
-      combinedPrompt = selected[0].text;
-    } else {
-      combinedPrompt = "Please apply the following selected improvements to enhance my resume on top of the first draft:\n" +
-        selected.map((p, idx) => `${idx + 1}. ${p.text}`).join("\n") +
-        "\n\nAfter addressing these problems, give me the updated resume.";
-    }
-
-    $("#chatInput").value = combinedPrompt;
-    $("#integratedChatbox").scrollIntoView({ behavior: 'smooth' });
-    const chatForm = $("#chatForm");
-    if (chatForm) {
-      handleChatSubmit(new Event("submit"));
-    }
+    if (!selected.length) return;
+    const text = "Please apply the following selected improvements to enhance my resume on top of the first draft:\n" +
+      selected.map((p, i) => `${i + 1}. ${p.text}`).join("\n") +
+      "\n\nAfter addressing these problems, give me the updated resume.";
+    $("#chatInput").value = text;
+    handleChatSubmit(new Event("submit"));
   }
 
-  function addCustomPrompt() {
-    let val = $("#newPromptInput").value.trim();
-    if (!val) return;
-    if (!val.toLowerCase().includes("updated resume")) {
-      val += ", and after addressing these problems give me updated resume on top of the first draft.";
-    }
-    promptsList.push({
-      id: Date.now(),
-      text: val,
-      checked: true
-    });
-    $("#newPromptInput").value = "";
-    renderPromptsList();
+  // Sidebar Panel Visibility Controls
+  function showPromptsPanel() {
+    document.body.classList.add("with-right-panel");
+    $("#rightJobSidebar").classList.remove("active");
+    $("#rightPromptsPanel").classList.add("active");
   }
 
-  function usePromptInChat(promptText) {
-    $("#chatInput").value = promptText;
-    $("#chatInput").focus();
-    $("#integratedChatbox").scrollIntoView({ behavior: 'smooth' });
+  function showJobSidebar() {
+    document.body.classList.add("with-right-panel");
+    $("#rightPromptsPanel").classList.remove("active");
+    $("#rightJobSidebar").classList.add("active");
   }
 
-  function updateNavHighlight(activeId) {
-    document.querySelectorAll(".sidebar .nav-item").forEach(item => item.classList.remove("active"));
-    const el = $(`#${activeId}`);
-    if (el) el.classList.add("active");
+  function hideAllSidebars() {
+    document.body.classList.remove("with-right-panel");
+    $("#rightPromptsPanel").classList.remove("active");
+    $("#rightJobSidebar").classList.remove("active");
+  }
+
+  function closeJobSidebar() {
+    hideAllSidebars();
+    document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active-selected"));
+  }
+
+  function updateNavHighlight(id) {
+    document.querySelectorAll(".sidebar .nav-item").forEach(i => i.classList.remove("active"));
+    $(`#${id}`)?.classList.add("active");
   }
 
   function resetToHome() {
+    hideAllSidebars();
     $("#resumeStudioCard").style.display = "none";
-    $("#integratedChatbox").style.display = "none";
     $("#downloadCard").style.display = "none";
     $("#locationCard").style.display = "none";
     $("#jobsCard").style.display = "none";
-    $("#progressBox").style.display = "none";
     $("#wizardCard").style.display = "block";
-    
-    // Hide Right-Hand Prompts Panel
-    document.body.classList.remove("with-right-panel");
-    $("#rightPromptsPanel").classList.remove("active");
-    
-    chatHistory = [];
     goToStep(1);
     updateNavHighlight("navStudio");
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -1280,17 +782,13 @@
 
   function navToStudio() {
     if (resumeVersions[1]) {
+      hideAllSidebars();
       $("#wizardCard").style.display = "none";
       $("#downloadCard").style.display = "none";
       $("#locationCard").style.display = "none";
       $("#jobsCard").style.display = "none";
       $("#resumeStudioCard").style.display = "block";
-      $("#integratedChatbox").style.display = "block";
-
-      // Show Right-Hand Prompts Panel
-      document.body.classList.add("with-right-panel");
-      $("#rightPromptsPanel").classList.add("active");
-
+      showPromptsPanel();
       updateNavHighlight("navStudio");
     } else {
       resetToHome();
@@ -1299,156 +797,70 @@
 
   function navToDownload() {
     if (resumeVersions[1]) {
+      hideAllSidebars();
       $("#wizardCard").style.display = "none";
       $("#resumeStudioCard").style.display = "none";
       $("#locationCard").style.display = "none";
       $("#jobsCard").style.display = "none";
       $("#downloadCard").style.display = "block";
       updateNavHighlight("navDownload");
-    } else {
-      alert("Please generate your resume first to view export formats.");
-    }
+    } else alert("Generate your resume first.");
   }
 
   function navToLocation() {
     if (resumeVersions[1]) {
+      hideAllSidebars();
       $("#wizardCard").style.display = "none";
       $("#resumeStudioCard").style.display = "none";
       $("#downloadCard").style.display = "none";
       $("#jobsCard").style.display = "none";
       $("#locationCard").style.display = "block";
       updateNavHighlight("navLocation");
-    } else {
-      alert("Please generate your resume first to view job preferences.");
-    }
+    } else alert("Generate your resume first.");
   }
 
   function navToJobs() {
     if (resumeVersions[1]) {
+      hideAllSidebars();
       $("#wizardCard").style.display = "none";
       $("#resumeStudioCard").style.display = "none";
       $("#downloadCard").style.display = "none";
       $("#locationCard").style.display = "none";
       $("#jobsCard").style.display = "block";
       updateNavHighlight("navJobs");
-    } else {
-      alert("Please generate your resume and submit location to view matched jobs.");
-    }
+      renderTrackerTable();
+    } else alert("Generate your resume first.");
   }
 
-  function goToStep(step) {
-    currentStep = step;
-    $("#stepCounter").innerText = `Step ${step} of 3`;
-    [1, 2, 3].forEach(s => {
-      $(`#step${s}`).classList.toggle("active", s === step);
-      const dot = $(`#dot${s}`);
-      dot.className = "step-dot";
-      if (s < step) dot.classList.add("completed");
-      if (s === step) dot.classList.add("active");
+  function goToStep(s) {
+    currentStep = s;
+    $("#stepCounter").innerText = `Step ${s} of 3`;
+    [1, 2, 3].forEach(i => {
+      $(`#step${i}`).classList.toggle("active", i === s);
+      const dot = $(`#dot${i}`);
+      dot.className = "step-dot" + (i < s ? " completed" : i === s ? " active" : "");
     });
   }
 
-  function selectMotivation(el, value) {
-    document.querySelectorAll("#motivationChoices .choice-card").forEach(c => c.classList.remove("selected"));
-    el.classList.add("selected");
-    selectedMotivation = value;
-    setTimeout(() => goToStep(2), 140);
-  }
-
-  function selectTimeline(el, value) {
-    document.querySelectorAll("#timelineChoices .choice-card").forEach(c => c.classList.remove("selected"));
-    el.classList.add("selected");
-    selectedTimeline = value;
-    setTimeout(() => goToStep(3), 140);
-  }
-
-  function selectWorkType(el, val) {
-    document.querySelectorAll("#workTypePills .work-type-pill").forEach(p => p.classList.remove("selected"));
-    el.classList.add("selected");
-    selectedWorkType = val;
-  }
-
-  function switchImportMethod(method) {
-    activeImportMethod = method;
-    ["paste", "upload", "manual", "scratch"].forEach(m => {
-      const cap = m.charAt(0).toUpperCase() + m.slice(1);
-      $(`#tab${cap}`).classList.toggle("active", m === method);
-      $(`#import${cap}View`).style.display = m === method ? (m === "manual" ? "flex" : "block") : "none";
-    });
-  }
-
-  function handleFileUpload(event) {
-    const file = event.target.files[0];
-    if (file) {
-      const reader = new FileReader();
-      reader.onload = e => {
-        $("#resume").value = e.target.result;
-        $("#uploadFileName").innerText = `Uploaded: ${file.name}`;
-      };
-      reader.readAsText(file);
-    }
-  }
-
-  function handleRoleChange() {
-    const val = $("#roleSelect").value;
-    $("#customRoleWrap").style.display = val === "other" ? "block" : "none";
-  }
-
-  function getTargetRole() {
-    const val = $("#roleSelect").value;
-    return val === "other" ? $("#customRoleInput").value.trim() : val;
-  }
-
-  function getResumeContent() {
-    if (activeImportMethod === "manual") {
-      return `SKILLS:\n${$("#manualSkills").value.trim()}\n\nEXPERIENCE & PROJECTS:\n${$("#manualProjects").value.trim()}`;
-    }
-    if (activeImportMethod === "scratch") {
-      return "";
-    }
-    return $("#resume").value.trim();
-  }
-
-  function switchVersion(v) {
-    resumeVersions[currentVersion] = $("#editableResumeText").value;
-    currentVersion = v;
-    [1, 2, 3].forEach(i => $(`#vTab${i}`).classList.toggle("active", i === v));
-    $("#editableResumeText").value = resumeVersions[v] || "";
-  }
+  function selectMotivation(el, v) { selectedMotivation = v; setTimeout(() => goToStep(2), 120); }
+  function selectTimeline(el, v) { selectedTimeline = v; setTimeout(() => goToStep(3), 120); }
+  function selectWorkType(el, v) { selectedWorkType = v; }
 
   function backToStep3FromStudio() {
     $("#resumeStudioCard").style.display = "none";
-    $("#integratedChatbox").style.display = "none";
-    document.body.classList.remove("with-right-panel");
-    $("#rightPromptsPanel").classList.remove("active");
+    hideAllSidebars();
     $("#wizardCard").style.display = "block";
     goToStep(3);
     updateNavHighlight("navStudio");
-    $("#wizardCard").scrollIntoView({ behavior: 'smooth' });
   }
+  function backToStudioFromDownload() { navToStudio(); }
+  function backToDownloadFromLocation() { navToDownload(); }
+  function backToLocationFromJobs() { navToLocation(); }
 
-  function backToStudioFromDownload() {
-    navToStudio();
-  }
-
-  function backToDownloadFromLocation() {
-    $("#locationCard").style.display = "none";
-    $("#downloadCard").style.display = "block";
-    updateNavHighlight("navDownload");
-    $("#downloadCard").scrollIntoView({ behavior: 'smooth' });
-  }
-
-  function backToLocationFromJobs() {
-    $("#jobsCard").style.display = "none";
-    $("#locationCard").style.display = "block";
-    updateNavHighlight("navLocation");
-    $("#locationCard").scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // 1. GENERATE RESUMES VIA GEMINI
+  // 1. GENERATE RESUMES
   async function startAnalysis() {
-    const role = getTargetRole();
-    const resumeText = getResumeContent();
+    const role = $("#roleSelect").value;
+    const resumeText = $("#resume").value.trim();
 
     $("#wizardCard").style.display = "none";
     $("#progressBox").style.display = "block";
@@ -1457,220 +869,284 @@
       const res = await fetch("/api/generate-resumes", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          role,
-          resume: resumeText,
-          motivation: selectedMotivation,
-          timeline: selectedTimeline
-        })
+        body: JSON.stringify({ role, resume: resumeText, motivation: selectedMotivation, timeline: selectedTimeline })
       });
-
       const data = await res.json();
       $("#progressBox").style.display = "none";
 
-      if (data.error) throw new Error(data.error);
+      const generated = data.draft || data.option1 || "Resume generated.";
+      resumeVersions[1] = generated;
+      $("#editableResumeText").value = generated;
 
-      resumeVersions[1] = data.option1 || "Option 1 unavailable.";
-      resumeVersions[2] = data.option2 || "Option 2 unavailable.";
-      resumeVersions[3] = data.option3 || "Option 3 unavailable.";
-
-      currentVersion = 1;
-      $("#editableResumeText").value = resumeVersions[1];
-
-      // Display Resume Studio and Embedded Chatbox
       $("#resumeStudioCard").style.display = "block";
-      $("#integratedChatbox").style.display = "block";
-
-      // Activate Right Side Panel with Resume Improvement Prompts
-      document.body.classList.add("with-right-panel");
-      $("#rightPromptsPanel").classList.add("active");
+      showPromptsPanel();
       renderPromptsList();
-
       updateNavHighlight("navStudio");
-      $("#resumeStudioCard").scrollIntoView({ behavior: 'smooth' });
     } catch (err) {
       $("#progressBox").style.display = "none";
       $("#wizardCard").style.display = "block";
-      alert("Gemini Resume Generation Error: " + err.message);
+      alert("Error generating resume: " + err.message);
     }
   }
 
-  // 2. EMBEDDED AI CHATBOX HANDLER
+  // 2. CHAT HANDLER & LOAD INTO EDITOR
+  window.loadResumeIntoEditor = function(encoded) {
+    const clean = decodeURIComponent(encoded);
+    $("#editableResumeText").value = clean;
+    resumeVersions[1] = clean;
+    $("#editableResumeText").scrollIntoView({ behavior: 'smooth' });
+    alert("✅ Loaded into editor!");
+  };
+
+  function formatAssistantChat(text) {
+    if (text.includes("===UPDATED RESUME===")) {
+      const parts = text.split("===UPDATED RESUME===");
+      const explanation = parts[0];
+      const resumeContent = (parts[1] || "").replace(/===END RESUME===/g, "").trim();
+      const encoded = encodeURIComponent(resumeContent);
+
+      return `
+        <div>${explanation.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>")}</div>
+        <div style="margin-top:12px; border:1px solid var(--bd); border-radius:8px; padding:12px; background:#fff;">
+          <div style="display:flex; justify-content:space-between; margin-bottom:8px;">
+            <strong style="color:var(--brand); font-size:12px;">UPDATED RESUME</strong>
+            <button class="btn-primary" style="padding:4px 10px; font-size:11px;" onclick="loadResumeIntoEditor('${encoded}')">📥 Load into Editor</button>
+          </div>
+          <pre style="white-space:pre-wrap; font-family:monospace; font-size:11.5px; background:var(--card-subtle); padding:10px; max-height:260px; overflow-y:auto;">${resumeContent}</pre>
+        </div>
+      `;
+    }
+    return text.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
+  }
+
   async function handleChatSubmit(e) {
-    if (e && e.preventDefault) e.preventDefault();
+    if (e?.preventDefault) e.preventDefault();
     const input = $("#chatInput");
-    const message = input.value.trim();
-    if (!message) return;
+    const msg = input.value.trim();
+    if (!msg) return;
 
     input.value = "";
-    appendChatMessage("user", message);
-
-    const waitId = appendChatMessage("assistant", "<em>Thinking with Gemini AI under Shared Instructions...</em>");
-
-    chatHistory.push({ role: "user", content: message });
+    appendChatMessage("user", msg);
+    const waitId = appendChatMessage("assistant", "<em>Evaluating and optimizing with Gemini AI...</em>");
+    chatHistory.push({ role: "user", content: msg });
 
     try {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          role: getTargetRole(),
-          resume: $("#editableResumeText").value,
-          messages: chatHistory
-        })
+        body: JSON.stringify({ role: $("#roleSelect").value, resume: $("#editableResumeText").value, messages: chatHistory })
       });
-
       const data = await res.json();
-      if (data.error) throw new Error(data.error);
-
       chatHistory.push({ role: "assistant", content: data.text });
       updateChatMessage(waitId, data.text);
     } catch (err) {
-      updateChatMessage(waitId, `<span style="color:var(--danger)">Error: ${err.message}</span>`);
+      updateChatMessage(waitId, "Error: " + err.message);
     }
   }
 
   function appendChatMessage(role, text) {
-    const container = $("#chatMessages");
-    const div = document.createElement("div");
-    const id = "msg-" + Date.now() + "-" + Math.random().toString(36).substr(2, 4);
-    div.id = id;
-    div.className = `chat-msg ${role}`;
-    div.innerHTML = role === "assistant" && !text.startsWith("<em>")
-      ? text.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>")
-      : text;
-    container.appendChild(div);
-    container.scrollTop = container.scrollHeight;
-    return id;
+    const c = $("#chatMessages");
+    const d = document.createElement("div");
+    d.id = "msg-" + Date.now();
+    d.className = `chat-msg ${role}`;
+    d.innerHTML = role === "assistant" && !text.startsWith("<em>") ? formatAssistantChat(text) : text;
+    c.appendChild(d);
+    c.scrollTop = c.scrollHeight;
+    return d.id;
   }
 
   function updateChatMessage(id, text) {
     const el = document.getElementById(id);
-    if (el) {
-      el.innerHTML = text.replace(/\*\*(.+?)\*\*/g, "<b>$1</b>").replace(/\n/g, "<br>");
-      const container = $("#chatMessages");
-      container.scrollTop = container.scrollHeight;
-    }
+    if (el) { el.innerHTML = formatAssistantChat(text); $("#chatMessages").scrollTop = $("#chatMessages").scrollHeight; }
   }
 
-  // 3. SAVE MODIFICATIONS & GO TO DOWNLOAD
   function saveAndProceedToDownload() {
-    resumeVersions[currentVersion] = $("#editableResumeText").value;
+    resumeVersions[1] = $("#editableResumeText").value;
     $("#resumeStudioCard").style.display = "none";
     $("#downloadCard").style.display = "block";
+    hideAllSidebars();
     updateNavHighlight("navDownload");
-    $("#downloadCard").scrollIntoView({ behavior: 'smooth' });
-  }
-
-  // DOWNLOAD HANDLERS
-  function downloadAsDocx() {
-    const text = $("#editableResumeText").value;
-    const role = getTargetRole() || "Software-Engineer";
-    const header = `<html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'><head><title>Resume</title><style>body{font-family:Arial,sans-serif;font-size:10.5pt;line-height:1.35;white-space:pre-wrap;}</style></head><body>${text.replace(/\n/g, '<br/>')}</body></html>`;
-    const blob = new Blob([header], { type: 'application/msword' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `Tailored_Resume_${role.replace(/[^a-z0-9]/gi, '_')}.doc`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  function downloadAsPdf() {
-    const text = $("#editableResumeText").value;
-    const printWindow = window.open('', '_blank');
-    printWindow.document.write(`<html><head><title>Resume PDF</title><style>body{font-family:Helvetica,Arial,sans-serif;padding:36px;line-height:1.45;white-space:pre-wrap;font-size:11pt;}</style></head><body>${text.replace(/\n/g, '<br/>')}</body></html>`);
-    printWindow.document.close();
-    printWindow.focus();
-    setTimeout(() => { printWindow.print(); }, 250);
-  }
-
-  function downloadAsTxt() {
-    const text = $("#editableResumeText").value;
-    const role = getTargetRole() || "Software-Engineer";
-    const blob = new Blob([text], { type: "text/plain;charset=utf-8" });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = `Tailored_Resume_${role.replace(/[^a-z0-9]/gi, '_')}.txt`;
-    a.click();
-    URL.revokeObjectURL(url);
   }
 
   function proceedToLocationStep() {
     $("#downloadCard").style.display = "none";
     $("#locationCard").style.display = "block";
+    hideAllSidebars();
     updateNavHighlight("navLocation");
-    $("#locationCard").scrollIntoView({ behavior: 'smooth' });
   }
 
-  // 4. FIND REAL MATCHING JOBS
+  function downloadAsDocx() {
+    const blob = new Blob([$("#editableResumeText").value], { type: 'application/msword' });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Tailored_Resume.doc";
+    a.click();
+  }
+  function downloadAsPdf() {
+    const w = window.open();
+    w.document.write(`<pre style="white-space:pre-wrap; font-family:sans-serif; padding:30px;">${$("#editableResumeText").value}</pre>`);
+    w.print();
+  }
+  function downloadAsTxt() {
+    const blob = new Blob([$("#editableResumeText").value], { type: 'text/plain' });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "Tailored_Resume.txt";
+    a.click();
+  }
+
+  // 3. FIND MATCHING JOBS & SKILLS MATCH
   async function findMatchingJobs() {
-    const loc = $("#targetLocation").value.trim() || "San Francisco, CA / US Remote";
-    const role = getTargetRole() || "AI / LLM Application Engineer";
+    const loc = $("#targetLocation").value.trim() || "Remote / US";
+    const role = $("#roleSelect").value;
     
+    hideAllSidebars();
     $("#locationCard").style.display = "none";
     $("#jobsCard").style.display = "block";
-    $("#jobsHeaderTitle").innerText = `Live Openings: ${role}`;
     updateNavHighlight("navJobs");
-    $("#jobsCard").scrollIntoView({ behavior: 'smooth' });
+    renderTrackerTable();
 
-    $("#jobListContainer").innerHTML = `<div style="text-align:center; padding:32px; color:var(--tx-muted);"><div class="spinner"></div>Querying live developer job feeds for <b>${role}</b> in <b>${loc}</b>...</div>`;
+    $("#jobListContainer").innerHTML = `<div style="text-align:center; padding:30px;"><div class="spinner"></div>Searching live jobs for <b>${role}</b>...</div>`;
 
     try {
       const res = await fetch("/api/jobs", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ role, location: loc, workType: selectedWorkType, resume: $("#editableResumeText").value })
+        body: JSON.stringify({ role, location: loc, workType: selectedWorkType })
       });
       const data = await res.json();
-      const jobs = data.jobs || [];
+      currentLiveJobs = data.jobs || [];
 
       let html = "";
-      jobs.forEach((j) => {
-        const pitch = `Hi! I saw the ${j.title} opening at ${j.company}. I have verified experience building production software systems with modern architectural principles. I would love to connect regarding this role!`;
-        
+      currentLiveJobs.forEach((j, index) => {
         html += `
-          <div class="job-card">
+          <div class="job-card" id="job-card-${index}" onclick="selectJobForAnalysis(${index})">
             <div class="job-card-header">
               <div>
-                <div class="job-role-title">${j.title}</div>
-                <div class="job-company">${j.company}</div>
+                <strong style="font-size:15.5px;">${j.title}</strong>
+                <div style="color:var(--brand); font-size:13px; font-weight:700;">${j.company}</div>
               </div>
-              <div class="fit-badge">✓ Live Opening</div>
+              <span style="font-size:11px; background:var(--success-light); color:var(--success); padding:3px 8px; border-radius:12px; font-weight:700;">✓ Live</span>
             </div>
-
-            <div class="job-meta-row">
+            <div style="font-size:12px; color:var(--tx-muted); display:flex; gap:12px;">
               <span>📍 ${j.location}</span>
               <span>💰 ${j.salary}</span>
               <span>💼 ${j.workType}</span>
             </div>
-
-            <div class="job-receipts-box">
-              <div><strong>Overview:</strong> ${j.snippet || j.description}</div>
-              <div style="margin-top: 4px; color: var(--brand);"><strong>Keywords:</strong> ${(j.tags || ['Python', 'TypeScript', 'APIs']).slice(0, 5).join(', ')}</div>
-            </div>
-
-            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px;">
-              <a href="${j.url}" target="_blank" class="pitch-btn" style="text-decoration:none; background:var(--brand); color:#fff; border-color:var(--brand);">🚀 Apply on Job Site</a>
-              <button class="pitch-btn" onclick="copyOutreachPitch(\`${pitch.replace(/`/g, '\\`')}\`)">📋 Copy Recruiter Pitch</button>
+            <div style="font-size:12.5px; color:var(--tx); line-height:1.4;">${j.snippet}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-top:6px;">
+              <span style="font-size:11.5px; color:var(--indigo); font-weight:700;">👉 Click to see required & missing skills with AI</span>
+              <a href="${j.url}" target="_blank" onclick="event.stopPropagation()" class="btn-secondary" style="padding:4px 10px; font-size:11px;">External Site ↗</a>
             </div>
           </div>
         `;
       });
 
-      $("#jobListContainer").innerHTML = html;
-    } catch (err) {
-      $("#jobListContainer").innerHTML = `<div style="color:var(--danger); padding:20px; text-align:center;">Failed to connect to live job feed.</div>`;
+      $("#jobListContainer").innerHTML = html || "No openings found.";
+    } catch (e) {
+      $("#jobListContainer").innerHTML = "Error fetching live openings.";
     }
   }
 
-  function copyOutreachPitch(text) {
-    navigator.clipboard.writeText(text);
-    alert("Recruiter outreach pitch copied to clipboard! 📋");
+  // 4. SELECT JOB & CALL AI SKILL FIT
+  async function selectJobForAnalysis(index) {
+    const job = currentLiveJobs[index];
+    if (!job) return;
+    selectedJob = job;
+
+    document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active-selected"));
+    $(`#job-card-${index}`)?.classList.add("active-selected");
+
+    showJobSidebar();
+    $("#jobSidebarLoading").style.display = "block";
+    $("#jobSidebarBody").style.display = "none";
+
+    try {
+      const res = await fetch("/api/analyze-job-fit", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ job, resume: $("#editableResumeText").value })
+      });
+      const fitData = await res.json();
+
+      $("#jsJobTitle").innerText = job.title;
+      $("#jsJobCompany").innerText = job.company;
+      $("#jsJobMeta").innerText = `${job.location} • ${job.salary}`;
+      $("#jsFitSummary").innerText = fitData.fitSummary || "Fit analysis completed.";
+
+      $("#jsRequiredSkills").innerHTML = (fitData.requiredSkills || []).map(s => `<span class="skill-pill required">${s}</span>`).join("");
+      $("#jsMatchedSkills").innerHTML = (fitData.matchedSkills || []).map(s => `<span class="skill-pill matched">✓ ${s}</span>`).join("");
+      $("#jsMissingSkills").innerHTML = (fitData.missingSkills || []).map(s => `<span class="skill-pill missing">⚠️ ${s}</span>`).join("");
+
+      $("#jobSidebarLoading").style.display = "none";
+      $("#jobSidebarBody").style.display = "flex";
+    } catch (e) {
+      $("#jobSidebarLoading").innerText = "Unable to evaluate skills match.";
+    }
   }
 
-  // Initialize prompts list on startup
+  // 5. APPLICATION TRACKER LOGIC
+  function trackApplication(status) {
+    if (!selectedJob) return;
+
+    const today = new Date().toLocaleDateString("en-US");
+    const newEntry = {
+      id: "app-" + Date.now(),
+      title: selectedJob.title,
+      company: selectedJob.company,
+      salary: selectedJob.salary || "Competitive",
+      location: selectedJob.location,
+      status: status,
+      dateSaved: today,
+      deadline: "N/A",
+      dateApplied: status === "Applied" ? today : "Pending"
+    };
+
+    trackedApplications.unshift(newEntry);
+    renderTrackerTable();
+    alert(`🎉 Successfully marked as '${status}' in your Application Tracker!`);
+    switchJobsView('tracker');
+  }
+
+  function switchJobsView(view) {
+    if (view === 'openings') {
+      $("#tabLiveJobs").classList.add("active");
+      $("#tabTracker").classList.remove("active");
+      $("#liveJobsView").style.display = "block";
+      $("#applicationTrackerView").style.display = "none";
+    } else {
+      $("#tabLiveJobs").classList.remove("active");
+      $("#tabTracker").classList.add("active");
+      $("#liveJobsView").style.display = "none";
+      $("#applicationTrackerView").style.display = "block";
+      closeJobSidebar();
+    }
+  }
+
+  function renderTrackerTable() {
+    $("#trackerCount").innerText = trackedApplications.length;
+    const body = $("#trackerTableBody");
+    if (!body) return;
+
+    body.innerHTML = trackedApplications.map(app => `
+      <tr>
+        <td><input type="checkbox"></td>
+        <td><strong>${app.title}</strong></td>
+        <td>${app.company}</td>
+        <td>${app.salary}</td>
+        <td>${app.location}</td>
+        <td>
+          <span class="tracker-status-badge ${app.status === 'Applied' ? 'status-applied' : 'status-bookmarked'}">
+            ${app.status}
+          </span>
+        </td>
+        <td>${app.dateSaved}</td>
+        <td style="color:var(--tx-muted);">${app.deadline}</td>
+        <td>${app.dateApplied}</td>
+      </tr>
+    `).join("");
+  }
+
   renderPromptsList();
 </script>
 </body>
