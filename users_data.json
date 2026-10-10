@@ -1,0 +1,27 @@
+{
+  "users": [
+    {
+      "id": "usr_1791599292716",
+      "email": "jordan@gmail.com",
+      "name": "jordan",
+      "passwordHash": "2b69749a2aba2bee5025c42b3ca8aff122e20d70ac29313478e88081f5bdbb6d",
+      "token": "91a1c907ae52352d16bb1e8b30b078a949f9a30a352306ce614ca0545cd7d24c",
+      "createdAt": "2026-10-10T02:28:12.717Z",
+      "applications": [
+        {
+          "id": "app_1791599346012",
+          "title": "Software Engineer / AI Code Trainer (Python, Web, Full Stack)",
+          "company": "CodeForAI",
+          "salary": "$45-$120/Hour",
+          "location": "USA, UK, India, Australia, Ireland, New Zealand, Philippines, Pakistan, Singapore, Mexico",
+          "status": "Bookmarked",
+          "dateSaved": "10/10/2026",
+          "deadline": "N/A",
+          "dateApplied": "Pending"
+        }
+      ],
+      "savedResume": "ALEX MORGAN\n[City, NJ] · alex.morgan@email.com · (555) 123-4567 · linkedin.com/in/alexmorgan · github.com/alexmorgan\n\nSUMMARY\nComputer Science graduate (B.S., Cornell University, GPA 3.8) focused on AI and LLM application development. Hands-on experience building retrieval-augmented generation (RAG) pipelines, tool-calling agentic workflows, and evaluation harnesses using Python, TypeScript, and modern AI frameworks. Seeking an AI / LLM Application Engineer role to contribute to production-grade generative AI systems.\n\nEDUCATION\nCornell University — Ithaca, NY\nB.S. in Computer Science, GPA: 3.8\nAug 2022 – May 2026\nRelevant Coursework: Machine Learning, Natural Language Processing, Distributed Systems, Algorithms, Databases\n\nTECHNICAL SKILLS\nLLM / AI: Prompt engineering, RAG, embeddings, vector search, function/tool calling, agents, structured outputs, evaluation (LLM-as-judge, golden sets)\nLanguages: Python, TypeScript, Java, SQL\nFrameworks & APIs: OpenAI / Anthropic APIs, LangChain / LlamaIndex, PyTorch, Hugging Face, FastAPI, Next.js, Spring Boot\nData & Infra: PostgreSQL (pgvector), Redis, Docker, AWS, GitHub Actions, Gradle\n\nPROJECT DELIVERABLES & OUTCOMES\nRAG Assistant over Domain Documents | Python, FastAPI, pgvector\n- Engineered a retrieval-augmented Q&A system featuring hybrid search (combining BM25 lexical search with vector embeddings) and reranking to improve context relevance for document querying.\n- Implemented citation grounding and refusal paths for out-of-domain prompts to manage response accuracy.\n- Containerized and deployed the application via Docker with streaming responses, achieving stable query response times in testing.\n\nTool-Calling Agent | TypeScript, Next.js, LLM APIs\n- Developed an autonomous agent following a plan-execute-evaluate-revise loop, utilizing schema-validated structured outputs for API communication.\n- Built an evaluation harness incorporating test scenarios to measure task completion accuracy and track regressions during prompt and model updates.\n- Established server-side execution guardrails to manage API access and handle missing data evidence securely.\n\nEnterprise Backend Microservice | Java, Spring Boot, PostgreSQL, Gradle\n- Designed and delivered a REST microservice supporting CRUD operations backed by a relational database schema and managed via Gradle.\n- Implemented unit testing suites utilizing JUnit to verify functional correctness and code reliability.\n\nEXPERIENCE\nSoftware Engineering Intern / AI Research Assistant — [Company or Lab Name]\n[Mon Year] – [Mon Year]\n- Developed software components and AI workflows using Python and associated frameworks to support project milestones.\n- Collaborated with team members to evaluate model outputs, refine prompt templates, and assist with system performance testing.\n- Authored documentation, unit tests, and CI pipelines to support development workflows and maintain code quality.\n\nHONORS & ACTIVITIES\n- Dean’s List, Cornell University\n- [Include Hackathon project, ML club leadership role, or open-source contribution details upon confirmation]",
+      "targetRole": "AI / LLM Application Engineer"
+    }
+  ]
+}

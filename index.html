@@ -70,7 +70,7 @@
     aside.sidebar {
       background: var(--sidebar-bg);
       border-right: 1px solid var(--bd);
-      padding: 32px 18px 24px;
+      padding: 24px 18px 20px;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -78,6 +78,52 @@
       top: 0;
       height: 100vh;
       overflow-y: auto;
+    }
+
+    .user-profile-badge {
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 10px 14px;
+      margin-bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    .user-clickable-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      user-select: none;
+    }
+    .user-clickable-row:hover #userDisplayName { color: var(--brand); }
+    .user-avatar-circle {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      background: var(--brand);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      font-weight: 800;
+    }
+    .auth-login-trigger {
+      width: 100%;
+      padding: 8px 12px;
+      background: var(--brand);
+      color: #ffffff;
+      border: 0;
+      border-radius: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
     }
 
     .nav-menu { display: flex; flex-direction: column; gap: 6px; }
@@ -115,7 +161,6 @@
     }
     .reset-app-btn:hover { border-color: var(--danger); color: var(--danger); background: #fef2f2; }
 
-    /* Main Viewport */
     main.content-area {
       padding: 36px 24px 80px;
       display: flex;
@@ -125,19 +170,13 @@
       height: 100vh;
     }
 
-    .container {
-      width: 100%;
-      max-width: 840px;
-      display: flex;
-      flex-direction: column;
-      gap: 24px;
-    }
+    .container { width: 100%; max-width: 860px; display: flex; flex-direction: column; gap: 24px; }
 
     header { text-align: center; padding: 0 8px; }
     .hero-title { font-size: 28px; font-weight: 800; letter-spacing: -0.5px; margin: 0 0 8px; }
     .hero-sub { font-size: 15px; color: var(--tx-muted); max-width: 580px; margin: 0 auto; line-height: 1.5; }
 
-    .wizard-card, .download-card, .location-card, .jobs-container-card, .tracker-card, .learning-card {
+    .wizard-card, .download-card, .location-card, .jobs-container-card, .tracker-card, .learning-card, .profile-card, .interview-card {
       background: var(--card);
       border: 1px solid var(--bd);
       border-radius: 16px;
@@ -174,12 +213,7 @@
     }
     textarea { min-height: 140px; resize: vertical; }
 
-    .custom-role-container {
-      display: none;
-      margin-top: 10px;
-      animation: fadeIn 0.2s ease-out;
-    }
-
+    .custom-role-container { display: none; margin-top: 10px; animation: fadeIn 0.2s ease-out; }
     .choice-stack { display: flex; flex-direction: column; gap: 10px; max-width: 520px; margin: 0 auto; }
     .choice-card {
       padding: 14px 18px;
@@ -196,15 +230,8 @@
     .choice-card:hover { border-color: var(--brand); background: var(--brand-light); }
     .choice-card.selected { border-color: var(--brand); background: var(--brand-light); color: var(--brand); }
 
-    .import-methods-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      margin-bottom: 14px;
-    }
-    @media (max-width: 600px) {
-      .import-methods-grid { grid-template-columns: 1fr 1fr; }
-    }
+    .import-methods-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; margin-bottom: 14px; }
+    @media (max-width: 600px) { .import-methods-grid { grid-template-columns: 1fr 1fr; } }
     .import-method-btn {
       padding: 10px 6px;
       background: var(--card-subtle);
@@ -218,22 +245,9 @@
       transition: all 0.15s ease;
     }
     .import-method-btn:hover { border-color: var(--brand); background: var(--brand-light); }
-    .import-method-btn.active {
-      border-color: var(--brand);
-      background: var(--brand-light);
-      color: var(--brand);
-      font-weight: 700;
-    }
+    .import-method-btn.active { border-color: var(--brand); background: var(--brand-light); color: var(--brand); font-weight: 700; }
 
-    .scratch-info-box {
-      background: var(--brand-light);
-      border: 1px solid rgba(197, 97, 58, 0.3);
-      border-radius: 12px;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .btn-row { display: flex; gap: 10px; margin-top: 22px; justify-content: center; }
+    .btn-row { display: flex; gap: 10px; margin-top: 22px; justify-content: center; flex-wrap: wrap; }
     button {
       font: inherit;
       border: 0;
@@ -252,12 +266,10 @@
     .btn-secondary { background: transparent; color: var(--tx-muted); border: 1px solid var(--bd); }
     .btn-secondary:hover { background: var(--card-subtle); color: var(--tx); }
 
-    /* Interactive Progress */
     .progress-box { display: none; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 36px 24px; text-align: center; }
     .spinner { width: 32px; height: 32px; border: 3px solid var(--bd); border-top-color: var(--brand); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 14px; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    /* Resume Studio Card */
     .resume-studio-card { display: none; background: var(--card); border: 1px solid var(--bd); border-radius: 16px; padding: 28px 32px; box-shadow: var(--shadow-md); }
     .editable-resume-box {
       width: 100%;
@@ -272,7 +284,66 @@
       margin: 10px 0 16px;
     }
 
-    /* Embedded Chatbox */
+    /* RUBRIC SCORE COMPARISON BANNER */
+    .rubric-score-tracker-banner {
+      background: #ffffff;
+      border: 1px solid var(--bd);
+      border-radius: 12px;
+      padding: 18px 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
+    }
+    .rubric-score-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .score-meter-box {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .score-number-pill {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--tx);
+      background: var(--card-subtle);
+      padding: 6px 14px;
+      border-radius: 10px;
+      border: 1px solid var(--bd);
+    }
+    .score-category-badge {
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 8px;
+    }
+    .cat-ready { background: var(--success-light); color: var(--success); border: 1px solid rgba(22,163,74,0.3); }
+    .cat-good { background: var(--indigo-light); color: var(--indigo); border: 1px solid rgba(37,99,235,0.3); }
+    .cat-weak { background: var(--amber-light); color: var(--amber); border: 1px solid rgba(217,119,6,0.3); }
+    .cat-low { background: #fef2f2; color: var(--danger); border: 1px solid rgba(220,38,38,0.3); }
+
+    .rubric-breakdown-details {
+      display: none;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid var(--bd);
+      font-size: 12.5px;
+    }
+    .rubric-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 8px;
+    }
+    .rubric-table th, .rubric-table td {
+      padding: 8px 10px;
+      border-bottom: 1px solid var(--bd);
+      text-align: left;
+    }
+    .rubric-table th { background: var(--card-subtle); font-weight: 700; color: var(--tx-muted); }
+
     .integrated-chatbox-card { background: var(--card); border: 1px solid var(--bd); border-radius: 16px; overflow: hidden; margin-top: 20px; }
     .chatbox-header { background: var(--brand-light); border-bottom: 1px solid rgba(197, 97, 58, 0.2); padding: 14px 20px; display: flex; justify-content: space-between; }
     .chat-messages-container { padding: 20px; display: flex; flex-direction: column; gap: 14px; max-height: 440px; overflow-y: auto; background: #fbfcfe; }
@@ -282,7 +353,6 @@
     .chat-msg.system { align-self: center; background: var(--indigo-light); color: var(--indigo); font-size: 12px; text-align: center; }
     .chat-input-bar { display: flex; gap: 10px; padding: 14px 18px; background: #ffffff; border-top: 1px solid var(--bd); }
 
-    /* RIGHT SIDE PANELS */
     aside.prompts-sidebar, aside.job-sidebar {
       display: none;
       background: var(--sidebar-bg);
@@ -296,8 +366,27 @@
       width: 360px;
     }
     aside.prompts-sidebar.active, aside.job-sidebar.active { display: flex; }
-    .prompt-check-item { background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 10px; padding: 12px; margin-bottom: 8px; }
+    .prompt-check-item {
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 8px;
+      transition: all 0.15s ease;
+    }
+    .prompt-check-item:hover { border-color: var(--success); background: #ffffff; }
     .prompt-check-item.selected { background: var(--success-light); border-color: var(--success); }
+    .prompt-check-item.selected label { color: #15803d; font-weight: 700; }
+    .prompt-action-btn {
+      padding: 4px 10px;
+      font-size: 11px;
+      font-weight: 700;
+      background: #ffffff;
+      border: 1px solid var(--bd);
+      border-radius: 6px;
+      cursor: pointer;
+      color: var(--brand);
+    }
 
     .skill-pill-list { display: flex; flex-wrap: wrap; gap: 6px; margin: 8px 0 16px; }
     .skill-pill { font-size: 11.5px; font-weight: 700; padding: 4px 10px; border-radius: 16px; }
@@ -308,7 +397,6 @@
     .download-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 20px 0; }
     .download-format-btn { padding: 16px 12px; background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 12px; cursor: pointer; text-align: center; }
 
-    /* Job Card Styling */
     .job-list { display: flex; flex-direction: column; gap: 14px; margin: 20px 0; }
     .job-card {
       background: #ffffff;
@@ -325,79 +413,120 @@
     .job-card.active-selected { border-color: var(--brand); background: var(--brand-light); }
     .job-card-header { display: flex; justify-content: space-between; align-items: flex-start; }
 
-    /* APPLICATION TRACKER TABLE */
-    .tracker-table-wrap {
-      width: 100%;
-      overflow-x: auto;
-      border: 1px solid var(--bd);
-      border-radius: 12px;
-      margin: 18px 0;
-    }
-    .tracker-table {
-      width: 100%;
-      border-collapse: collapse;
-      font-size: 13px;
-      text-align: left;
-    }
-    .tracker-table th, .tracker-table td {
-      padding: 13px 14px;
-      border-bottom: 1px solid var(--bd);
-      white-space: nowrap;
-    }
+    .tracker-table-wrap { width: 100%; overflow-x: auto; border: 1px solid var(--bd); border-radius: 12px; margin: 18px 0; }
+    .tracker-table { width: 100%; border-collapse: collapse; font-size: 13px; text-align: left; }
+    .tracker-table th, .tracker-table td { padding: 13px 14px; border-bottom: 1px solid var(--bd); white-space: nowrap; }
     .tracker-table th { background: #f8fafc; font-weight: 700; color: var(--tx-muted); }
-    .tracker-status-badge {
-      display: inline-block;
-      padding: 3px 10px;
-      border-radius: 14px;
-      font-size: 11px;
-      font-weight: 700;
-    }
+    .tracker-status-badge { display: inline-block; padding: 3px 10px; border-radius: 14px; font-size: 11px; font-weight: 700; }
     .status-applied { background: var(--success-light); color: var(--success); }
     .status-bookmarked { background: var(--indigo-light); color: var(--indigo); }
 
-    /* LEARNING PLAN CONTAINER */
-    .plan-output-box {
+    .plan-output-box { background: #ffffff; border: 1px solid var(--bd); border-radius: 12px; padding: 24px; font-size: 13.5px; line-height: 1.7; margin-top: 18px; }
+
+    /* MOCK INTERVIEW CARDS */
+    .interview-category-card {
       background: #ffffff;
       border: 1px solid var(--bd);
       border-radius: 12px;
-      padding: 24px;
-      font-size: 13.5px;
-      line-height: 1.7;
-      margin-top: 18px;
+      padding: 20px;
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-sm);
     }
-    .plan-output-box h1, .plan-output-box h2, .plan-output-box h3 { color: var(--brand); margin-top: 18px; }
+    .interview-cat-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--bd);
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .difficulty-select {
+      width: auto;
+      min-width: 130px;
+      padding: 6px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      border-radius: 8px;
+    }
+    .question-item-card {
+      background: var(--card-subtle);
+      border: 1px solid var(--bd);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    .difficulty-badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 10.5px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+    .diff-easy { background: var(--success-light); color: var(--success); }
+    .diff-medium { background: var(--amber-light); color: var(--amber); }
+    .diff-hard { background: #fef2f2; color: var(--danger); }
   </style>
 </head>
 <body>
 
   <!-- Left Sidebar Navigation -->
   <aside class="sidebar">
-    <div class="nav-menu">
-      <div class="nav-item active" id="navStudio" onclick="navToStudio()">
-        <span>📄</span>
-        <span>Resume Studio</span>
+    <div>
+      <div class="user-profile-badge" id="userSidebarBadge">
+        <div id="userBadgeLoggedOut" style="display:flex; flex-direction:column; gap:8px;">
+          <div style="font-size:12px; color:var(--tx-muted); font-weight:600;">Candidate Account</div>
+          <button class="auth-login-trigger" onclick="navToAuthGate()">
+            <span>👤</span>
+            <span>Sign In / Create Account</span>
+          </button>
+        </div>
+
+        <div id="userBadgeLoggedIn" style="display:none; flex-direction:column; gap:8px;">
+          <div class="user-clickable-row" onclick="navToProfile()" title="Click to view candidate home page & profile">
+            <div style="display:flex; align-items:center; gap:10px;">
+              <div class="user-avatar-circle" id="userAvatarText">U</div>
+              <div style="font-weight:800; font-size:14px; color:var(--tx);" id="userDisplayName">Candidate</div>
+            </div>
+            <button onclick="event.stopPropagation(); handleLogout()" style="background:transparent; border:0; padding:4px; font-size:14px; cursor:pointer;" title="Log out">🚪</button>
+          </div>
+        </div>
       </div>
-      <div class="nav-item" id="navDownload" onclick="navToDownload()">
-        <span>📥</span>
-        <span>Export Formats</span>
-      </div>
-      <div class="nav-item" id="navLocation" onclick="navToLocation()">
-        <span>📍</span>
-        <span>Job Preferences</span>
-      </div>
-      <div class="nav-item" id="navJobs" onclick="navToJobs()">
-        <span>💼</span>
-        <span>Matched Jobs</span>
-      </div>
-      <!-- DISTINCT APPLICATION TRACKER TAB -->
-      <div class="nav-item" id="navTracker" onclick="navToTracker()">
-        <span>📊</span>
-        <span>Application Tracker</span>
-      </div>
-      <!-- DISTINCT SKILL IMPROVEMENT / STUDY PLAN TAB -->
-      <div class="nav-item" id="navLearning" onclick="navToLearning()">
-        <span>📚</span>
-        <span>Skill Improvement Plan</span>
+
+      <div class="nav-menu">
+        <div class="nav-item active" id="navStudio" onclick="navToStudio()">
+          <span>📄</span>
+          <span>Resume Studio</span>
+        </div>
+        <div class="nav-item" id="navDownload" onclick="navToDownload()">
+          <span>📥</span>
+          <span>Export Formats</span>
+        </div>
+        <div class="nav-item" id="navLocation" onclick="navToLocation()">
+          <span>📍</span>
+          <span>Job Preferences</span>
+        </div>
+        <div class="nav-item" id="navJobs" onclick="navToJobs()">
+          <span>💼</span>
+          <span>Matched Jobs</span>
+        </div>
+        <div class="nav-item" id="navTracker" onclick="navToTracker()">
+          <span>📊</span>
+          <span>Application Tracker</span>
+        </div>
+        <div class="nav-item" id="navLearning" onclick="navToLearning()">
+          <span>📚</span>
+          <span>Skill Improvement Plan</span>
+        </div>
+        <div class="nav-item" id="navInterview" onclick="navToInterview()">
+          <span>🎯</span>
+          <span>Mock Interview</span>
+        </div>
       </div>
     </div>
 
@@ -414,24 +543,111 @@
     <div class="container">
       <header>
         <h1 class="hero-title">From Ghosted 👻 to Offer-Ready 🤝</h1>
-        <p class="hero-sub">Position your real qualifications with clarity. Powered by Google Gemini in strict accordance with your core career coaching instructions.</p>
+        <p class="hero-sub" id="heroGreeting">Position your real qualifications with clarity. Powered by Google Gemini in strict accordance with your core career coaching instructions.</p>
       </header>
+
+      <!-- CANDIDATE HOME PAGE & PROFILE CARD -->
+      <div class="profile-card" id="profileCard">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px; border-bottom:1px solid var(--bd); padding-bottom:12px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Home · Candidate Profile</div>
+            <h3 style="margin: 4px 0 0; text-align:left;" id="profileCandidateTitle">Candidate Overview</h3>
+          </div>
+          <button class="btn-primary" style="font-size:12px; padding:8px 16px;" onclick="navToStudio()">
+            📄 Go to Resume Studio &rarr;
+          </button>
+        </div>
+
+        <div style="margin: 18px 0;">
+          <div style="font-size: 13px; font-weight: 800; color: var(--tx); margin-bottom: 8px;">🛠️ Confirmed Skill Sets & Technologies</div>
+          <div class="skill-pill-list" id="profileSkillsList"></div>
+        </div>
+
+        <div style="background:var(--card-subtle); border:1px solid var(--bd); padding:16px; border-radius:12px; margin-bottom:20px;">
+          <div style="display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:11px; font-weight:700; color:var(--tx-muted); text-transform:uppercase;">Target Technical Role</span>
+              <div style="font-size:16px; font-weight:800; color:var(--brand); margin-top:2px;" id="profileTargetRole">Software Engineer</div>
+            </div>
+            <button class="btn-secondary" style="font-size:11.5px; padding:6px 12px;" onclick="navToInterview()">
+              🎯 Practice Mock Interview
+            </button>
+          </div>
+        </div>
+
+        <div>
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+            <div style="font-size: 13px; font-weight: 800; color: var(--tx);">📄 Saved Resume Text</div>
+            <div style="display:flex; gap:6px;">
+              <button class="btn-secondary" style="font-size:11.5px; padding:6px 12px;" onclick="downloadAsDocx()">Download DOCX</button>
+              <button class="btn-secondary" style="font-size:11.5px; padding:6px 12px;" onclick="downloadAsPdf()">PDF</button>
+            </div>
+          </div>
+          <textarea class="editable-resume-box" id="profileSavedResumeText" style="min-height:260px;" placeholder="No saved resume found yet. Generate or save a resume in the Resume Studio."></textarea>
+        </div>
+
+        <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
+          <button class="btn-secondary" onclick="navToStudio()">&larr; Back to Resume Studio</button>
+          <button class="btn-primary" onclick="navToTracker()">View Application Tracker &rarr;</button>
+        </div>
+      </div>
 
       <!-- Step Wizard Card -->
       <div class="wizard-card" id="wizardCard">
-        <div class="step-header">
-          <span class="step-label" id="stepCounter">Step 1 of 3</span>
-          <span style="font-size: 12px; color: var(--tx-muted);">Personalization</span>
-        </div>
-        <div class="step-progress-bar">
-          <div id="dot1" class="step-dot active"></div>
-          <div id="dot2" class="step-dot"></div>
-          <div id="dot3" class="step-dot"></div>
+
+        <!-- STEP 0: INITIAL NAME & SIGN IN GATE -->
+        <div id="stepAuth" class="wizard-step active">
+          <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px;">Step 1 of 4 · Welcome</div>
+          <h3 id="authGateHeading">Let's Get Acquainted & Create Your Login 👋</h3>
+          <p class="prompt-sub" id="authGateSub">Enter your name and create an account to personalize your coaching and track your applications across sessions.</p>
+
+          <div style="max-width: 460px; margin: 0 auto; background: var(--card-subtle); border: 1px solid var(--bd); border-radius: 12px; padding: 22px;">
+            <div id="authGateError" style="display:none; padding:10px; background:#fef2f2; border:1px solid #fecaca; border-radius:8px; color:var(--danger); font-size:12.5px; margin-bottom:12px;"></div>
+
+            <form id="initialAuthForm" onsubmit="handleInitialAuthSubmit(event)" style="display:flex; flex-direction:column; gap:12px;">
+              <div id="authGateNameWrap">
+                <label style="margin:0 0 4px;">What is your full name?</label>
+                <input type="text" id="initNameInput" placeholder="Jane Doe" required>
+              </div>
+
+              <div>
+                <label style="margin:0 0 4px;">Email Address</label>
+                <input type="email" id="initEmailInput" placeholder="jane@example.com" required>
+              </div>
+
+              <div>
+                <label style="margin:0 0 4px;">Password</label>
+                <input type="password" id="initPasswordInput" placeholder="••••••••" required>
+              </div>
+
+              <button type="submit" class="btn-primary" id="initAuthSubmitBtn" style="width:100%; margin-top:8px;">
+                Create Account & Get Started &rarr;
+              </button>
+
+              <div style="text-align:center; font-size:12.5px; color:var(--tx-muted); margin-top:6px;">
+                <span id="authTogglePrompt">Already have an account?</span>
+                <a href="javascript:void(0)" onclick="toggleInitialAuthMode()" id="authToggleLink" style="color:var(--brand); font-weight:700; text-decoration:none; margin-left:4px;">Sign In here</a>
+              </div>
+            </form>
+          </div>
         </div>
 
-        <!-- STEP 1: Driver (ALL 5 RESTORED) -->
-        <div id="step1" class="wizard-step active">
-          <h3>What’s Fueling Your Next Move? 🚀</h3>
+        <!-- PROGRESS BAR -->
+        <div id="wizardQuestionsProgress" style="display:none;">
+          <div class="step-header">
+            <span class="step-label" id="stepCounter">Step 1 of 3</span>
+            <span style="font-size: 12px; color: var(--tx-muted);">Personalization</span>
+          </div>
+          <div class="step-progress-bar">
+            <div id="dot1" class="step-dot active"></div>
+            <div id="dot2" class="step-dot"></div>
+            <div id="dot3" class="step-dot"></div>
+          </div>
+        </div>
+
+        <!-- STEP 1: Driver -->
+        <div id="step1" class="wizard-step">
+          <h3 id="step1Title">What’s Fueling Your Next Move? 🚀</h3>
           <p class="prompt-sub">Every breakthrough begins with clear intent. Tell us what matters most right now.</p>
           <div class="choice-stack" id="motivationChoices">
             <div class="choice-card" onclick="selectMotivation(this, 'New grad')">🎓 New grad <span>&rarr;</span></div>
@@ -454,7 +670,7 @@
           <div class="btn-row"><button class="btn-secondary" onclick="goToStep(1)">&larr; Back</button></div>
         </div>
 
-        <!-- STEP 3: Role & Background Input (FULL OPTIONS RESTORED) -->
+        <!-- STEP 3: Role & Background Input + Rubric Scoring -->
         <div id="step3" class="wizard-step">
           <h3>Lock In Your Target Role & Proof Points 🎯</h3>
           <p class="prompt-sub">Select your target position and paste or upload your background details.</p>
@@ -513,9 +729,33 @@
             </div>
           </div>
 
+          <!-- BASELINE RUBRIC SCORE CARD -->
+          <div id="baselineScoreBox" style="display:none; margin-top:20px; background:#ffffff; border:1px solid var(--bd); border-radius:12px; padding:18px; box-shadow:var(--shadow-sm);">
+            <div style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
+              <div>
+                <span style="font-size:11px; font-weight:700; color:var(--brand); text-transform:uppercase;">Recruiter Rubric Audit</span>
+                <div style="font-size:16px; font-weight:800; color:var(--tx); margin-top:2px;">Baseline Draft Score</div>
+              </div>
+              <div style="display:flex; align-items:center; gap:8px;">
+                <span class="score-number-pill" id="baselineScoreValue">-- / 35</span>
+                <span class="score-category-badge" id="baselineCategoryBadge">Auditing</span>
+              </div>
+            </div>
+            <p style="font-size:13px; color:var(--tx-muted); margin:10px 0 12px;" id="baselineDiagnosisText"></p>
+            <a href="javascript:void(0)" onclick="toggleBaselineBreakdown()" style="font-size:12px; color:var(--brand); font-weight:700; text-decoration:none;">
+              🔍 View Detailed 7-Criterion Score Breakdown &rarr;
+            </a>
+            <div id="baselineBreakdownTable" style="display:none; margin-top:10px;"></div>
+          </div>
+
           <div class="btn-row">
             <button class="btn-secondary" onclick="goToStep(2)">&larr; Back</button>
-            <button class="btn-primary" onclick="startAnalysis()">Generate Resume with AI &rarr;</button>
+            <button class="btn-secondary" style="border-color:var(--brand); color:var(--brand);" onclick="calculateBaselineScore()">
+              📊 Score My Current Resume (/35)
+            </button>
+            <button id="go" class="btn-primary" onclick="startAnalysis()">
+              ✨ Analyze & Create Resume with AI &rarr;
+            </button>
           </div>
         </div>
       </div>
@@ -523,14 +763,57 @@
       <!-- Interactive Progress -->
       <div class="progress-box" id="progressBox">
         <div class="spinner"></div>
-        <div style="font-weight: 700; font-size: 16px;">Processing with Gemini AI... ⚙️</div>
+        <div style="font-weight: 700; font-size: 16px;" id="progressTitle">Processing with Gemini AI... ⚙️</div>
+        <div style="font-size: 13px; color: var(--tx-muted); margin-top: 6px;" id="progressSub">Evaluating signals and scoring against recruiter rubric.</div>
       </div>
 
-      <!-- STEP 4: Review & Edit Resumes Card -->
+      <!-- STEP 4: Review, Edit & Score Improvement Studio -->
       <div class="resume-studio-card" id="resumeStudioCard">
         <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 1: Review & Modify</div>
         <h3 style="text-align: left; margin: 4px 0 6px;">Review & Iterate on Your Resume 📋</h3>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Edit directly in the text box below or use the prompts panel on the right to guide Gemini AI.</p>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 14px;">Edit directly in the text box below or select prompts from the right panel to improve your score.</p>
+
+        <!-- LIVE RUBRIC SCORE IMPROVEMENT BANNER -->
+        <div class="rubric-score-tracker-banner" id="rubricScoreTrackerBanner">
+          <div class="rubric-score-header-row">
+            <div class="score-meter-box">
+              <span style="font-size:12px; font-weight:700; color:var(--tx-muted); text-transform:uppercase;">Rubric Score:</span>
+              <span class="score-number-pill" id="liveScorePill">-- / 35</span>
+              <span class="score-category-badge cat-good" id="liveScoreCat">Evaluating</span>
+              <span id="scoreDeltaBadge" style="font-size:12px; font-weight:800; color:var(--success); background:var(--success-light); padding:3px 8px; border-radius:6px; display:none;"></span>
+            </div>
+            <button class="btn-secondary" style="font-size:11.5px; padding:6px 12px;" onclick="toggleLiveScoreBreakdown()">
+              🔍 7-Criterion Details
+            </button>
+          </div>
+
+          <div class="rubric-breakdown-details" id="liveRubricBreakdownDetails">
+            <table class="rubric-table">
+              <thead>
+                <tr>
+                  <th>Evaluation Criterion</th>
+                  <th>Score</th>
+                  <th>Recruiter Diagnostics</th>
+                </tr>
+              </thead>
+              <tbody id="liveRubricTableBody"></tbody>
+            </table>
+          </div>
+
+          <div style="margin-top:14px; padding:12px 14px; background:var(--brand-light); border-radius:8px; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+            <div style="font-size:12.5px; font-weight:700; color:var(--tx);">
+              <span>Satisfied with this version, or would you like to enhance further?</span>
+            </div>
+            <div style="display:flex; gap:8px;">
+              <button class="btn-secondary" style="font-size:11.5px; padding:6px 12px;" onclick="focusPromptPanel()">
+                ⚡ Select Improvement Prompt
+              </button>
+              <button class="btn-primary" style="font-size:11.5px; padding:6px 14px; background:var(--success);" onclick="saveAndProceedToDownload()">
+                📥 Content — Download Resume &rarr;
+              </button>
+            </div>
+          </div>
+        </div>
 
         <textarea class="editable-resume-box" id="editableResumeText"></textarea>
 
@@ -613,9 +896,13 @@
             <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Application Pipeline</div>
             <h3 style="margin: 4px 0 0; text-align:left;">Job Application Tracker</h3>
           </div>
-          <span style="font-size:12px; background:var(--brand-light); color:var(--brand); font-weight:700; padding:4px 12px; border-radius:12px;" id="trackerSummaryBadge">2 Jobs Tracked</span>
+          <div style="display:flex; align-items:center; gap:8px;">
+            <span style="font-size:12px; background:var(--brand-light); color:var(--brand); font-weight:700; padding:4px 12px; border-radius:12px;" id="trackerSummaryBadge">0 Jobs Tracked</span>
+          </div>
         </div>
-        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px;">Track all opportunities bookmarked or submitted during your search.</p>
+        <p style="font-size: 13px; color: var(--tx-muted); margin: 0 0 16px;">
+          Applications saved are privately tracked under your personal profile.
+        </p>
 
         <div class="tracker-table-wrap">
           <table class="tracker-table">
@@ -642,7 +929,7 @@
         </div>
       </div>
 
-      <!-- STEP 9: SKILL IMPROVEMENT & TARGETED STUDY PLAN (06-learning-plan.txt) -->
+      <!-- STEP 9: SKILL IMPROVEMENT & TARGETED STUDY PLAN -->
       <div class="learning-card" id="learningCard">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
           <div>
@@ -679,7 +966,103 @@
 
         <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
           <button class="btn-secondary" onclick="navToTracker()">&larr; Back to Tracker</button>
-          <button class="btn-primary" onclick="navToStudio()">Return to Resume Studio &rarr;</button>
+          <button class="btn-primary" onclick="navToInterview()">Continue to Mock Interview &rarr;</button>
+        </div>
+      </div>
+
+      <!-- STEP 10: MOCK INTERVIEW PREPARATION -->
+      <div class="interview-card" id="interviewCard">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid var(--bd); padding-bottom: 12px; flex-wrap:wrap; gap:10px;">
+          <div>
+            <div style="font-size: 11px; font-weight: 700; color: var(--brand); text-transform: uppercase;">Step 6: Mock Interview Practice</div>
+            <h3 style="margin: 4px 0 0; text-align:left;">Skills-Based Technical Mock Interview 🎯</h3>
+          </div>
+          <button class="btn-primary" style="font-size:12.5px; padding:8px 16px;" onclick="generateMockInterviewQuestions()">
+            ⚡ Refresh Questions with AI
+          </button>
+        </div>
+        <p style="font-size: 13.5px; color: var(--tx-muted); margin: 0 0 20px;">
+          Questions calibrated from your confirmed resume skills. Choose <b>Easy</b>, <b>Medium</b>, or <b>Hard</b> on any category dropdown to prepare for technical interview rounds.
+        </p>
+
+        <div id="interviewLoading" style="display:none; text-align:center; padding:30px;">
+          <div class="spinner"></div>
+          <div>Synthesizing targeted interview questions from your resume skills...</div>
+        </div>
+
+        <div id="interviewContent">
+          <!-- 1. Basic Coding Conceptual Questions -->
+          <div class="interview-category-card">
+            <div class="interview-cat-header">
+              <div>
+                <strong style="font-size:15px; color:var(--tx);">1. Basic Coding Conceptual Questions</strong>
+                <div style="font-size:12px; color:var(--tx-muted);">Language fundamentals, memory management, OOP, and data structures.</div>
+              </div>
+              <select class="difficulty-select" id="diffSelectConceptual" onchange="filterCategoryQuestions('basicConceptual', this.value)">
+                <option value="all">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div id="container-basicConceptual"></div>
+          </div>
+
+          <!-- 2. Programming Questions -->
+          <div class="interview-category-card">
+            <div class="interview-cat-header">
+              <div>
+                <strong style="font-size:15px; color:var(--tx);">2. Programming Questions</strong>
+                <div style="font-size:12px; color:var(--tx-muted);">Algorithmic logic, data manipulation, and function implementations.</div>
+              </div>
+              <select class="difficulty-select" id="diffSelectProgramming" onchange="filterCategoryQuestions('programming', this.value)">
+                <option value="all">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div id="container-programming"></div>
+          </div>
+
+          <!-- 3. Code Performance Questions -->
+          <div class="interview-category-card">
+            <div class="interview-cat-header">
+              <div>
+                <strong style="font-size:15px; color:var(--tx);">3. Code Performance Questions</strong>
+                <div style="font-size:12px; color:var(--tx-muted);">Big-O complexity, database indexing, caching, and concurrency scaling.</div>
+              </div>
+              <select class="difficulty-select" id="diffSelectPerformance" onchange="filterCategoryQuestions('performance', this.value)">
+                <option value="all">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div id="container-performance"></div>
+          </div>
+
+          <!-- 4. Resume-Based Questions -->
+          <div class="interview-category-card">
+            <div class="interview-cat-header">
+              <div>
+                <strong style="font-size:15px; color:var(--tx);">4. Resume-Based Questions</strong>
+                <div style="font-size:12px; color:var(--tx-muted);">Deep dives into your documented projects, architecture trade-offs, and metrics.</div>
+              </div>
+              <select class="difficulty-select" id="diffSelectResume" onchange="filterCategoryQuestions('resumeBased', this.value)">
+                <option value="all">All Difficulties</option>
+                <option value="easy">Easy</option>
+                <option value="medium">Medium</option>
+                <option value="hard">Hard</option>
+              </select>
+            </div>
+            <div id="container-resumeBased"></div>
+          </div>
+        </div>
+
+        <div class="btn-row" style="margin-top: 24px; justify-content: space-between;">
+          <button class="btn-secondary" onclick="navToLearning()">&larr; Back to Skill Plan</button>
+          <button class="btn-primary" onclick="navToProfile()">Go to Candidate Home & Profile &rarr;</button>
         </div>
       </div>
 
@@ -740,7 +1123,7 @@
         </div>
 
         <div style="background: #ffffff; border: 1px solid var(--bd); padding: 16px; border-radius: 12px; display: flex; flex-direction: column; gap: 8px;">
-          <div style="font-weight: 800; font-size: 13px;">Are you going to apply?</div>
+          <div style="font-weight: 800; font-size: 13px;">Track this opening under your account:</div>
           <div style="display:flex; flex-direction:column; gap:8px;">
             <button class="btn-primary" style="background: var(--success); font-size: 12.5px;" onclick="trackApplication('Applied')">
               🚀 I Have Applied
@@ -764,14 +1147,20 @@
   let resumeVersions = { 1: "" };
   let chatHistory = [];
   
-  let trackedApplications = [
-    { id: "demo-1", title: "Operations Manager - Sample Job", company: "Acme Corp", salary: "US$0", location: "remote", status: "Bookmarked", dateSaved: "10/02/2026", deadline: "N/A", dateApplied: "10/02/2026" },
-    { id: "demo-2", title: "Product Designer - Sample Job", company: "Acme Corp", salary: "US$0", location: "Anywhere, USA", status: "Bookmarked", dateSaved: "10/02/2026", deadline: "N/A", dateApplied: "10/02/2026" }
-  ];
+  // CURRENT USER STATE
+  let currentUser = null;
+  let userToken = localStorage.getItem("coach_token") || null;
+  let trackedApplications = [];
 
   let currentLiveJobs = [];
   let selectedJob = null;
   let lastIdentifiedMissingSkills = [];
+  let initialAuthMode = "signup";
+  let interviewQuestionsData = null;
+
+  // RUBRIC SCORE STATE
+  let currentBaselineScore = null;
+  let currentLiveScore = null;
 
   let promptsList = [
     { id: 1, text: "Diagnose the 5 most important problems in this draft regarding navigation, prioritization, and vague claims, and after addressing these problems give me updated resume on top of the first draft.", checked: false },
@@ -783,19 +1172,28 @@
     { id: 7, text: "RUN COMPLETE MASTER AUDIT: Execute all 5 outputs and after addressing these problems give me updated resume on top of the first draft.", checked: false }
   ];
 
+  // ---------------- PROMPTS LIST FUNCTIONS ----------------
   function renderPromptsList() {
     const container = $("#promptItemsContainer");
     if (!container) return;
     const selectedList = promptsList.filter(p => p.checked);
-    $("#promptCountBadge").innerText = `${selectedList.length}/${promptsList.length}`;
-    $("#applySelectedPromptsBtn").style.display = selectedList.length > 0 ? "block" : "none";
-    $("#selectedPromptsCount").innerText = selectedList.length;
+    const badge = $("#promptCountBadge");
+    if (badge) badge.innerText = `${selectedList.length}/${promptsList.length}`;
+
+    const applyBtn = $("#applySelectedPromptsBtn");
+    if (applyBtn) applyBtn.style.display = selectedList.length > 0 ? "block" : "none";
+
+    const countSpan = $("#selectedPromptsCount");
+    if (countSpan) countSpan.innerText = selectedList.length;
 
     container.innerHTML = promptsList.map(item => `
-      <div class="prompt-check-item ${item.checked ? 'selected' : ''}">
+      <div class="prompt-check-item ${item.checked ? 'selected' : ''}" id="prompt-row-${item.id}">
         <div style="display:flex; align-items:flex-start; gap:8px;">
-          <input type="checkbox" ${item.checked ? 'checked' : ''} onchange="togglePromptCheck(${item.id})">
-          <label style="font-size:12.5px; line-height:1.4; cursor:pointer;" onclick="togglePromptCheck(${item.id})">${item.text}</label>
+          <input type="checkbox" id="chk-${item.id}" ${item.checked ? 'checked' : ''} onchange="togglePromptCheck(${item.id})">
+          <label for="chk-${item.id}" style="font-size:12.5px; line-height:1.4; cursor:pointer;">${item.text}</label>
+        </div>
+        <div style="display:flex; justify-content:flex-end; margin-top:6px;">
+          <button class="prompt-action-btn" onclick="usePromptInChat('${item.text.replace(/'/g, "\\'")}')">💬 Use in Chat</button>
         </div>
       </div>
     `).join("");
@@ -803,47 +1201,336 @@
 
   function togglePromptCheck(id) {
     const item = promptsList.find(p => p.id === id);
-    if (item) { item.checked = !item.checked; renderPromptsList(); }
+    if (item) {
+      item.checked = !item.checked;
+      renderPromptsList();
+    }
   }
 
-  function applySelectedPrompts() {
+  async function applySelectedPrompts() {
     const selected = promptsList.filter(p => p.checked);
     if (!selected.length) return;
-    const text = "Please apply the following selected improvements to enhance my resume on top of the first draft:\n" +
-      selected.map((p, i) => `${i + 1}. ${p.text}`).join("\n") +
-      "\n\nAfter addressing these problems, give me the updated resume.";
-    $("#chatInput").value = text;
-    handleChatSubmit(new Event("submit"));
+    const improvements = selected.map((p, i) => `${i + 1}. ${p.text}`).join("\n");
+
+    $("#progressTitle").innerText = "Applying selected prompts & re-scoring against rubric... ⚙️";
+    $("#progressSub").innerText = "Generating enhanced resume and recalculating 7-criterion score.";
+    $("#progressBox").style.display = "block";
+
+    try {
+      const res = await fetch("/api/improve-resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          role: getTargetRole(),
+          currentResume: $("#editableResumeText").value,
+          improvements
+        })
+      });
+      const data = await res.json();
+      $("#progressBox").style.display = "none";
+
+      if (data.error) throw new Error(data.error);
+
+      // Update resume text and new score
+      $("#editableResumeText").value = data.updatedResume;
+      resumeVersions[1] = data.updatedResume;
+
+      if (data.newScore) {
+        renderLiveRubricScore(data.newScore);
+      }
+
+      appendChatMessage("assistant", `I've enhanced your resume using the selected prompts and updated your rubric score!`);
+      $("#resumeStudioCard").scrollIntoView({ behavior: 'smooth' });
+    } catch (err) {
+      $("#progressBox").style.display = "none";
+      alert("Error applying prompts: " + err.message);
+    }
   }
 
-  function showPromptsPanel() {
-    document.body.classList.add("with-right-panel");
-    $("#rightJobSidebar").classList.remove("active");
-    $("#rightPromptsPanel").classList.add("active");
+  function usePromptInChat(promptText) {
+    $("#chatInput").value = promptText;
+    $("#chatInput").focus();
+    $("#integratedChatbox")?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function showJobSidebar() {
-    document.body.classList.add("with-right-panel");
-    $("#rightPromptsPanel").classList.remove("active");
-    $("#rightJobSidebar").classList.add("active");
+  function focusPromptPanel() {
+    showPromptsPanel();
+    $("#rightPromptsPanel")?.scrollIntoView({ behavior: 'smooth' });
   }
 
-  function hideAllSidebars() {
-    document.body.classList.remove("with-right-panel");
-    $("#rightPromptsPanel").classList.remove("active");
-    $("#rightJobSidebar").classList.remove("active");
+  // ---------------- AUTHENTICATION CLIENT LOGIC ----------------
+  async function initAuth() {
+    if (!userToken) {
+      updateUserUI(null);
+      showInitialAuthGate();
+      return;
+    }
+    try {
+      const res = await fetch("/api/auth/me", {
+        headers: { "Authorization": `Bearer ${userToken}` }
+      });
+      const data = await res.json();
+      if (res.ok && data.user) {
+        currentUser = data.user;
+        trackedApplications = data.applications || [];
+        if (currentUser.savedResume) {
+          resumeVersions[1] = currentUser.savedResume;
+          $("#editableResumeText").value = currentUser.savedResume;
+        }
+        updateUserUI(currentUser);
+        unlockWizardToStep(1);
+      } else {
+        userToken = null;
+        localStorage.removeItem("coach_token");
+        updateUserUI(null);
+        showInitialAuthGate();
+      }
+    } catch (e) {
+      updateUserUI(null);
+      showInitialAuthGate();
+    }
   }
 
-  function closeJobSidebar() {
-    hideAllSidebars();
-    document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active-selected"));
+  function updateUserUI(user) {
+    if (user) {
+      $("#userBadgeLoggedOut").style.display = "none";
+      $("#userBadgeLoggedIn").style.display = "flex";
+      $("#userAvatarText").innerText = (user.name || user.email).charAt(0).toUpperCase();
+      $("#userDisplayName").innerText = user.name || "Candidate";
+      $("#heroGreeting").innerText = `Welcome back, ${user.name || 'Candidate'}! Position your real qualifications with clarity.`;
+      $("#step1Title").innerText = `Hi ${user.name || 'there'}! What’s Fueling Your Next Move? 🚀`;
+    } else {
+      $("#userBadgeLoggedOut").style.display = "flex";
+      $("#userBadgeLoggedIn").style.display = "none";
+      $("#heroGreeting").innerText = "Position your real qualifications with clarity. Powered by Google Gemini in strict accordance with your core career coaching instructions.";
+      $("#step1Title").innerText = "What’s Fueling Your Next Move? 🚀";
+    }
+    renderTrackerTable();
   }
 
-  function updateNavHighlight(id) {
-    document.querySelectorAll(".sidebar .nav-item").forEach(i => i.classList.remove("active"));
-    $(`#${id}`)?.classList.add("active");
+  function showInitialAuthGate() {
+    $("#stepAuth").style.display = "block";
+    $("#stepAuth").classList.add("active");
+    $("#wizardQuestionsProgress").style.display = "none";
+    [1, 2, 3].forEach(i => $(`#step${i}`).classList.remove("active"));
   }
 
+  function navToAuthGate() {
+    hideAllPages();
+    $("#wizardCard").style.display = "block";
+    showInitialAuthGate();
+  }
+
+  function toggleInitialAuthMode() {
+    initialAuthMode = (initialAuthMode === "signup") ? "login" : "signup";
+    const isSignup = (initialAuthMode === "signup");
+
+    $("#authGateNameWrap").style.display = isSignup ? "block" : "none";
+    $("#initNameInput").required = isSignup;
+    $("#authGateHeading").innerText = isSignup ? "Let's Get Acquainted & Create Your Login 👋" : "Welcome Back! Sign In 🔑";
+    $("#authGateSub").innerText = isSignup 
+      ? "Enter your name and create an account to personalize your coaching and track your applications across sessions."
+      : "Enter your email and password to access your saved resumes and tracked applications.";
+    $("#initAuthSubmitBtn").innerText = isSignup ? "Create Account & Get Started →" : "Sign In & Continue →";
+    $("#authTogglePrompt").innerText = isSignup ? "Already have an account?" : "Don't have an account yet?";
+    $("#authToggleLink").innerText = isSignup ? "Sign In here" : "Create one now";
+    $("#authGateError").style.display = "none";
+  }
+
+  async function handleInitialAuthSubmit(e) {
+    e.preventDefault();
+    const name = $("#initNameInput").value.trim();
+    const email = $("#initEmailInput").value.trim();
+    const password = $("#initPasswordInput").value.trim();
+    const errBox = $("#authGateError");
+
+    errBox.style.display = "none";
+    const endpoint = (initialAuthMode === "signup") ? "/api/auth/signup" : "/api/auth/login";
+
+    try {
+      const res = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password, name })
+      });
+      const data = await res.json();
+
+      if (!res.ok || data.error) {
+        errBox.innerText = data.error || "Authentication failed.";
+        errBox.style.display = "block";
+        return;
+      }
+
+      userToken = data.token;
+      currentUser = data.user;
+      localStorage.setItem("coach_token", userToken);
+      updateUserUI(currentUser);
+
+      fetchUserApplications();
+      unlockWizardToStep(1);
+    } catch (err) {
+      errBox.innerText = "Network error: " + err.message;
+      errBox.style.display = "block";
+    }
+  }
+
+  function unlockWizardToStep(step) {
+    $("#stepAuth").style.display = "none";
+    $("#stepAuth").classList.remove("active");
+    $("#wizardQuestionsProgress").style.display = "block";
+    goToStep(step);
+  }
+
+  async function handleLogout() {
+    if (userToken) {
+      await fetch("/api/auth/logout", {
+        method: "POST",
+        headers: { "Authorization": `Bearer ${userToken}` }
+      }).catch(() => {});
+    }
+    userToken = null;
+    currentUser = null;
+    trackedApplications = [];
+    localStorage.removeItem("coach_token");
+    updateUserUI(null);
+    resetToHome();
+  }
+
+  async function fetchUserApplications() {
+    if (!userToken) return;
+    try {
+      const res = await fetch("/api/tracker", {
+        headers: { "Authorization": `Bearer ${userToken}` }
+      });
+      const data = await res.json();
+      if (res.ok && data.applications) {
+        trackedApplications = data.applications;
+        renderTrackerTable();
+      }
+    } catch (e) {}
+  }
+
+  // ---------------- RUBRIC SCORING CLIENT LOGIC ----------------
+  async function calculateBaselineScore() {
+    const resumeText = getResumeContent();
+    const role = getTargetRole();
+
+    if (!resumeText || resumeText.length < 15) {
+      alert("Please paste or add your background details before calculating the rubric score.");
+      return;
+    }
+
+    $("#progressTitle").innerText = "Scoring draft against Recruiter-Facing Rubric (/35)... 📊";
+    $("#progressSub").innerText = "Evaluating 7 dimensions: Role Alignment, Receipts, Impact, Defensibility, Clarity, Authenticity, Accuracy.";
+    $("#progressBox").style.display = "block";
+
+    try {
+      const res = await fetch("/api/score-resume", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role, resume: resumeText })
+      });
+      const data = await res.json();
+      $("#progressBox").style.display = "none";
+
+      currentBaselineScore = data;
+      renderBaselineScore(data);
+    } catch (err) {
+      $("#progressBox").style.display = "none";
+      alert("Error scoring resume: " + err.message);
+    }
+  }
+
+  function renderBaselineScore(scoreData) {
+    $("#baselineScoreBox").style.display = "block";
+    $("#baselineScoreValue").innerText = `${scoreData.total} / 35`;
+    $("#baselineCategoryBadge").innerText = scoreData.category;
+
+    const catBadge = $("#baselineCategoryBadge");
+    catBadge.className = "score-category-badge " + getScoreCategoryClass(scoreData.total);
+    $("#baselineDiagnosisText").innerText = scoreData.diagnosis || "Rubric evaluation complete.";
+
+    const breakdownTable = $("#baselineBreakdownTable");
+    if (scoreData.breakdown) {
+      let rows = "";
+      for (const key in scoreData.breakdown) {
+        const item = scoreData.breakdown[key];
+        rows += `
+          <tr>
+            <td><strong>${item.label}</strong></td>
+            <td><strong>${item.score}/5</strong></td>
+            <td style="color:var(--tx-muted);">${item.feedback || ''}</td>
+          </tr>
+        `;
+      }
+      breakdownTable.innerHTML = `
+        <table class="rubric-table">
+          <thead>
+            <tr>
+              <th>Evaluation Dimension</th>
+              <th>Score</th>
+              <th>Diagnostics</th>
+            </tr>
+          </thead>
+          <tbody>${rows}</tbody>
+        </table>
+      `;
+    }
+    $("#baselineScoreBox").scrollIntoView({ behavior: 'smooth' });
+  }
+
+  function toggleBaselineBreakdown() {
+    const el = $("#baselineBreakdownTable");
+    if (el) el.style.display = el.style.display === "none" ? "block" : "none";
+  }
+
+  function renderLiveRubricScore(newScore, baselineScore) {
+    currentLiveScore = newScore;
+    $("#liveScorePill").innerText = `${newScore.total} / 35`;
+    $("#liveScoreCat").innerText = newScore.category;
+    $("#liveScoreCat").className = "score-category-badge " + getScoreCategoryClass(newScore.total);
+
+    const base = baselineScore || currentBaselineScore;
+    if (base && base.total) {
+      const delta = newScore.total - base.total;
+      if (delta > 0) {
+        $("#scoreDeltaBadge").innerText = `+${delta} pts improvement! 🎉`;
+        $("#scoreDeltaBadge").style.display = "inline-block";
+      } else {
+        $("#scoreDeltaBadge").style.display = "none";
+      }
+    }
+
+    const tbody = $("#liveRubricTableBody");
+    if (tbody && newScore.breakdown) {
+      let rows = "";
+      for (const key in newScore.breakdown) {
+        const item = newScore.breakdown[key];
+        rows += `
+          <tr>
+            <td><strong>${item.label}</strong></td>
+            <td><strong style="color:var(--brand);">${item.score}/5</strong></td>
+            <td>${item.feedback || ''}</td>
+          </tr>
+        `;
+      }
+      tbody.innerHTML = rows;
+    }
+  }
+
+  function toggleLiveScoreBreakdown() {
+    const el = $("#liveRubricBreakdownDetails");
+    if (el) el.style.display = el.style.display === "none" ? "block" : "none";
+  }
+
+  function getScoreCategoryClass(total) {
+    if (total >= 30) return "cat-ready";
+    if (total >= 24) return "cat-good";
+    if (total >= 17) return "cat-weak";
+    return "cat-low";
+  }
+
+  // ---------------- NAVIGATION ROUTING ----------------
   function hideAllPages() {
     hideAllSidebars();
     $("#wizardCard").style.display = "none";
@@ -853,22 +1540,46 @@
     $("#jobsCard").style.display = "none";
     $("#trackerCard").style.display = "none";
     $("#learningCard").style.display = "none";
+    $("#profileCard").style.display = "none";
+    $("#interviewCard").style.display = "none";
   }
 
-  function resetToHome() {
+  function navToProfile() {
+    if (!currentUser) {
+      navToAuthGate();
+      return;
+    }
     hideAllPages();
-    $("#wizardCard").style.display = "block";
-    goToStep(1);
-    updateNavHighlight("navStudio");
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    $("#profileCard").style.display = "block";
+    updateNavHighlight("navProfile");
+
+    $("#profileCandidateTitle").innerText = `${currentUser.name || 'Candidate'}'s Home & Profile`;
+    $("#profileTargetRole").innerText = currentUser.targetRole || getTargetRole() || "Software Engineer";
+    
+    const defaultSkills = ["Python", "JavaScript", "TypeScript", "REST APIs", "SQL", "Git", "Docker", "Algorithms"];
+    const skillsToRender = (currentUser.skills && currentUser.skills.length) ? currentUser.skills : defaultSkills;
+    $("#profileSkillsList").innerHTML = skillsToRender.map(s => `<span class="skill-pill matched">✓ ${s}</span>`).join("");
+
+    const rText = resumeVersions[1] || currentUser.savedResume || $("#editableResumeText").value;
+    $("#profileSavedResumeText").value = rText || "No saved resume yet. Complete Step 3 to generate a resume.";
   }
 
-  // NAVIGATION ROUTING
+  function navToInterview() {
+    hideAllPages();
+    $("#interviewCard").style.display = "block";
+    updateNavHighlight("navInterview");
+
+    if (!interviewQuestionsData) {
+      generateMockInterviewQuestions();
+    }
+  }
+
   function navToStudio() {
     if (resumeVersions[1]) {
       hideAllPages();
       $("#resumeStudioCard").style.display = "block";
       showPromptsPanel();
+      renderPromptsList();
       updateNavHighlight("navStudio");
     } else resetToHome();
   }
@@ -901,7 +1612,11 @@
     hideAllPages();
     $("#trackerCard").style.display = "block";
     updateNavHighlight("navTracker");
-    renderTrackerTable();
+    if (currentUser) {
+      fetchUserApplications();
+    } else {
+      renderTrackerTable();
+    }
   }
 
   function navToLearning() {
@@ -913,6 +1628,47 @@
     }
   }
 
+  function resetToHome() {
+    hideAllPages();
+    $("#wizardCard").style.display = "block";
+    if (currentUser) {
+      unlockWizardToStep(1);
+    } else {
+      showInitialAuthGate();
+    }
+    updateNavHighlight("navStudio");
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function updateNavHighlight(id) {
+    document.querySelectorAll(".sidebar .nav-item").forEach(i => i.classList.remove("active"));
+    $(`#${id}`)?.classList.add("active");
+  }
+
+  function showPromptsPanel() {
+    document.body.classList.add("with-right-panel");
+    $("#rightJobSidebar").classList.remove("active");
+    $("#rightPromptsPanel").classList.add("active");
+  }
+
+  function showJobSidebar() {
+    document.body.classList.add("with-right-panel");
+    $("#rightPromptsPanel").classList.remove("active");
+    $("#rightJobSidebar").classList.add("active");
+  }
+
+  function hideAllSidebars() {
+    document.body.classList.remove("with-right-panel");
+    $("#rightPromptsPanel").classList.remove("active");
+    $("#rightJobSidebar").classList.remove("active");
+  }
+
+  function closeJobSidebar() {
+    hideAllSidebars();
+    document.querySelectorAll(".job-card").forEach(c => c.classList.remove("active-selected"));
+  }
+
+  // ---------------- QUESTIONNAIRE STEPS ----------------
   function goToStep(s) {
     currentStep = s;
     $("#stepCounter").innerText = `Step ${s} of 3`;
@@ -991,18 +1747,23 @@
   function backToDownloadFromLocation() { navToDownload(); }
   function backToLocationFromJobs() { navToLocation(); }
 
-  // 1. GENERATE RESUMES
+  // 1. GENERATE RESUMES + SCORE IMPROVEMENT EVALUATION
   async function startAnalysis() {
     const role = getTargetRole();
     const resumeText = getResumeContent();
 
     $("#wizardCard").style.display = "none";
+    $("#progressTitle").innerText = "Generating tailored resume & scoring signals... ⚙️";
+    $("#progressSub").innerText = "Synthesizing evidence-based bullet points and auditing against rubric.md";
     $("#progressBox").style.display = "block";
 
     try {
       const res = await fetch("/api/generate-resumes", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          ...(userToken ? { "Authorization": `Bearer ${userToken}` } : {})
+        },
         body: JSON.stringify({ role, resume: resumeText, motivation: selectedMotivation, timeline: selectedTimeline })
       });
       const data = await res.json();
@@ -1012,10 +1773,22 @@
       resumeVersions[1] = generated;
       $("#editableResumeText").value = generated;
 
+      if (currentUser) {
+        currentUser.savedResume = generated;
+        currentUser.targetRole = role;
+      }
+
+      // Display live rubric comparison score
+      if (data.newScore) {
+        if (data.baselineScore) currentBaselineScore = data.baselineScore;
+        renderLiveRubricScore(data.newScore, data.baselineScore);
+      }
+
       $("#resumeStudioCard").style.display = "block";
       showPromptsPanel();
       renderPromptsList();
       updateNavHighlight("navStudio");
+      $("#resumeStudioCard").scrollIntoView({ behavior: 'smooth' });
     } catch (err) {
       $("#progressBox").style.display = "none";
       $("#wizardCard").style.display = "block";
@@ -1096,6 +1869,13 @@
 
   function saveAndProceedToDownload() {
     resumeVersions[1] = $("#editableResumeText").value;
+    if (userToken && currentUser) {
+      fetch("/api/user/save-profile", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "Authorization": `Bearer ${userToken}` },
+        body: JSON.stringify({ resume: resumeVersions[1], role: getTargetRole() })
+      }).catch(() => {});
+    }
     navToDownload();
   }
 
@@ -1104,19 +1884,22 @@
   }
 
   function downloadAsDocx() {
-    const blob = new Blob([$("#editableResumeText").value], { type: 'application/msword' });
+    const val = $("#editableResumeText").value || $("#profileSavedResumeText").value;
+    const blob = new Blob([val], { type: 'application/msword' });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "Tailored_Resume.doc";
     a.click();
   }
   function downloadAsPdf() {
+    const val = $("#editableResumeText").value || $("#profileSavedResumeText").value;
     const w = window.open();
-    w.document.write(`<pre style="white-space:pre-wrap; font-family:sans-serif; padding:30px;">${$("#editableResumeText").value}</pre>`);
+    w.document.write(`<pre style="white-space:pre-wrap; font-family:sans-serif; padding:30px;">${val}</pre>`);
     w.print();
   }
   function downloadAsTxt() {
-    const blob = new Blob([$("#editableResumeText").value], { type: 'text/plain' });
+    const val = $("#editableResumeText").value || $("#profileSavedResumeText").value;
+    const blob = new Blob([val], { type: 'text/plain' });
     const a = document.createElement("a");
     a.href = URL.createObjectURL(blob);
     a.download = "Tailored_Resume.txt";
@@ -1213,12 +1996,17 @@
   }
 
   // 5. APPLICATION TRACKER LOGIC
-  function trackApplication(status) {
+  async function trackApplication(status) {
     if (!selectedJob) return;
 
+    if (!currentUser || !userToken) {
+      alert("Please sign in or create your candidate account first.");
+      navToAuthGate();
+      return;
+    }
+
     const today = new Date().toLocaleDateString("en-US");
-    const newEntry = {
-      id: "app-" + Date.now(),
+    const entry = {
       title: selectedJob.title,
       company: selectedJob.company,
       salary: selectedJob.salary || "Competitive",
@@ -1229,15 +2017,44 @@
       dateApplied: status === "Applied" ? today : "Pending"
     };
 
-    trackedApplications.unshift(newEntry);
-    alert(`🎉 Successfully marked as '${status}' in your Application Tracker!`);
-    navToTracker();
+    try {
+      const res = await fetch("/api/tracker", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${userToken}`
+        },
+        body: JSON.stringify({ application: entry })
+      });
+      const data = await res.json();
+
+      if (res.ok && data.applications) {
+        trackedApplications = data.applications;
+        alert(`🎉 Saved '${selectedJob.title}' as '${status}' to ${currentUser.name}'s Tracker!`);
+        navToTracker();
+      } else {
+        alert(data.error || "Could not save to tracker.");
+      }
+    } catch (e) {
+      alert("Error saving application: " + e.message);
+    }
   }
 
   function renderTrackerTable() {
     $("#trackerSummaryBadge").innerText = `${trackedApplications.length} Jobs Tracked`;
     const body = $("#trackerTableBody");
     if (!body) return;
+
+    if (!trackedApplications.length) {
+      body.innerHTML = `
+        <tr>
+          <td colspan="9" style="text-align:center; padding:32px; color:var(--tx-muted);">
+            ${currentUser ? "No applications tracked yet. Click on openings in 'Matched Jobs' to add them here." : "Sign in or create an account to view and save your private job applications."}
+          </td>
+        </tr>
+      `;
+      return;
+    }
 
     body.innerHTML = trackedApplications.map(app => `
       <tr>
@@ -1258,7 +2075,7 @@
     `).join("");
   }
 
-  // 6. GENERATE STUDY & LEARNING PLAN (06-learning-plan.txt)
+  // 6. GENERATE STUDY & LEARNING PLAN
   async function generateLearningPlan() {
     const role = getTargetRole();
     const missing = $("#planMissingSkillsInput").value.split(",").map(s => s.trim()).filter(Boolean);
@@ -1298,7 +2115,99 @@
     }
   }
 
+  // 7. MOCK INTERVIEW GENERATOR & DIFFICULTY FILTERS
+  async function generateMockInterviewQuestions() {
+    const role = getTargetRole() || "Software Engineer";
+    const resumeText = $("#editableResumeText").value || $("#profileSavedResumeText").value;
+    const skills = currentUser?.skills || ["Python", "JavaScript", "SQL", "REST APIs", "Data Structures"];
+
+    $("#interviewLoading").style.display = "block";
+    $("#interviewContent").style.opacity = "0.3";
+
+    try {
+      const res = await fetch("/api/generate-interview-questions", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ role, resume: resumeText, skills })
+      });
+      const data = await res.json();
+      $("#interviewLoading").style.display = "none";
+      $("#interviewContent").style.opacity = "1";
+
+      interviewQuestionsData = data;
+      renderAllCategoryQuestions();
+    } catch (err) {
+      $("#interviewLoading").style.display = "none";
+      $("#interviewContent").style.opacity = "1";
+      alert("Error loading mock interview questions: " + err.message);
+    }
+  }
+
+  function renderAllCategoryQuestions() {
+    if (!interviewQuestionsData) return;
+    const categories = ['basicConceptual', 'programming', 'performance', 'resumeBased'];
+    categories.forEach(cat => {
+      const filterVal = getFilterValueForCat(cat);
+      renderSingleCategory(cat, filterVal);
+    });
+  }
+
+  function getFilterValueForCat(cat) {
+    if (cat === 'basicConceptual') return $("#diffSelectConceptual")?.value || 'all';
+    if (cat === 'programming') return $("#diffSelectProgramming")?.value || 'all';
+    if (cat === 'performance') return $("#diffSelectPerformance")?.value || 'all';
+    if (cat === 'resumeBased') return $("#diffSelectResume")?.value || 'all';
+    return 'all';
+  }
+
+  function filterCategoryQuestions(catKey, difficulty) {
+    renderSingleCategory(catKey, difficulty);
+  }
+
+  function renderSingleCategory(catKey, difficulty) {
+    const container = $(`#container-${catKey}`);
+    if (!container || !interviewQuestionsData || !interviewQuestionsData[catKey]) return;
+
+    let items = interviewQuestionsData[catKey];
+    if (difficulty && difficulty !== 'all') {
+      items = items.filter(q => q.difficulty.toLowerCase() === difficulty.toLowerCase());
+    }
+
+    if (!items.length) {
+      container.innerHTML = `<div style="font-size:12.5px; color:var(--tx-muted); padding:10px;">No ${difficulty} questions found in this category.</div>`;
+      return;
+    }
+
+    container.innerHTML = items.map((q, idx) => {
+      const diffClass = q.difficulty.toLowerCase() === 'easy' ? 'diff-easy' : q.difficulty.toLowerCase() === 'medium' ? 'diff-medium' : 'diff-hard';
+      const hintId = `hint-${catKey}-${idx}`;
+      return `
+        <div class="question-item-card">
+          <div style="display:flex; justify-content:space-between; align-items:flex-start; gap:8px;">
+            <div style="font-size:13.5px; font-weight:700; color:var(--tx); line-height:1.4;">${q.question}</div>
+            <span class="difficulty-badge ${diffClass}">${q.difficulty}</span>
+          </div>
+          <div style="margin-top:4px;">
+            <a href="javascript:void(0)" onclick="toggleQuestionHint('${hintId}')" style="font-size:11.5px; color:var(--brand); text-decoration:none; font-weight:700;">
+              💡 View Key Concepts / Solution Points &rarr;
+            </a>
+            <div id="${hintId}" style="display:none; font-size:12px; color:var(--tx-muted); background:#fff; border:1px solid var(--bd); padding:8px 12px; border-radius:6px; margin-top:6px; line-height:1.5;">
+              ${q.hint}
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+  }
+
+  window.toggleQuestionHint = function(id) {
+    const el = document.getElementById(id);
+    if (el) el.style.display = el.style.display === "none" ? "block" : "none";
+  };
+
+  // ---------------- INITIALIZE ----------------
   renderPromptsList();
+  initAuth();
 </script>
 </body>
 </html>
